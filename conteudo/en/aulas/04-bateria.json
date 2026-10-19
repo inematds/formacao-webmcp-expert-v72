@@ -175,7 +175,7 @@
     {
       "tipo": "pratica",
       "titulo": "Practice",
-      "sub": "The battery goes green, the regression gets caught, and a case of your own.",
+      "sub": "The battery goes green, the regression gets caught, and a case of your own. Each exercise ends in a done when.",
       "exercicios": [
         {
           "id": "e1",

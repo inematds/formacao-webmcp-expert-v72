@@ -5,7 +5,7 @@
   "titulo": "Proyecto final: tu sitio + servidor + batería + informe",
   "titulo_curto": "Proyecto final e informe",
   "minutos": 20,
-  "lead": "El proyecto final junta las piezas: la página con tools, el servidor MCP con la misma regla, la batería congelada, el registro, la vigia y el catálogo aprobado. Un script corre las siete verificaciones y escribe el informe fechado de tu sitio. Sales con él y con el plan de mantenimiento para cuando la spec cambie.",
+  "lead": "El proyecto final junta las piezas: la página con herramientas, el servidor MCP con la misma regla, la batería congelada, el registro, la vigía y el catálogo aprobado. Un script corre las siete verificaciones y escribe el informe fechado de tu sitio. Sales con él y con el plan de mantenimiento para cuando la spec cambie.",
   "objetivo": "juntar las siete verificaciones en un informe fechado de tu sitio y salir con el plan de mantenimiento para cuando la spec cambie.",
   "competencias": [
     "gerar-relatorio-de-prontidao",
@@ -61,7 +61,7 @@
           "quando": "Día 3",
           "titulo": "Vigía",
           "sub": "API que cambia",
-          "saida": "Base grabada y vigia corriendo.",
+          "saida": "Base grabada y vigía corriendo.",
           "passo": "Requiere el nivel 2. Cambió la fuente: batería, lectura, corrección."
         },
         {
@@ -76,7 +76,7 @@
       ],
       "resultado": {
         "titulo": "Al final de la formación",
-        "texto": "Sitio con tools en la página y en el servidor, igual sin la API, con batería, vigia, catálogo e informe.",
+        "texto": "Sitio con herramientas en la página y en el servidor, igual sin la API, con batería, vigía, catálogo e informe.",
         "total": "26 ejercicios"
       },
       "legenda": "Capas, registro, vecinos y gobernanza (clases 1, 3, 5 y 7) entran en el informe y en el generador de abajo."
@@ -97,7 +97,7 @@
         "abas": [
           {
             "rot": "Salida capturada (19/10/2026)",
-            "html": "<pre>ok    Camadas (aula 1) · CAMADAS: 8/8 com evidência\nok    Uma ação, três superfícies (aula 2) · SUPERFÍCIES: 3/3 iguais na busca · 3/3 reservas esperaram a pessoa\nok    Registro de chamadas (aula 3) · REGISTRO: 8 chamadas · ok 3 · erro 1 · recusado 2 · cancelado 1 · pediu-pessoa 1 · dado pessoal no registro: não\nok    Bateria congelada (aula 4) · BATERIA: 24/24 ok\nok    Protocolos vizinhos (aula 5) · VIZINHOS: 8 protocolos · 8 decisões · 0 problema(s)\nok    Vigia da spec (aula 6) · VIGIA: 7/7 iguais à base · nada a fazer\nok    Governança (aula 7) · GOVERNANÇA: 0 problema(s)\nRELATÓRIO: 7/7 verificações ok → relatorio/RELATORIO-2026-10-19.md\nsaída: 0</pre><p>La vigia es la única verificación que depende de la red. Sin red, sale con 3 y el informe marca \"sem conclusão\", no \"ok\".</p>"
+            "html": "<pre>ok    Camadas (aula 1) · CAMADAS: 8/8 com evidência\nok    Uma ação, três superfícies (aula 2) · SUPERFÍCIES: 3/3 iguais na busca · 3/3 reservas esperaram a pessoa\nok    Registro de chamadas (aula 3) · REGISTRO: 8 chamadas · ok 3 · erro 1 · recusado 2 · cancelado 1 · pediu-pessoa 1 · dado pessoal no registro: não\nok    Bateria congelada (aula 4) · BATERIA: 24/24 ok\nok    Protocolos vizinhos (aula 5) · VIZINHOS: 8 protocolos · 8 decisões · 0 problema(s)\nok    Vigia da spec (aula 6) · VIGIA: 7/7 iguais à base · nada a fazer\nok    Governança (aula 7) · GOVERNANÇA: 0 problema(s)\nRELATÓRIO: 7/7 verificações ok → relatorio/RELATORIO-2026-10-19.md\nsaída: 0</pre><p>La vigía es la única verificación que depende de la red. Sin red, sale con 3 y el informe marca \"sem conclusão\", no \"ok\".</p>"
           }
         ]
       }
@@ -119,7 +119,7 @@
           "titulo": "Puertas",
           "sub": "página y servidor",
           "texto": [
-            "Cambia ferramentas.mjs y servidor/mcp.mjs por tus tools, con el registro (observado) en las dos.",
+            "Cambia ferramentas.mjs y servidor/mcp.mjs por tus herramientas, con el registro (observado) en las dos.",
             "Prueba: observar.mjs sin datos personales."
           ]
         },
@@ -127,15 +127,15 @@
           "titulo": "Batería",
           "sub": "tus casos",
           "texto": [
-            "Escribe contrato.json y casos.json de tus tools y congélalos.",
+            "Escribe contrato.json y casos.json de tus herramientas y congélalos.",
             "Prueba: bateria.mjs en los cuatro modos."
           ]
         },
         {
           "titulo": "Operación",
-          "sub": "catálogo y vigia",
+          "sub": "catálogo y vigía",
           "texto": [
-            "governanca.json con dueño, fecha y nivel; base de la vigia grabada; decisiones de los vecinos.",
+            "governanca.json con dueño, fecha y nivel; base de la vigía grabada; decisiones de los vecinos.",
             "Prueba: relatorio.mjs con 7/7."
           ],
           "exemplo": {
@@ -169,7 +169,7 @@
           "id": "e3",
           "titulo": "E3 · Plan de mantenimiento",
           "min": "10 min",
-          "texto": "Genera el plan de abajo y agrega las fechas: próxima vigia, fin del origin trial (Chrome 156) y próxima revisión de las decisiones de los vecinos.",
+          "texto": "Genera el plan de abajo y agrega las fechas: próxima vigía, fin del origin trial (Chrome 156) y próxima revisión de las decisiones de los vecinos.",
           "pronto": "Descargaste el plan (.md o .ics) y tiene las tres fechas."
         }
       ]
@@ -202,7 +202,7 @@
           "aula": "vizinhos"
         },
         {
-          "titulo": "Clase 6 · Vigia de la spec",
+          "titulo": "Clase 6 · Vigía de la spec",
           "aula": "vigiar"
         },
         {
@@ -249,7 +249,7 @@
           "opcoes": [
             "Sacar la regla de la pantalla y llevarla a un módulo que la página y el servidor importen.",
             "Publicar el polyfill en el sitio para que todos los visitantes tengan la API.",
-            "Escribir la batería antes de saber qué tools existen.",
+            "Escribir la batería antes de saber qué herramientas existen.",
             "Grabar la base de la vigía antes de tener cualquier tool."
           ],
           "certa": 0,
@@ -277,7 +277,7 @@
             "Curso 0, base: cómo los agentes usan un sitio."
           ],
           "certa": 1,
-          "explica": "El curso 3 cubre Playwright MCP, Chrome DevTools MCP y la batería de tareas con agente. La batería de aquí llama a las tools directo, sin modelo.",
+          "explica": "El curso 3 cubre Playwright MCP, Chrome DevTools MCP y la batería de tareas con agente. La batería de aquí llama a las herramientas directo, sin modelo.",
           "ref": "mapa"
         }
       ]

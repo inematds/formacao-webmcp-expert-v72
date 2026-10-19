@@ -197,7 +197,7 @@
     {
       "tipo": "pratica",
       "titulo": "Prática",
-      "sub": "Instalar, provar a equivalência e ver a divergência ser pega.",
+      "sub": "Instalar, provar a equivalência e ver a divergência ser pega. Cada exercício termina num pronto quando.",
       "exercicios": [
         {
           "id": "e1",

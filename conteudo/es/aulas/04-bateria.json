@@ -105,11 +105,11 @@
           "sub": "vuelve a ejecutarla",
           "texto": [
             "¿Spec nueva, Chrome nuevo o SDK nuevo? Ejecuta la batería antes que nada.",
-            "La vigia de la clase 6 avisa cuándo es el momento."
+            "La vigía de la clase 6 avisa cuándo es el momento."
           ],
           "exemplo": {
             "rot": "Orden",
-            "texto": "la vigia avisa → batería → leer qué cambió → corregir o recongelar con motivo"
+            "texto": "la vigía avisa → batería → leer qué cambió → corregir o recongelar con motivo"
           }
         }
       ]
@@ -175,7 +175,7 @@
     {
       "tipo": "pratica",
       "titulo": "Práctica",
-      "sub": "La batería en verde, la regresión atrapada y un caso tuyo.",
+      "sub": "La batería en verde, la regresión atrapada y un caso tuyo. Cada ejercicio termina en un listo cuando.",
       "exercicios": [
         {
           "id": "e1",
@@ -285,7 +285,7 @@
       "titulo": "Para ir más allá",
       "links": [
         {
-          "t": "LOOP-R Engenharia: testes congelados e evals a fundo",
+          "t": "LOOP-R Engenharia: pruebas congeladas y evals a fondo",
           "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/es/",
           "icone": "check"
         },

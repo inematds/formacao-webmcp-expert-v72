@@ -175,7 +175,7 @@
     {
       "tipo": "pratica",
       "titulo": "Prática",
-      "sub": "A bateria verde, a regressão pega e um caso seu.",
+      "sub": "A bateria verde, a regressão pega e um caso seu. Cada exercício termina num pronto quando.",
       "exercicios": [
         {
           "id": "e1",

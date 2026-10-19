@@ -41,7 +41,7 @@
           "icone": "lupa",
           "titulo": "Discovery",
           "sub": "llms.txt",
-          "detalhe": "Proposal from 09/03/2024, modified on 08/10/2026. No measured effect on citations; reported by SE Ranking (~10% adoption, no correlation with citations), not confirmed on 10/19/2026. Decision: Formação inemaSEO."
+          "detalhe": "Proposal from 2024-09-03, modified on 2026-08-10. No measured effect on citations; reported by SE Ranking (~10% adoption, no correlation with citations), not confirmed on 10/19/2026. Decision: inemaSEO Track."
         },
         {
           "icone": "chip",
@@ -81,7 +81,7 @@
           "detalhe": "Is the visitor who they say they are? draft-ietf-webbotauth-httpsig-protocol-00 (Sep/2026), not an RFC yet. Owner: course 4."
         }
       ],
-      "legenda": "None of these is a ranking factor. Citation in AIs is a topic for the Formação inemaSEO."
+      "legenda": "None of these is a ranking factor. Citation in AIs is a topic for the inemaSEO Track."
     },
     {
       "tipo": "passos",
@@ -213,7 +213,7 @@
           "opcoes": [
             "WebMCP, with an origin trial in Chrome 149–156.",
             "Web Bot Auth, published as a draft at the IETF.",
-            "llms.txt, modified on 08/10/2026.",
+            "llms.txt, modified on 2026-08-10.",
             "MCP, at revision 2026-07-28."
           ],
           "certa": 3,
@@ -241,7 +241,7 @@
             "Because llms.txt was removed from the proposal in 2026."
           ],
           "certa": 0,
-          "explica": "The proposal exists (modified on 08/10/2026), but there is no measured effect on citation. Promising ranking is exactly what the WebMCP Track avoids.",
+          "explica": "The proposal exists (modified on 2026-08-10), but there is no measured effect on citation. Promising ranking is exactly what the WebMCP Track avoids.",
           "ref": "codigo"
         },
         {

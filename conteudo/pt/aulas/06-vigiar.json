@@ -177,7 +177,7 @@
     {
       "tipo": "pratica",
       "titulo": "Prática",
-      "sub": "Vigiar, ver uma mudança real e gravar a sua base.",
+      "sub": "Vigiar, ver uma mudança real e gravar a sua base. Cada exercício termina num pronto quando.",
       "exercicios": [
         {
           "id": "e1",

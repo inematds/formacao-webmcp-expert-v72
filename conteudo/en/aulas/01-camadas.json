@@ -60,7 +60,7 @@
           "icone": "x",
           "titulo": "State",
           "sub": "and the error",
-          "detalhe": "A rule error comes back as data ({ erro }), so the agent can fix it. In Chromium 156, a throw arrives only as UnknownError. Owner: course 2."
+          "detalhe": "A rule error comes back as data ({ erro }), so the agent can fix it. In Chromium 156, a throw arrives only as UnknownError (measured in the course 2 kit on 2026-10-19). Owner: course 2."
         },
         {
           "icone": "portao",

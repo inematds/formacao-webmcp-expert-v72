@@ -197,7 +197,7 @@
     {
       "tipo": "pratica",
       "titulo": "Practice",
-      "sub": "Install, prove the equivalence, and watch the divergence get caught.",
+      "sub": "Install, prove the equivalence, and watch the divergence get caught. Each exercise ends in a done when.",
       "exercicios": [
         {
           "id": "e1",

@@ -60,7 +60,7 @@
           "icone": "x",
           "titulo": "Estado",
           "sub": "y el error",
-          "detalhe": "El error de regla vuelve como dato ({ erro }), para que el agente lo corrija. En Chromium 156, un throw llega solo como UnknownError. Dueño: curso 2."
+          "detalhe": "El error de regla vuelve como dato ({ erro }), para que el agente lo corrija. En Chromium 156, un throw llega solo como UnknownError (medido en el kit del curso 2 el 19/10/2026). Dueño: curso 2."
         },
         {
           "icone": "portao",

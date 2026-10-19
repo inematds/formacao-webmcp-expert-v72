@@ -197,7 +197,7 @@
     {
       "tipo": "pratica",
       "titulo": "Práctica",
-      "sub": "Instalar, probar la equivalencia y ver la divergencia detectada.",
+      "sub": "Instalar, probar la equivalencia y ver la divergencia detectada. Cada ejercicio termina en un listo cuando.",
       "exercicios": [
         {
           "id": "e1",

@@ -165,7 +165,7 @@
     {
       "tipo": "pratica",
       "titulo": "Practice",
-      "sub": "Read the log, watch the leak get caught, and decide what your site logs.",
+      "sub": "Read the log, watch the leak get caught, and decide what your site logs. Each exercise ends in a done when.",
       "exercicios": [
         {
           "id": "e1",

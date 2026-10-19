@@ -60,7 +60,7 @@
           "icone": "x",
           "titulo": "Estado",
           "sub": "e o erro",
-          "detalhe": "Erro de regra volta como dado ({ erro }), para o agente corrigir. No Chromium 156, um throw chega só como UnknownError. Dono: curso 2."
+          "detalhe": "Erro de regra volta como dado ({ erro }), para o agente corrigir. No Chromium 156, um throw chega só como UnknownError (medido no kit do curso 2 em 19/10/2026). Dono: curso 2."
         },
         {
           "icone": "portao",

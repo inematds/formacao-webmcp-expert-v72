@@ -165,7 +165,7 @@
     {
       "tipo": "pratica",
       "titulo": "Prática",
-      "sub": "Ler o log, ver o vazamento ser pego e decidir o que o seu site registra.",
+      "sub": "Ler o log, ver o vazamento ser pego e decidir o que o seu site registra. Cada exercício termina num pronto quando.",
       "exercicios": [
         {
           "id": "e1",

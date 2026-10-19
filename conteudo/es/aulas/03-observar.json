@@ -165,7 +165,7 @@
     {
       "tipo": "pratica",
       "titulo": "Práctica",
-      "sub": "Leer el log, ver cómo se detecta la fuga y decidir qué registra tu sitio.",
+      "sub": "Leer el log, ver cómo se detecta la fuga y decidir qué registra tu sitio. Cada ejercicio termina en un listo cuando.",
       "exercicios": [
         {
           "id": "e1",

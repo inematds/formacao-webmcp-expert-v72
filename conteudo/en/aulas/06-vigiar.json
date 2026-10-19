@@ -48,7 +48,7 @@
         {
           "icone": "git",
           "titulo": "Switch",
-          "sub": "19/05/2026",
+          "sub": "2026-05-19",
           "detalhe": "PR #177, \"Scope ModelContext to Document\", accepted on 05/19/2026: the API moves to document.modelContext."
         },
         {
@@ -60,7 +60,7 @@
         {
           "icone": "lista",
           "titulo": "Spec",
-          "sub": "16/10/2026",
+          "sub": "2026-10-16",
           "detalhe": "Draft Community Group Report from 10/16/2026: registerTool, getTools, executeTool, and the toolchange event. No unregisterTool, provideContext, or clearContext."
         },
         {
@@ -177,7 +177,7 @@
     {
       "tipo": "pratica",
       "titulo": "Practice",
-      "sub": "Watch, see a real change, and save your own baseline.",
+      "sub": "Watch, see a real change, and save your own baseline. Each exercise ends in a done when.",
       "exercicios": [
         {
           "id": "e1",

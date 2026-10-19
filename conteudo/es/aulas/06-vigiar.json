@@ -143,7 +143,7 @@
       "sub": "Lee las fuentes ahora y compara. Sin red, sale con 3 y no concluye nada.",
       "blocos": [
         {
-          "rot": "Terminal · vigia contra la base del kit",
+          "rot": "Terminal · vigía contra la base del kit",
           "icone": "terminal",
           "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/vigiar.mjs; echo \"saída: $?\""
         }
@@ -177,7 +177,7 @@
     {
       "tipo": "pratica",
       "titulo": "Práctica",
-      "sub": "Vigilar, ver un cambio real y guardar tu base.",
+      "sub": "Vigilar, ver un cambio real y guardar tu base. Cada ejercicio termina en un listo cuando.",
       "exercicios": [
         {
           "id": "e1",
