@@ -1,0 +1,6 @@
+PROBLEMA WebMCP: motivo promete ranking ou padrão ("vai ser o padrão da web")
+PROBLEMA WebMCP: adotar algo em rascunho pede revisar_em (AAAA-MM-DD) e fallback
+PROBLEMA llms.txt: motivo promete ranking ou padrão ("sobe o site no ranking das IAs")
+PROBLEMA Web Bot Auth: sem decisão
+VIZINHOS: 8 protocolos · 7 decisões · 4 problema(s)
+saída: 1

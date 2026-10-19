@@ -1,0 +1,13 @@
+== Chromium 156.0.8078.4 (Playwright) · modo: nativo
+html   buscar_oficinas  ok              0 ms
+webmcp buscar_oficinas  ok              0 ms
+webmcp buscar_oficinas  erro            3 ms · tema inválido: cobol
+webmcp reservar_vaga    recusado      184 ms
+webmcp reservar_vaga    cancelado     319 ms · AbortError
+mcp    buscar_oficinas  ok              0 ms
+mcp    reservar_vaga    pediu-pessoa   26 ms
+mcp    reservar_vaga    recusado        2 ms
+REGISTRO: 8 chamadas · ok 3 · erro 1 · recusado 2 · cancelado 1 · pediu-pessoa 1 · dado pessoal no registro: não
+gravado em logs/chamadas.jsonl
+saída: 0
+{"t":"2026-10-19T20:03:13.159Z","superficie":"mcp","ferramenta":"reservar_vaga","campos":["id","nome"],"resultado":"recusado","ms":2}

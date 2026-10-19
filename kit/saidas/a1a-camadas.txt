@@ -1,0 +1,19 @@
+camadas · ~/projetos/formacao-webmcp-expert-v72/kit · 31 arquivos lidos
+ok    1 Descoberta               pagina/robots.txt
+        estável (robots, sitemap); llms.txt sem efeito medido · onde: Formação inemaSEO
+ok    2 Ferramentas              pagina/ferramentas.mjs
+        rascunho CG de 16/10/2026 (document.modelContext) · onde: curso 2
+ok    3 Contrato                 pagina/ferramentas.mjs
+        estável como prática (nome, descrição, JSON Schema) · onde: cursos 1 e 2
+ok    4 Estado e erros           pagina/app.mjs
+        estável como prática (erro de regra volta como dado) · onde: curso 2
+ok    5 Controle                 pagina/ferramentas.mjs
+        anotação consequentialHint: rascunho; confirmação: prática estável · onde: cursos 2 e 4
+ok    6 Permissões               pagina/governanca.json
+        exposedTo e iframes: rascunho; catálogo aprovado: prática · onde: curso 4 + este curso
+ok    7 Backend e MCP            servidor/mcp.mjs
+        MCP 2026-07-28 estável; mesma regra das duas pontas · onde: curso 1 + este curso
+ok    8 Evals e observabilidade  bateria/casos.json
+        prática estável: bateria congelada e registro · onde: este curso + LOOP-R Eng.
+CAMADAS: 8/8 com evidência
+saída: 0

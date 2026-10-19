@@ -1,0 +1,13 @@
+{
+  "site": "Agenda de oficinas (exemplo do kit)",
+  "decisoes": [
+    { "nome": "WebMCP", "decisao": "adotar", "motivo": "a página já tem as ferramentas, com detecção e fallback", "revisar_em": "2027-01-15", "fallback": "formulário da página" },
+    { "nome": "MCP", "decisao": "adotar", "motivo": "o mesmo serviço atende agentes fora do navegador" },
+    { "nome": "NLWeb", "decisao": "esperar", "motivo": "a agenda é pequena; as ferramentas já respondem" },
+    { "nome": "llms.txt", "decisao": "esperar", "motivo": "sem efeito medido; a decisão é da Formação inemaSEO" },
+    { "nome": "A2A", "decisao": "nao-se-aplica", "motivo": "o site não tem agente próprio para conversar com outro" },
+    { "nome": "ACP", "decisao": "nao-se-aplica", "motivo": "as oficinas são gratuitas: não há compra" },
+    { "nome": "AP2", "decisao": "nao-se-aplica", "motivo": "nenhum pagamento passa pelo site" },
+    { "nome": "Web Bot Auth", "decisao": "esperar", "motivo": "rascunho no IETF; rever quando o curso 4 for aplicado ao site" }
+  ]
+}

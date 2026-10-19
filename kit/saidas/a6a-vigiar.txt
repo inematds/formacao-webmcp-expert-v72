@@ -1,0 +1,10 @@
+vigia · base de 19/10/2026 (vigia/base.json)
+igual     spec_data            2026-10-16
+igual     spec_superficie      document
+igual     spec_metodos         registerTool getTools executeTool toolchange
+igual     chrome_status        Proposed
+igual     chrome_origin_trial  149–156
+igual     mcp_versao_atual     2026-07-28
+igual     sdk_mcp_anuncia      2026-07-28
+VIGIA: 7/7 iguais à base · nada a fazer
+saída: 0

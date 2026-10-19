@@ -1,0 +1,236 @@
+{
+  "id": "formacao-webmcp-expert-v72",
+  "lang": "pt-BR",
+  "url": "https://inematds.github.io/formacao-webmcp-expert-v72/",
+  "nome": "WebMCP em produção",
+  "sub": "Formação WebMCP · curso 5",
+  "volta": {
+    "t": "Área WebMCP",
+    "href": "https://eventos.inema.pro/webmcp/"
+  },
+  "lado_card": {
+    "rot": "Formação WebMCP",
+    "t": "Curso 5 de 6",
+    "texto": "O último curso: uma regra servida pela tela, pelo WebMCP e pelo MCP, com registro, bateria congelada, vigia de spec, governança e relatório. O kit roda sem custo.",
+    "link": "Abrir a pasta kit/ no GitHub",
+    "href": "https://github.com/inematds/formacao-webmcp-expert-v72/tree/main/kit"
+  },
+  "rodape": "INEMA.CLUB · conteúdo aberto e gratuito · formato INEMA Learning v7.2 · Formação WebMCP, curso 5 de 6 · <a href=\"https://eventos.inema.pro/webmcp/\">eventos.inema.pro/webmcp</a> · <a href=\"https://github.com/inematds/formacao-webmcp-expert-v72/tree/main/kit\">kit do curso no GitHub</a> · <a href=\"https://inema.club/\">inema.club</a>",
+  "videos": {},
+  "inicio": {
+    "kicker": "Formação WebMCP · curso 5 de 6 · o último · 8 aulas",
+    "titulo": "WebMCP em produção: página, servidor, bateria e relatório",
+    "lead": "Sirva a mesma ação pela tela, pelo WebMCP na página e por um servidor MCP, com uma regra só. Registre cada chamada, congele a bateria, vigie a spec e desligue uma ferramenta sem deploy. WebMCP é rascunho de 16/10/2026: produção aqui é preparar com teste, não apostar.",
+    "cta": "Começar pela aula 1",
+    "cta2": {
+      "t": "Ver a área da formação",
+      "href": "https://eventos.inema.pro/webmcp/"
+    },
+    "capa_alt": "Pequena sala de operação escura com um monitor mostrando um navegador e um rack com luzes brancas, cabos ligados a um hub.",
+    "numeros": [
+      {
+        "v": "8",
+        "t": "aulas"
+      },
+      {
+        "v": "7",
+        "t": "verificações no relatório final"
+      },
+      {
+        "v": "4",
+        "t": "modos de teste: sem API, polyfill, nativo e MCP"
+      },
+      {
+        "v": "0",
+        "t": "chamadas de modelo ou API paga"
+      }
+    ],
+    "aulas_titulo": "As aulas",
+    "aulas_sub": "Das 8 camadas ao relatório: três superfícies, registro, bateria congelada, protocolos vizinhos, vigia de spec e governança.",
+    "blocos": [
+      {
+        "t": "Para quem é",
+        "itens": [
+          "Quem fez o curso 2 (WebMCP na página) e o curso 4 (segurança), ou já registra ferramentas e roda um servidor MCP.",
+          "Dev ou dono técnico que vai manter um site usado por agentes por meses, com a API ainda mudando.",
+          "Quem quer provar com teste, não com print, que o site funciona com e sem agente."
+        ]
+      },
+      {
+        "t": "O que você sai fazendo",
+        "itens": [
+          "Servir uma ação pela tela, pelo WebMCP e pelo MCP com a mesma regra.",
+          "Registrar chamadas, erros, recusas e cancelamentos sem guardar dado pessoal.",
+          "Congelar a bateria e pegar a regressão quando a spec ou o código mudam.",
+          "Aprovar, versionar e desligar ferramentas pelo catálogo, sem deploy de código."
+        ]
+      },
+      {
+        "t": "Onde este curso entra na Formação WebMCP",
+        "itens": [
+          "É o curso 5, o último: junta a página (curso 2), o servidor (curso 1), o olhar do agente (curso 3) e a segurança (curso 4).",
+          "Cada assunto que tem dono em outro curso vai por link; aqui fica a operação.",
+          "Antes de começar: Node 20 ou mais novo, git e espaço em disco para o Chromium do Playwright."
+        ]
+      }
+    ],
+    "cursos": {
+      "titulo": "Os 6 cursos da formação",
+      "sub": "Este é o curso 5, o último. A aula 8 junta as peças dos seis. Ordem sugerida: 0 → 1 → 2 → 3 → 4 → 5.",
+      "abrir": "Abrir o curso",
+      "itens": [
+        {
+          "rot": "Curso 0",
+          "t": "Base: como os agentes usam um site",
+          "l": "Ler, operar a tela ou chamar ferramenta; árvore de acessibilidade; estável × rascunho; diagnóstico do seu site.",
+          "href": "https://inematds.github.io/formacao-webmcp-base-v72/",
+          "href_idioma": true,
+          "img": "assets/img/cursos/base.jpg"
+        },
+        {
+          "rot": "Curso 1",
+          "t": "Servidor MCP do seu serviço",
+          "l": "SDK oficial v2 na revisão 2026-07-28: ferramentas, Streamable HTTP sem estado, MRTR, OAuth e MCP Apps.",
+          "href": "https://inematds.github.io/formacao-webmcp-mcp-v72/",
+          "href_idioma": true,
+          "img": "assets/img/cursos/mcp.jpg"
+        },
+        {
+          "rot": "Curso 2",
+          "t": "WebMCP no seu site",
+          "l": "document.modelContext com detecção e fallback, ciclo de vida, anotações, confirmação e bateria nos três modos.",
+          "href": "https://inematds.github.io/formacao-webmcp-site-v72/",
+          "href_idioma": true,
+          "img": "assets/img/cursos/site.jpg"
+        },
+        {
+          "rot": "Curso 3",
+          "t": "Agentes de navegador",
+          "l": "Testar o site como o agente vê: Playwright MCP, Chrome DevTools MCP e a bateria de tarefas do seu site.",
+          "href": "https://inematds.github.io/formacao-webmcp-navegador-v72/",
+          "href_idioma": true,
+          "img": "assets/img/cursos/navegador.jpg"
+        },
+        {
+          "rot": "Curso 4",
+          "t": "Segurança entre site e agente",
+          "l": "Prompt injection, dado como dado, confirmação, exposição, servidor seguro e identidade de quem chega.",
+          "href": "https://inematds.github.io/formacao-webmcp-seguranca-v72/",
+          "href_idioma": true,
+          "img": "assets/img/cursos/seguranca.jpg"
+        },
+        {
+          "rot": "Curso 5 · você está aqui",
+          "t": "WebMCP em produção",
+          "l": "Três superfícies, registro, bateria congelada, vigia de spec, governança e o relatório do seu site.",
+          "href": "https://inematds.github.io/formacao-webmcp-expert-v72/",
+          "img": "assets/img/cursos/expert.jpg"
+        }
+      ]
+    }
+  },
+  "ui": {
+    "pular": "Pular para o conteúdo",
+    "aulas": "Aulas",
+    "concluido": "concluído",
+    "aula": "Aula",
+    "nesta_aula": "Nesta aula, você vai aprender:",
+    "objetivo": "Objetivo:",
+    "proxima_aula": "Próxima aula",
+    "aula_anterior": "Aula anterior",
+    "voltar_inicio": "Voltar ao início do curso",
+    "marcar_concluida": "Marcar aula como concluída",
+    "dg_dica": "Clique em cada bloco do diagrama para ver o que ele faz.",
+    "copiar": "Copiar",
+    "copiado": "Copiado",
+    "selo_simulacao": "Simulação: exemplo ilustrativo",
+    "selo_real": "Exemplo do repositório",
+    "pronto_quando": "Pronto quando:",
+    "fiz": "Fiz este exercício",
+    "video_pagina": "Página do vídeo com roteiro",
+    "pergunta": "Pergunta",
+    "de": "de",
+    "cert_tag": "competência",
+    "correto": "Correto",
+    "errado": "Não é essa",
+    "quiz_aguarda": "Escolha uma alternativa. A explicação aparece depois da sua tentativa.",
+    "proxima_pergunta": "Próxima pergunta",
+    "quiz_ver": "Ver resultado",
+    "quiz_fim": "Teste concluído",
+    "quiz_total": "Você acertou {a} de {n}. Acertando todas, a aula é marcada como concluída.",
+    "aparencia": "Aparência",
+    "tamanho_texto": "Tamanho do texto",
+    "tema": "Tema",
+    "tema_escuro": "Escuro",
+    "tema_papel": "Papel claro",
+    "role_dica": "Role a página: cada etapa abaixo acende a sua parte do diagrama.",
+    "pre_requisito": "requer",
+    "ver_aula": "Ver a aula",
+    "mapa_dica": "Clique num exercício para ver o que fazer e o \"pronto quando\".",
+    "etapas": "Etapas",
+    "exercicios": "exercícios",
+    "rever": "Rever:",
+    "revisar_erradas": "Revisar as erradas",
+    "refazer": "Refazer o teste",
+    "h_semana": "h por semana",
+    "data_inicio": "Data de início",
+    "ritmo": "Tempo disponível",
+    "gerar_plano": "Gerar meu plano",
+    "baixar_md": "Baixar plano.md",
+    "baixar_ics": "Baixar para o calendário (.ics)",
+    "ind_estudo": "Estudo (aulas)",
+    "ind_pratica": "Prática declarada",
+    "ind_nota": "Prática = exercícios que você marcou como feitos. A comprovação vem na prova da certificação.",
+    "estudo": {
+      "titulo": "Seu estudo",
+      "continuar": "Continuar de onde parei",
+      "comecar": "Começar pela aula 1",
+      "cta_continuar": "Continuar a aula {n}",
+      "hoje": "hoje",
+      "ontem": "ontem",
+      "ha_dias": "há {n} dias",
+      "desempenho": "Desempenho nos testes",
+      "notas": "Minhas anotações",
+      "dados": "Copiar meus dados",
+      "sem_testes": "Nenhum teste feito ainda. O teste fica no fim de cada aula.",
+      "nao_fez": "teste ainda não feito",
+      "ultimo": "Último",
+      "melhor": "Melhor",
+      "tentativas": "tentativas",
+      "tentativa": "tentativa",
+      "tudo_certo": "Acertou tudo no último teste.",
+      "rever": "Para rever",
+      "resposta": "Resposta certa:",
+      "ir_teste": "Refazer o teste",
+      "sem_notas": "Nenhuma anotação ainda. Na aula, selecione um trecho do texto e toque em Marcar ou Anotar.",
+      "so_marcado": "(só marcado)",
+      "marcar": "Marcar",
+      "anotar": "Anotar",
+      "salvar": "Salvar",
+      "apagar": "Apagar marca",
+      "fechar": "Fechar",
+      "nota_ph": "Escreva sua anotação sobre este trecho…",
+      "um_bloco": "Marque dentro de um parágrafo só.",
+      "nao_marca": "Este trecho não pode ser marcado.",
+      "dados_exp": "Seu progresso, suas anotações e as notas dos testes ficam só neste navegador. Baixe uma cópia (.json) para guardar ou para continuar em outro computador ou navegador; lá, carregue a cópia. Carregar soma com o que já existe e não apaga nada.",
+      "exportar": "Baixar cópia",
+      "importar": "Carregar cópia",
+      "import_ok": "Cópia carregada ({n} itens). Atualizando a página…",
+      "import_erro": "Arquivo não reconhecido. Nada foi alterado.",
+      "import_outro": "Esta cópia é de outro curso. Nada foi alterado.",
+      "export_ok": "Cópia baixada."
+    },
+    "conv_dica": "Escolha a sua resposta. O comentário aparece logo depois e a conversa segue conforme a escolha.",
+    "conv_voce": "Você",
+    "conv_escolha": "Sua resposta",
+    "conv_boa": "Boa escolha",
+    "conv_meio": "Dá para melhorar",
+    "conv_ruim": "Escolha fraca",
+    "conv_fim": "Fim da conversa",
+    "conv_placar": "Você fez {p} de {m} pontos possíveis.",
+    "conv_licao": "Lição:",
+    "conv_recomecar": "Recomeçar a conversa",
+    "conv_feita": "Seu melhor placar: {p} de {m} pontos."
+  },
+  "icone": "camadas"
+}

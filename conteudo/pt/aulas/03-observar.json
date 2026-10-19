@@ -1,0 +1,283 @@
+{
+  "slug": "observar",
+  "num": 3,
+  "menu": "Registro",
+  "titulo": "Observabilidade: registrar chamadas, erros e cancelamentos",
+  "titulo_curto": "Registrar chamadas",
+  "minutos": 15,
+  "lead": "Em produção, \"o agente não conseguiu reservar\" só se resolve com registro. Cada chamada de ferramenta, em qualquer porta, deixa uma linha: superfície, ferramenta, resultado e tempo. Sem dado pessoal. Nesta aula você provoca os desfechos possíveis e lê o que cada um deixa no log.",
+  "objetivo": "registrar cada chamada nas três superfícies com resultado e tempo, sem dado pessoal, e ler os desfechos possíveis no log.",
+  "competencias": [
+    "registrar-chamadas-na-fronteira",
+    "distinguir-erro-recusa-e-cancelamento",
+    "proteger-dado-pessoal-no-log"
+  ],
+  "aprende": [
+    {
+      "icone": "lista",
+      "t": "O que uma linha de registro precisa ter"
+    },
+    {
+      "icone": "chip",
+      "t": "O embrulho observado() nas três portas"
+    },
+    {
+      "icone": "x",
+      "t": "Erro, recusa, cancelamento e o pedido do MRTR"
+    },
+    {
+      "icone": "cadeado",
+      "t": "Por que o log guarda o nome do campo e não o valor"
+    }
+  ],
+  "hero_alt": "Monitor escuro com linhas de log ilegíveis e uma linha do tempo, ao lado de um caderno aberto e uma caneta.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Do pedido à linha no log",
+      "sub": "O registro fica na fronteira, não dentro da regra. Clique em cada etapa.",
+      "nos": [
+        {
+          "icone": "robo",
+          "titulo": "Chamada",
+          "sub": "três portas",
+          "detalhe": "Formulário (html), executeTool na página (webmcp) ou tools/call no servidor (mcp)."
+        },
+        {
+          "icone": "chip",
+          "titulo": "Embrulho",
+          "sub": "observado()",
+          "detalhe": "observado(superficie, ferramenta, fn) mede o tempo, classifica o resultado e devolve a resposta sem mudá-la. Está em pagina/registro.mjs e serve as três portas."
+        },
+        {
+          "icone": "fila",
+          "titulo": "Desfecho",
+          "sub": "classificar",
+          "forte": true,
+          "detalhe": "ok · erro (a regra recusou) · recusado (a pessoa disse não) · cancelado (AbortSignal) · pediu-pessoa (1ª volta do MRTR) · excecao."
+        },
+        {
+          "icone": "arquivo",
+          "titulo": "Linha",
+          "sub": "JSON",
+          "detalhe": "Uma linha por chamada: t, superficie, ferramenta, campos, resultado, ms e motivo. Os campos são só os NOMES da entrada."
+        },
+        {
+          "icone": "grafico",
+          "titulo": "Resumo",
+          "sub": "contagem",
+          "detalhe": "Quantas de cada desfecho, por superfície. É daqui que sai a pergunta certa: o agente erra a entrada ou a pessoa recusa?"
+        }
+      ]
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Os desfechos que importam",
+      "sub": "Cada um pede uma ação diferente de quem opera o site.",
+      "passos": [
+        {
+          "titulo": "erro",
+          "sub": "regra recusou",
+          "texto": [
+            "Entrada que a regra não aceita: tema inválido, oficina sem vaga.",
+            "Muitos erros na mesma ferramenta = descrição ou schema confusos para o agente."
+          ],
+          "exemplo": {
+            "rot": "Kit",
+            "texto": "motivo: tema inválido: cobol"
+          }
+        },
+        {
+          "titulo": "recusado",
+          "sub": "a pessoa disse não",
+          "texto": [
+            "A confirmação funcionou. Não é falha do site.",
+            "Muitas recusas = o agente está propondo a coisa errada; olhe o que ele pediu."
+          ]
+        },
+        {
+          "titulo": "cancelado",
+          "sub": "AbortSignal",
+          "texto": [
+            "O agente desistiu (ou a pessoa saiu) antes da resposta: o executeTool foi cancelado pelo signal.",
+            "Medido no kit: o cancelamento chega ao execute como AbortError e a reserva não acontece."
+          ]
+        },
+        {
+          "titulo": "pediu-pessoa",
+          "sub": "MRTR",
+          "texto": [
+            "No MCP 2026-07-28, a 1ª volta de uma ação com confirmação devolve input_required.",
+            "Por isso uma reserva pelo MCP deixa duas linhas: o pedido e o desfecho."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "O embrulho",
+      "sub": "O mesmo arquivo serve a página e o servidor. Na página, em produção, a linha iria para o seu backend (sendBeacon, por exemplo); no kit fica em memória.",
+      "blocos": [
+        {
+          "rot": "Arquivo · kit/pagina/registro.mjs",
+          "icone": "arquivo",
+          "conteudo": "// registro.mjs — observabilidade nas fronteiras: uma linha por chamada de ferramenta, em qualquer superfície.\n// Roda no navegador (página) e no Node (servidor MCP). Não guarda dado pessoal: só o NOME dos campos de entrada.\n// Resultado: ok | erro (regra recusou) | recusado (a pessoa disse não) | cancelado (AbortSignal) | excecao\n//            | pediu-pessoa (MCP: a 1ª volta do MRTR devolve input_required e o cliente pergunta ao usuário).\n\nconst linhas = [];\nlet destino = null;   // função que recebe cada linha (no servidor: grava JSONL; na página: sendBeacon em produção)\n\nexport function aoRegistrar(fn) { destino = fn; }\nexport function linhasRegistradas() { return linhas.map(l => ({ ...l })); }\n\nexport function classificar(r) {\n  if (r && typeof r === 'object') {\n    if (r.resultType === 'input_required') return 'pediu-pessoa';\n    if ('erro' in r) return 'erro';\n    if (r.reservado === false) return 'recusado';\n  }\n  return 'ok';\n}\n\nexport function anotar(linha) {\n  const l = { t: new Date().toISOString(), ...linha };\n  linhas.push(l);\n  globalThis.__registro = linhas;    // os testes leem daqui\n  destino?.(l);\n  return l;\n}\n\n// Embrulha o execute de uma ferramenta: mede o tempo e anota o resultado, sem mudar o que ela devolve.\nexport function observado(superficie, ferramenta, fn) {\n  return async (input = {}, opcoes) => {\n    const inicio = performance.now();\n    const base = { superficie, ferramenta, campos: Object.keys(input).sort() };\n    try {\n      const r = await fn(input, opcoes);\n      anotar({ ...base, resultado: classificar(r), ms: Math.round(performance.now() - inicio), ...(r?.erro ? { motivo: r.erro } : {}) });\n      return r;\n    } catch (e) {\n      anotar({ ...base, resultado: e.name === 'AbortError' ? 'cancelado' : 'excecao', ms: Math.round(performance.now() - inicio), motivo: e.name });\n      throw e;\n    }\n  };\n}"
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Provocar os desfechos e ler o log",
+      "sub": "O script busca, erra o tema, recusa, cancela e reserva pelo MCP com recusa. Grava logs/chamadas.jsonl.",
+      "blocos": [
+        {
+          "rot": "Terminal · registro de chamadas",
+          "icone": "terminal",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/observar.mjs nativo; echo \"saída: $?\"\ntail -1 logs/chamadas.jsonl"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Saída capturada (19/10/2026)",
+            "html": "<pre>== Chromium 156.0.8078.4 (Playwright) · modo: nativo\nhtml   buscar_oficinas  ok              0 ms\nwebmcp buscar_oficinas  ok              0 ms\nwebmcp buscar_oficinas  erro            3 ms · tema inválido: cobol\nwebmcp reservar_vaga    recusado      184 ms\nwebmcp reservar_vaga    cancelado     319 ms · AbortError\nmcp    buscar_oficinas  ok              0 ms\nmcp    reservar_vaga    pediu-pessoa   26 ms\nmcp    reservar_vaga    recusado        2 ms\nREGISTRO: 8 chamadas · ok 3 · erro 1 · recusado 2 · cancelado 1 · pediu-pessoa 1 · dado pessoal no registro: não\ngravado em logs/chamadas.jsonl\nsaída: 0\n{\"t\":\"2026-10-19T20:03:13.159Z\",\"superficie\":\"mcp\",\"ferramenta\":\"reservar_vaga\",\"campos\":[\"id\",\"nome\"],\"resultado\":\"recusado\",\"ms\":2}</pre><p>A última linha é uma linha real do arquivo: campos id e nome aparecem pelo nome, nunca pelo valor. Os milissegundos variam a cada rodada.</p>"
+          },
+          {
+            "rot": "Erro comum: registrar a entrada inteira",
+            "html": "<pre>REGISTRO: 8 chamadas · ok 3 · erro 1 · recusado 2 · cancelado 1 · pediu-pessoa 1 · dado pessoal no registro: SIM\nsaída: 1</pre><p>Alguém trocou campos por entrada: input \"para depurar\". O nome das pessoas foi parar no log, e o script sai com 1. Log com dado pessoal vira passivo (LGPD): registre o que ajuda a operar, não o que identifica alguém.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "O ensaio do vazamento",
+      "sub": "Numa cópia descartável do kit.",
+      "blocos": [
+        {
+          "rot": "Terminal · log com dado pessoal",
+          "icone": "x",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nE=$(bash scripts/copia.sh a3)\n# o erro comum: registrar a entrada inteira \"para depurar\"\nsed -i 's/campos: Object.keys(input).sort()/entrada: input/' $E/pagina/registro.mjs\ncd $E && node scripts/observar.mjs nativo | grep \"REGISTRO\"; echo \"saída: ${PIPESTATUS[0]}\""
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prática",
+      "sub": "Ler o log, ver o vazamento ser pego e decidir o que o seu site registra.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Os desfechos no log",
+          "min": "5 min",
+          "texto": "Rode o bloco do registro e conte as linhas por desfecho.",
+          "pronto": "<code>node scripts/observar.mjs nativo; echo \"saída: $?\"</code> → <code>REGISTRO: 8 chamadas · ok 3 · erro 1 · recusado 2 · cancelado 1 · pediu-pessoa 1 · dado pessoal no registro: não</code> e <code>saída: 0</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Pegar o vazamento",
+          "min": "3 min",
+          "texto": "Rode o ensaio do log com a entrada inteira.",
+          "pronto": "O bloco imprime <code>dado pessoal no registro: SIM</code> e <code>saída: 1</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · O registro do seu site",
+          "min": "15 min",
+          "texto": "Para as ferramentas do seu site, escreva quais campos entram no log (só o nome), para onde a linha vai em produção e quem olha o resumo por semana.",
+          "pronto": "O arquivo registro-[seu site].md tem uma linha por ferramenta, o destino do log e o responsável, e nenhum campo com valor de entrada."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Teste da aula",
+      "sub": "A explicação aparece depois da resposta.",
+      "perguntas": [
+        {
+          "p": "A reserva pelo MCP com confirmação deixou duas linhas no log. Por quê?",
+          "opcoes": [
+            "O cliente MCP repetiu a chamada sozinho por causa de um erro de rede.",
+            "O SDK registra toda chamada duas vezes por segurança.",
+            "O servidor guardou uma sessão e a reabriu na segunda linha.",
+            "A 1ª volta pede a pessoa (input_required); a 2ª traz o desfecho."
+          ],
+          "certa": 3,
+          "explica": "É o MRTR da revisão 2026-07-28: a ferramenta devolve input_required, o cliente pergunta e repete a chamada. Não há sessão no protocolo.",
+          "ref": "passos"
+        },
+        {
+          "p": "O log mostra muitas linhas \"recusado\" em reservar_vaga. O que olhar primeiro?",
+          "opcoes": [
+            "O que o agente propôs: a confirmação está funcionando.",
+            "O servidor, porque recusa indica que ele caiu.",
+            "O schema, porque recusa é entrada inválida.",
+            "O navegador, porque recusa é falta da API."
+          ],
+          "certa": 0,
+          "explica": "Recusado = a pessoa disse não. A proteção funcionou; muitas recusas sugerem que o agente está propondo a coisa errada. Entrada inválida aparece como erro.",
+          "ref": "passos"
+        },
+        {
+          "p": "Por que o registro guarda campos: [\"id\", \"nome\"] e não os valores?",
+          "opcoes": [
+            "Porque o executeTool não entrega os valores ao execute.",
+            "Para operar sem guardar dado pessoal de quem reservou.",
+            "Porque o JSONL não aceita texto com acento.",
+            "Para o log ficar menor e o disco não encher."
+          ],
+          "certa": 1,
+          "explica": "O nome de quem reserva é dado pessoal. Para operar basta saber que a chamada tinha id e nome, o desfecho e o tempo. O ensaio mostra o script pegando o vazamento.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Onde fica o embrulho observado() no kit?",
+          "opcoes": [
+            "Dentro de oficinas.mjs, para a regra se registrar sozinha.",
+            "Só no servidor MCP, porque a página não tem onde gravar.",
+            "Na fronteira de cada porta, em volta do execute.",
+            "No Chromium, que registra as chamadas do WebMCP."
+          ],
+          "certa": 2,
+          "explica": "O registro fica na fronteira (formulário, ferramenta WebMCP, ferramenta MCP), em volta do execute. A regra continua pura e o mesmo registro.mjs serve página e servidor.",
+          "ref": "diagrama"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Em três frases",
+      "itens": [
+        {
+          "t": "Linha",
+          "texto": "Superfície, ferramenta, nomes dos campos, desfecho e tempo: uma por chamada."
+        },
+        {
+          "t": "Desfecho",
+          "texto": "Erro, recusa, cancelamento e pedido do MRTR contam histórias diferentes."
+        },
+        {
+          "t": "Privacidade",
+          "texto": "O valor da entrada fica fora do log; o script pega quem esquecer."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir além",
+      "links": [
+        {
+          "t": "Spec WebMCP: executeTool e AbortSignal",
+          "href": "https://webmachinelearning.github.io/webmcp/",
+          "icone": "arquivo"
+        },
+        {
+          "t": "LOOP-R Engenharia: verificação e evals a fundo",
+          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/",
+          "icone": "check"
+        }
+      ]
+    }
+  ]
+}

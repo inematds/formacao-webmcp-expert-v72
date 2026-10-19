@@ -1,0 +1,5 @@
+  html   → of-101
+  webmcp → of-101
+  mcp    → of-101,of-102
+SUPERFÍCIES: 2/3 iguais na busca · 3/3 reservas esperaram a pessoa
+saída: 1

@@ -1,0 +1,8 @@
+[
+  { "id": "c1", "ferramenta": "buscar_oficinas", "entrada": { "tema": "webmcp", "apenasComVaga": true }, "espera": { "ids": ["of-301"] }, "superficies": ["webmcp", "mcp"] },
+  { "id": "c2", "ferramenta": "buscar_oficinas", "entrada": { "tema": "cobol" }, "espera": { "erro": true }, "superficies": ["webmcp", "mcp"] },
+  { "id": "c3", "ferramenta": "reservar_vaga", "entrada": { "id": "of-301", "nome": "Rita" }, "pessoa": "recusa", "espera": { "reservas": 0 }, "superficies": ["webmcp", "mcp"] },
+  { "id": "c4", "ferramenta": "reservar_vaga", "entrada": { "id": "of-301", "nome": "Rita" }, "pessoa": "confirma", "espera": { "reservas": 1 }, "superficies": ["webmcp", "mcp"] },
+  { "id": "c5", "ferramenta": "reservar_vaga", "entrada": { "id": "of-102", "nome": "Rita" }, "pessoa": "confirma", "espera": { "erro": true, "reservas": 1 }, "superficies": ["webmcp", "mcp"] },
+  { "id": "c6", "ferramenta": "listar_comentarios", "entrada": { "id": "of-301" }, "espera": { "comentarios": 2 }, "superficies": ["webmcp"] }
+]

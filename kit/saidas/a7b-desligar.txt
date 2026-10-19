@@ -1,0 +1,7 @@
+== Chromium 156.0.8078.4 (Playwright) · modo: nativo
+antes:  WebMCP 4 ferramentas · MCP 2 ferramentas
+desligada: reservar_vaga (estado "desligada" no governanca.json, nenhum código mudou)
+depois: WebMCP 3 ferramentas · MCP 1 ferramentas
+formulário: a pessoa reservou of-301 normalmente
+DESLIGAR: ok · reservar_vaga fora do WebMCP e do MCP, formulário funcionando
+saída: 0

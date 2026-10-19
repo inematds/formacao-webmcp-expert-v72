@@ -1,0 +1,4 @@
+node_modules/
+pagina/vendor/
+logs/
+relatorio/RELATORIO-*.md

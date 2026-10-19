@@ -1,0 +1,3 @@
+BATERIA RECUSADA: casos.json ou contrato.json mudou depois de congelado.
+Se o esperado mudou de verdade (spec nova, regra nova), rode --recongelar e explique no commit.
+saída: 2

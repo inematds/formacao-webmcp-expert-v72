@@ -1,0 +1,27 @@
+== Chromium 156.0.8078.4 (Playwright) · bateria congelada (spec 2026-10-16, MCP 2026-07-28)
+ok    [sem] fallback: página sem WebMCP e sem erro de JavaScript · sem
+ok    [sem] fallback: a pessoa reserva pelo formulário
+ok    [polyfill] contrato: 4 ferramentas com as anotações congeladas · 4 registradas
+ok    [polyfill] c1 buscar_oficinas · of-301
+ok    [polyfill] c2 buscar_oficinas · erro
+ok    [polyfill] c3 reservar_vaga (pessoa recusa) · 0 reserva(s)
+ok    [polyfill] c4 reservar_vaga (pessoa confirma) · 1 reserva(s)
+ok    [polyfill] c5 reservar_vaga (pessoa confirma) · erro, 1 reserva(s)
+ok    [polyfill] c6 listar_comentarios · 2 comentário(s)
+ok    [polyfill] nenhum erro de JavaScript
+ok    [nativo] contrato: 4 ferramentas com as anotações congeladas · 4 registradas
+ok    [nativo] c1 buscar_oficinas · of-301
+ok    [nativo] c2 buscar_oficinas · erro
+ok    [nativo] c3 reservar_vaga (pessoa recusa) · 0 reserva(s)
+ok    [nativo] c4 reservar_vaga (pessoa confirma) · 1 reserva(s)
+ok    [nativo] c5 reservar_vaga (pessoa confirma) · erro, 1 reserva(s)
+ok    [nativo] c6 listar_comentarios · 2 comentário(s)
+ok    [nativo] nenhum erro de JavaScript
+ok    [mcp] contrato: 2 ferramentas com as anotações congeladas · buscar_oficinas,reservar_vaga
+ok    [mcp] c1 buscar_oficinas · of-301
+ok    [mcp] c2 buscar_oficinas · erro
+ok    [mcp] c3 reservar_vaga (pessoa recusa) · 0 reserva(s)
+ok    [mcp] c4 reservar_vaga (pessoa confirma) · 1 reserva(s)
+ok    [mcp] c5 reservar_vaga (pessoa confirma) · erro, 1 reserva(s)
+BATERIA: 24/24 ok
+saída: 0

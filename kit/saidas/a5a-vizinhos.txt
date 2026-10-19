@@ -1,0 +1,11 @@
+mapa lido em 19/10/2026 · decisões de: Agenda de oficinas (exemplo do kit)
+  WebMCP        rascunho  adotar
+  MCP           estavel   adotar
+  NLWeb         projeto   esperar
+  llms.txt      proposta  esperar
+  A2A           projeto   nao-se-aplica
+  ACP           projeto   nao-se-aplica
+  AP2           rascunho  nao-se-aplica
+  Web Bot Auth  rascunho  esperar
+VIZINHOS: 8 protocolos · 8 decisões · 0 problema(s)
+saída: 0

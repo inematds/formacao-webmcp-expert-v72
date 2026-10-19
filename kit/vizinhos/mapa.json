@@ -1,0 +1,14 @@
+{
+  "lido_em": "2026-10-19",
+  "nota": "Status lido nas fontes em 19/10/2026. Só 'estavel' dispensa data de revisão. Nada aqui é fator de ranking.",
+  "protocolos": [
+    { "nome": "WebMCP", "camada": "ferramentas na página (navegador)", "status": "rascunho", "o_que": "document.modelContext; Draft Community Group Report de 16/10/2026; origin trial Chrome 149–156", "fonte": "https://webmachinelearning.github.io/webmcp/", "no_inema": "curso 2 da Formação WebMCP" },
+    { "nome": "MCP", "camada": "ferramentas no servidor", "status": "estavel", "o_que": "revisão 2026-07-28 (stateless, server/discover, MRTR)", "fonte": "https://modelcontextprotocol.io/specification/versioning", "no_inema": "curso 1 da Formação WebMCP" },
+    { "nome": "NLWeb", "camada": "perguntas em linguagem natural sobre o site", "status": "projeto", "o_que": "projeto aberto da Microsoft; cada instância é também um servidor MCP com o método ask e respostas em Schema.org", "fonte": "https://github.com/microsoft/NLWeb", "no_inema": "este curso (mapa)" },
+    { "nome": "llms.txt", "camada": "descoberta (arquivo público)", "status": "proposta", "o_que": "proposta de 03/09/2024, modificada em 10/08/2026; sem efeito medido em citação", "fonte": "https://llmstxt.org/", "no_inema": "Formação inemaSEO" },
+    { "nome": "A2A", "camada": "agente conversa com agente", "status": "projeto", "o_que": "protocolo na Linux Foundation; mais de 150 organizações em 09/04/2026", "fonte": "https://linuxfoundation.org/press/a2a-protocol-surpasses-150-organizations-lands-in-major-cloud-platforms-and-sees-enterprise-production-use-in-first-year", "no_inema": "este curso (mapa)" },
+    { "nome": "ACP", "camada": "compra feita pelo agente", "status": "projeto", "o_que": "Agentic Commerce Protocol (OpenAI + Stripe); o ChatGPT foi a primeira plataforma", "fonte": "https://www.agenticcommerce.dev/", "no_inema": "este curso (mapa)" },
+    { "nome": "AP2", "camada": "pagamento autorizado pelo agente", "status": "rascunho", "o_que": "anunciado pelo Google em 16/09/2025; versão 0.2", "fonte": "https://ap2-protocol.org/", "no_inema": "este curso (mapa)" },
+    { "nome": "Web Bot Auth", "camada": "identidade de quem chega", "status": "rascunho", "o_que": "draft-ietf-webbotauth-httpsig-protocol-00 (set/2026), apoiado no RFC 9421; ainda não é RFC", "fonte": "https://datatracker.ietf.org/doc/html/draft-ietf-webbotauth-httpsig-protocol", "no_inema": "curso 4 da Formação WebMCP" }
+  ]
+}

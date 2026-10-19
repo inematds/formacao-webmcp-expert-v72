@@ -1,0 +1,340 @@
+{
+  "slug": "projeto",
+  "num": 8,
+  "menu": "Projeto",
+  "titulo": "Projeto final: seu site + servidor + bateria + relatório",
+  "titulo_curto": "Projeto final e relatório",
+  "minutos": 20,
+  "lead": "O projeto final junta as peças: a página com ferramentas, o servidor MCP com a mesma regra, a bateria congelada, o registro, a vigia e o catálogo aprovado. Um script roda as sete verificações e escreve o relatório datado do site. Você sai com ele e com o plano de manutenção para quando a spec mudar.",
+  "objetivo": "juntar as sete verificações num relatório datado do seu site e sair com o plano de manutenção para quando a spec mudar.",
+  "competencias": [
+    "gerar-relatorio-de-prontidao",
+    "adaptar-o-kit-ao-proprio-site",
+    "planejar-manutencao-com-datas"
+  ],
+  "aprende": [
+    {
+      "icone": "camadas",
+      "t": "O mapa do curso em quatro degraus"
+    },
+    {
+      "icone": "arquivo",
+      "t": "O relatório com as sete verificações"
+    },
+    {
+      "icone": "pasta",
+      "t": "Como levar o kit para o seu site"
+    },
+    {
+      "icone": "calendario",
+      "t": "O plano de manutenção com datas"
+    }
+  ],
+  "hero_alt": "Robô humanoide industrial de visor preto numa bancada escura olhando um monitor com navegador, enquanto uma pessoa revisa um relatório impresso.",
+  "secoes": [
+    {
+      "tipo": "mapa",
+      "titulo": "O mapa do curso",
+      "sub": "Quatro degraus e o que cada um entrega. Clique num exercício para ver o \"pronto quando\".",
+      "degraus": [
+        {
+          "aula": "superficies",
+          "icone": "camadas",
+          "quando": "Dia 1",
+          "titulo": "Três portas",
+          "sub": "uma regra",
+          "saida": "Tela, WebMCP e MCP respondendo igual.",
+          "passo": "A base: uma regra importada pela página e pelo servidor, e a pessoa confirmando nas três portas."
+        },
+        {
+          "aula": "bateria",
+          "icone": "cadeado",
+          "quando": "Dia 2",
+          "titulo": "Bateria",
+          "sub": "congelada",
+          "saida": "24 verificações em quatro modos.",
+          "passo": "Requer o degrau 1. Contrato e casos com hash; a regressão do nome antigo pega."
+        },
+        {
+          "aula": "vigiar",
+          "icone": "relogio",
+          "quando": "Dia 3",
+          "titulo": "Vigia",
+          "sub": "API que muda",
+          "saida": "Base gravada e vigia rodando.",
+          "passo": "Requer o degrau 2. Mudou a fonte: bateria, leitura, correção."
+        },
+        {
+          "aula": "projeto",
+          "icone": "arquivo",
+          "quando": "Dia 4",
+          "titulo": "Relatório",
+          "sub": "seu site",
+          "saida": "RELATORIO-AAAA-MM-DD.md com 7/7.",
+          "passo": "Requer os três. Catálogo aprovado, registro e o relatório do seu site."
+        }
+      ],
+      "resultado": {
+        "titulo": "Ao final da formação",
+        "texto": "Site com ferramentas na página e no servidor, igual sem a API, com bateria, vigia, catálogo e relatório.",
+        "total": "26 exercícios"
+      },
+      "legenda": "Camadas, registro, vizinhos e governança (aulas 1, 3, 5 e 7) entram no relatório e no gerador abaixo."
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "O relatório",
+      "sub": "Roda as sete verificações (aulas 1 a 7) e grava relatorio/RELATORIO-AAAA-MM-DD.md. Leva uns 2 minutos: abre o Chromium várias vezes.",
+      "blocos": [
+        {
+          "rot": "Terminal · relatório final",
+          "icone": "terminal",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/relatorio.mjs; echo \"saída: $?\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Saída capturada (19/10/2026)",
+            "html": "<pre>ok    Camadas (aula 1) · CAMADAS: 8/8 com evidência\nok    Uma ação, três superfícies (aula 2) · SUPERFÍCIES: 3/3 iguais na busca · 3/3 reservas esperaram a pessoa\nok    Registro de chamadas (aula 3) · REGISTRO: 8 chamadas · ok 3 · erro 1 · recusado 2 · cancelado 1 · pediu-pessoa 1 · dado pessoal no registro: não\nok    Bateria congelada (aula 4) · BATERIA: 24/24 ok\nok    Protocolos vizinhos (aula 5) · VIZINHOS: 8 protocolos · 8 decisões · 0 problema(s)\nok    Vigia da spec (aula 6) · VIGIA: 7/7 iguais à base · nada a fazer\nok    Governança (aula 7) · GOVERNANÇA: 0 problema(s)\nRELATÓRIO: 7/7 verificações ok → relatorio/RELATORIO-2026-10-19.md\nsaída: 0</pre><p>A vigia é a única verificação que depende de rede. Sem rede, ela sai com 3 e o relatório marca \"sem conclusão\", não \"ok\".</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Levar o kit para o seu site",
+      "sub": "Na ordem. Cada passo tem o script que prova.",
+      "passos": [
+        {
+          "titulo": "Regra",
+          "sub": "um arquivo",
+          "texto": [
+            "Tire a regra do seu site da tela para um módulo sem DOM, como oficinas.mjs.",
+            "A página e o servidor importam esse módulo. Prova: superficies.mjs."
+          ]
+        },
+        {
+          "titulo": "Portas",
+          "sub": "página e servidor",
+          "texto": [
+            "Troque ferramentas.mjs e servidor/mcp.mjs pelas suas ferramentas, com o registro (observado) nas duas.",
+            "Prova: observar.mjs sem dado pessoal."
+          ]
+        },
+        {
+          "titulo": "Bateria",
+          "sub": "seus casos",
+          "texto": [
+            "Escreva contrato.json e casos.json das suas ferramentas e congele.",
+            "Prova: bateria.mjs nos quatro modos."
+          ]
+        },
+        {
+          "titulo": "Operação",
+          "sub": "catálogo e vigia",
+          "texto": [
+            "governanca.json com dono, data e nível; base da vigia gravada; decisões dos vizinhos.",
+            "Prova: relatorio.mjs com 7/7."
+          ],
+          "exemplo": {
+            "rot": "Lembrete",
+            "texto": "Polyfill só no ensaio, nunca em produção. Token do origin trial com a data de fim (Chrome 156) na agenda."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prática",
+      "sub": "O relatório do kit, o do seu site e o plano.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · O relatório do kit",
+          "min": "5 min",
+          "texto": "Rode o relatório final e abra o arquivo gerado.",
+          "pronto": "<code>node scripts/relatorio.mjs; echo \"saída: $?\"</code> → <code>RELATÓRIO: 7/7 verificações ok → relatorio/RELATORIO-[data de hoje].md</code> e <code>saída: 0</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · O relatório do seu site",
+          "min": "3 h",
+          "dias": "2 dias",
+          "texto": "Numa cópia do kit, siga os quatro passos acima com o seu site. Use DECISOES=vizinhos/meu-site.json para o relatório ler as suas decisões.",
+          "pronto": "Na sua cópia, <code>DECISOES=vizinhos/meu-site.json node scripts/relatorio.mjs; echo \"saída: $?\"</code> → <code>RELATÓRIO: 7/7 verificações ok</code> e <code>saída: 0</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Plano de manutenção",
+          "min": "10 min",
+          "texto": "Gere o plano abaixo e acrescente as datas: próxima vigia, fim do origin trial (Chrome 156) e próxima revisão das decisões dos vizinhos.",
+          "pronto": "Você baixou o plano (.md ou .ics) e ele tem as três datas."
+        }
+      ]
+    },
+    {
+      "tipo": "gerador",
+      "titulo": "Gere o seu plano com datas",
+      "sub": "Escolha a data de início e quanto tempo você tem por semana.",
+      "curso": "WebMCP em produção",
+      "horas_padrao": 4,
+      "degraus": [
+        {
+          "titulo": "Aula 1 · As 8 camadas",
+          "aula": "camadas"
+        },
+        {
+          "titulo": "Aula 2 · Três superfícies",
+          "aula": "superficies"
+        },
+        {
+          "titulo": "Aula 3 · Registro de chamadas",
+          "aula": "observar"
+        },
+        {
+          "titulo": "Aula 4 · Bateria congelada",
+          "aula": "bateria"
+        },
+        {
+          "titulo": "Aula 5 · Protocolos vizinhos",
+          "aula": "vizinhos"
+        },
+        {
+          "titulo": "Aula 6 · Vigia da spec",
+          "aula": "vigiar"
+        },
+        {
+          "titulo": "Aula 7 · Governança",
+          "aula": "governanca"
+        },
+        {
+          "titulo": "Aula 8 · Projeto final",
+          "aula": "projeto"
+        }
+      ],
+      "txt": {
+        "titulo": "Plano — WebMCP em produção",
+        "inicio": "Início",
+        "ritmo": "Ritmo",
+        "termino": "Término previsto",
+        "ate": "até",
+        "pronto": "pronto quando",
+        "semanas": "semanas",
+        "travou": "## O que travou e a regra que criei",
+        "h": "h por semana",
+        "exs": "exercícios"
+      }
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Teste da aula",
+      "sub": "A explicação aparece depois da resposta.",
+      "perguntas": [
+        {
+          "p": "O relatório saiu com 6/7: a vigia marcou \"sem conclusão\". O que isso diz?",
+          "opcoes": [
+            "Que a spec mudou e o site precisa sair do ar.",
+            "Que a bateria passou, mas o servidor MCP caiu.",
+            "Que faltou rede para ler as fontes; repita com rede.",
+            "Que o catálogo tem uma ferramenta sem aprovação."
+          ],
+          "certa": 2,
+          "explica": "Saída 3 da vigia = não leu as fontes. O relatório separa isso de \"ok\" e de \"FALHA\" para ninguém confundir falta de rede com \"nada mudou\".",
+          "ref": "codigo"
+        },
+        {
+          "p": "Qual é o primeiro passo para levar o kit ao seu site?",
+          "opcoes": [
+            "Tirar a regra da tela para um módulo que página e servidor importam.",
+            "Publicar o polyfill no site para que todos os visitantes tenham a API.",
+            "Escrever a bateria antes de saber quais ferramentas existem.",
+            "Gravar a base da vigia antes de ter qualquer ferramenta."
+          ],
+          "certa": 0,
+          "explica": "Sem a regra num lugar só, as portas divergem (aula 2). O polyfill é só para ensaio; bateria e base vêm depois de existir o que testar.",
+          "ref": "passos"
+        },
+        {
+          "p": "Por que o relatório é datado (RELATORIO-AAAA-MM-DD.md)?",
+          "opcoes": [
+            "Porque o GitHub Pages exige data no nome do arquivo.",
+            "Porque o Chrome lê a data do arquivo para liberar o token do origin trial.",
+            "Porque o MCP 2026-07-28 pede data em cada resposta.",
+            "Porque vale para a spec e as versões daquele dia; depois, rode de novo."
+          ],
+          "certa": 3,
+          "explica": "O WebMCP é rascunho e muda; o relatório é a foto de um dia, com spec de 16/10/2026 e MCP 2026-07-28. A vigia diz quando a foto envelheceu.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Qual curso da formação ensina a testar o site com um agente de navegador de verdade?",
+          "opcoes": [
+            "Curso 1, servidor MCP do seu serviço.",
+            "Curso 3, agentes de navegador.",
+            "Curso 4, segurança entre site e agente.",
+            "Curso 0, base: como os agentes usam um site."
+          ],
+          "certa": 1,
+          "explica": "O curso 3 cobre Playwright MCP, Chrome DevTools MCP e a bateria de tarefas com agente. A bateria daqui chama as ferramentas direto, sem modelo.",
+          "ref": "mapa"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Em três frases",
+      "itens": [
+        {
+          "t": "Projeto",
+          "texto": "Página, servidor, bateria, registro, vigia e catálogo, provados por um relatório datado."
+        },
+        {
+          "t": "Seu site",
+          "texto": "Regra num módulo, portas finas, casos congelados e operação com dono."
+        },
+        {
+          "t": "Manutenção",
+          "texto": "A spec vai mudar: vigia, bateria, leitura e relatório de novo."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "A Formação WebMCP completa",
+      "links": [
+        {
+          "t": "Curso 0 · Base: como os agentes usam um site hoje",
+          "href": "https://inematds.github.io/formacao-webmcp-base-v72/",
+          "icone": "lupa"
+        },
+        {
+          "t": "Curso 1 · Servidor MCP do seu serviço",
+          "href": "https://inematds.github.io/formacao-webmcp-mcp-v72/",
+          "icone": "nuvem"
+        },
+        {
+          "t": "Curso 2 · WebMCP no seu site",
+          "href": "https://inematds.github.io/formacao-webmcp-site-v72/",
+          "icone": "chip"
+        },
+        {
+          "t": "Curso 3 · Agentes de navegador",
+          "href": "https://inematds.github.io/formacao-webmcp-navegador-v72/",
+          "icone": "robo"
+        },
+        {
+          "t": "Curso 4 · Segurança entre site e agente",
+          "href": "https://inematds.github.io/formacao-webmcp-seguranca-v72/",
+          "icone": "cadeado"
+        },
+        {
+          "t": "Área WebMCP: diagnóstico e formação",
+          "href": "https://eventos.inema.pro/webmcp/",
+          "icone": "camadas"
+        }
+      ]
+    }
+  ]
+}

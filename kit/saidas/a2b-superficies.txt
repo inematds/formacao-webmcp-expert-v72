@@ -1,0 +1,11 @@
+== Chromium 156.0.8078.4 (Playwright) · modo: nativo · MCP 2026-07-28 (SDK 2.3.1)
+buscar_oficinas {"tema":"html","apenasComVaga":true}
+  html   → of-101
+  webmcp → of-101
+  mcp    → of-101
+reservar_vaga of-101
+  html   → painel Confirmar na página → reservado
+  webmcp → consequentialHint + Confirmar na página → reservado
+  mcp    → MRTR: o cliente perguntou "Reservar "HTML semântico na prática" (2026-11-04) para Duda?" → reservado
+SUPERFÍCIES: 3/3 iguais na busca · 3/3 reservas esperaram a pessoa
+saída: 0

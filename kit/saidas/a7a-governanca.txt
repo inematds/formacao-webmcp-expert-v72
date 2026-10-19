@@ -1,0 +1,8 @@
+catálogo 2026-10-19.1 · 4 ferramentas (4 ativas) · código: 4 na página, 2 no servidor
+GOVERNANÇA: 0 problema(s)
+saída: 0
+PROBLEMA reservar_vaga: tem consequência e está no nível 3 (máximo 1: propõe e espera a pessoa)
+PROBLEMA minhas_reservas: está no código (webmcp) mas não no catálogo aprovado
+PROBLEMA listar_comentarios: sem data de aprovação (AAAA-MM-DD)
+GOVERNANÇA: 3 problema(s)
+saída: 1

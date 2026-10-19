@@ -1,0 +1,12 @@
+{
+  "site": "Exemplo com três erros comuns",
+  "decisoes": [
+    { "nome": "WebMCP", "decisao": "adotar", "motivo": "vai ser o padrão da web" },
+    { "nome": "MCP", "decisao": "adotar", "motivo": "o mesmo serviço atende agentes fora do navegador" },
+    { "nome": "NLWeb", "decisao": "esperar", "motivo": "a agenda é pequena; as ferramentas já respondem" },
+    { "nome": "llms.txt", "decisao": "adotar", "motivo": "sobe o site no ranking das IAs", "revisar_em": "2027-01-15", "fallback": "nenhum: é só um arquivo" },
+    { "nome": "A2A", "decisao": "nao-se-aplica", "motivo": "o site não tem agente próprio para conversar com outro" },
+    { "nome": "ACP", "decisao": "nao-se-aplica", "motivo": "as oficinas são gratuitas: não há compra" },
+    { "nome": "AP2", "decisao": "nao-se-aplica", "motivo": "nenhum pagamento passa pelo site" }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "spec_webmcp": "2026-10-16",
+  "protocolo_mcp": "2026-07-28",
+  "webmcp": {
+    "buscar_oficinas": ["readOnlyHint"],
+    "listar_comentarios": ["readOnlyHint", "untrustedContentHint"],
+    "minhas_reservas": ["readOnlyHint"],
+    "reservar_vaga": ["consequentialHint"]
+  },
+  "mcp": {
+    "buscar_oficinas": ["readOnlyHint"],
+    "reservar_vaga": []
+  }
+}

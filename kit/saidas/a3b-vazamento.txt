@@ -1,0 +1,2 @@
+REGISTRO: 8 chamadas · ok 3 · erro 1 · recusado 2 · cancelado 1 · pediu-pessoa 1 · dado pessoal no registro: SIM
+saída: 1

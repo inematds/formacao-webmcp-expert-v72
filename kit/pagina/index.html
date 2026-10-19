@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agenda de oficinas (exemplo do curso WebMCP em produção)</title>
+  <!-- Origin trial do Chrome (149 a 156): cole aqui o token do SEU domínio. Em localhost use a flag. -->
+  <!-- <meta http-equiv="origin-trial" content="SEU_TOKEN"> -->
+  <style>
+    body { font: 16px/1.5 system-ui, sans-serif; margin: 0 auto; max-width: 46rem; padding: 1rem; background: #0c0c10; color: #eee; }
+    a { color: #FACC15; } fieldset { border: 1px solid #333; border-radius: 8px; }
+    label { display: block; margin: .4rem 0 .1rem; } select, input, button { font: inherit; padding: .35rem .5rem; }
+    button { cursor: pointer; } li { margin: .25rem 0; } #aviso { color: #aaa; font-size: .9rem; }
+    #confirmar[hidden] { display: none; } #confirmar { border: 2px solid #FACC15; padding: .8rem; border-radius: 8px; margin: 1rem 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Agenda de oficinas</h1>
+    <p id="aviso" role="status">Carregando…</p>
+  </header>
+  <main>
+    <form id="busca" aria-labelledby="busca-titulo">
+      <h2 id="busca-titulo">Buscar oficinas</h2>
+      <label for="tema">Tema</label>
+      <select id="tema" name="tema">
+        <option value="">Todos</option>
+        <option value="html">HTML</option>
+        <option value="javascript">JavaScript</option>
+        <option value="webmcp">WebMCP</option>
+        <option value="mcp">MCP</option>
+      </select>
+      <label><input type="checkbox" id="comvaga" name="apenasComVaga"> Só com vaga</label>
+      <p><button type="submit">Buscar</button></p>
+    </form>
+
+    <section aria-labelledby="res-titulo">
+      <h2 id="res-titulo">Resultados</h2>
+      <ul id="resultados"></ul>
+    </section>
+
+    <section id="confirmar" hidden aria-live="assertive" aria-labelledby="conf-titulo">
+      <h2 id="conf-titulo">Confirmar reserva</h2>
+      <p id="conf-texto"></p>
+      <button type="button" id="conf-sim">Confirmar</button>
+      <button type="button" id="conf-nao">Recusar</button>
+    </section>
+
+    <section aria-labelledby="minhas-titulo">
+      <h2 id="minhas-titulo">Minhas reservas</h2>
+      <label for="nome">Seu nome</label>
+      <input id="nome" name="nome" autocomplete="name" value="">
+      <ul id="reservas"><li>Nenhuma reserva.</li></ul>
+    </section>
+  </main>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>

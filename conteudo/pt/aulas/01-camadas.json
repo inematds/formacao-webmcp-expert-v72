@@ -1,0 +1,302 @@
+{
+  "slug": "camadas",
+  "num": 1,
+  "menu": "Camadas",
+  "titulo": "Arquitetura em camadas revista com o estado de out/2026",
+  "titulo_curto": "As 8 camadas em 2026",
+  "minutos": 14,
+  "lead": "Um site pronto para agentes não é uma API: são oito camadas, das que descrevem o site às que o protegem. A área WebMCP já tinha esse mapa; aqui ele volta com o status de cada camada em 19/10/2026 e um script que procura no seu código a evidência de cada uma.",
+  "objetivo": "revisar as 8 camadas com o status de 19/10/2026 e achar no código a evidência de cada uma, no kit e no seu projeto.",
+  "competencias": [
+    "mapear-camadas-do-site",
+    "separar-estavel-de-rascunho",
+    "achar-evidencia-no-codigo"
+  ],
+  "aprende": [
+    {
+      "icone": "camadas",
+      "t": "As 8 camadas e o que cada uma responde"
+    },
+    {
+      "icone": "calendario",
+      "t": "O que é estável e o que é rascunho em 19/10/2026"
+    },
+    {
+      "icone": "lupa",
+      "t": "Procurar evidência de cada camada no código"
+    },
+    {
+      "icone": "seta",
+      "t": "Qual curso da formação é dono de cada camada"
+    }
+  ],
+  "hero_alt": "Pilha de oito placas finas de vidro escuro com espaçadores metálicos sobre uma mesa, com um monitor desfocado ao fundo.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "As 8 camadas, de baixo para cima",
+      "sub": "As quatro primeiras descrevem o site; as quatro últimas o protegem. Clique em cada uma.",
+      "estilo": "escada",
+      "nos": [
+        {
+          "icone": "lupa",
+          "titulo": "Descoberta",
+          "sub": "acha o site",
+          "detalhe": "robots.txt, sitemap, dados estruturados. Estável. O llms.txt é proposta sem efeito medido em citação. Dono: Formação inemaSEO."
+        },
+        {
+          "icone": "chip",
+          "titulo": "Ferramentas",
+          "sub": "o que faz",
+          "detalhe": "document.modelContext.registerTool: rascunho do CG de 16/10/2026, origin trial no Chrome 149 a 156. O formulário como ferramenta ficou fora da spec. Dono: curso 2."
+        },
+        {
+          "icone": "arquivo",
+          "titulo": "Contrato",
+          "sub": "como chama",
+          "detalhe": "Nome, descrição e JSON Schema que dizem o efeito real. Prática estável, vale no WebMCP e no MCP. Donos: cursos 1 e 2."
+        },
+        {
+          "icone": "x",
+          "titulo": "Estado",
+          "sub": "e o erro",
+          "detalhe": "Erro de regra volta como dado ({ erro }), para o agente corrigir. No Chromium 156, um throw chega só como UnknownError. Dono: curso 2."
+        },
+        {
+          "icone": "portao",
+          "titulo": "Controle",
+          "sub": "quem confirma",
+          "forte": true,
+          "detalhe": "Ação com consequência espera a pessoa. A confirmação é prática estável; a anotação consequentialHint é rascunho. Donos: cursos 2 e 4."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "Permissões",
+          "sub": "quem chama",
+          "detalhe": "Por padrão, só a própria origem vê a ferramenta; exposedTo e iframes são rascunho (curso 4). O catálogo aprovado com nível de autonomia é a aula 7."
+        },
+        {
+          "icone": "nuvem",
+          "titulo": "Backend",
+          "sub": "a verdade",
+          "detalhe": "A regra mora num lugar só e serve a tela, o WebMCP e o MCP. MCP na revisão 2026-07-28, estável. Curso 1 e aula 2 deste curso."
+        },
+        {
+          "icone": "grafico",
+          "titulo": "Evals",
+          "sub": "funciona?",
+          "forte": true,
+          "detalhe": "Registro de chamadas, bateria congelada, vigia de spec e relatório: aulas 3, 4, 6 e 8. Evals a fundo: LOOP-R Engenharia."
+        }
+      ],
+      "legenda": "Estrutura da área WebMCP (§04), com o status relido na spec, no Chrome Status e no MCP em 19/10/2026."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "O que mudou no mapa antigo",
+      "sub": "A área tinha as camadas certas; quatro rótulos ficaram velhos.",
+      "passos": [
+        {
+          "titulo": "Formulário",
+          "sub": "fora da spec",
+          "texto": [
+            "O mapa antigo punha ferramentas \"declarativas, a partir de formulários\" lado a lado com as imperativas.",
+            "Em 16/10/2026 a API declarativa está fora da spec: só o Chrome implementa, no trial. Experimental em 19/10/2026."
+          ]
+        },
+        {
+          "titulo": "Descoberta",
+          "sub": "llms.txt",
+          "texto": [
+            "O llms.txt aparecia como item a publicar.",
+            "Hoje é proposta sem efeito medido em citação. A decisão de publicar fica com a Formação inemaSEO."
+          ]
+        },
+        {
+          "titulo": "Backend",
+          "sub": "MCP novo",
+          "texto": [
+            "O lado MCP da formação antiga era anterior à revisão 2026-07-28.",
+            "Agora: sem initialize e sem sessão, server/discover e confirmação por MRTR."
+          ]
+        },
+        {
+          "titulo": "Quem ensina",
+          "sub": "6 cursos",
+          "texto": [
+            "Antes, as camadas iam para fases (Builder, Integrator, Agent Developer, Expert).",
+            "Agora vão para os 6 cursos por tema; o script mostra o dono de cada camada."
+          ],
+          "exemplo": {
+            "rot": "Regra",
+            "texto": "Status com data. Se a data envelheceu, releia a fonte antes de confiar."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Procurar a evidência de cada camada",
+      "sub": "camadas.mjs lê os arquivos da pasta (sem node_modules) e procura um sinal de cada camada. Mede presença, não qualidade.",
+      "blocos": [
+        {
+          "rot": "Terminal · as 8 camadas no kit",
+          "icone": "terminal",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/camadas.mjs; echo \"saída: $?\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Saída capturada (19/10/2026)",
+            "html": "<pre>camadas · ~/projetos/formacao-webmcp-expert-v72/kit · 31 arquivos lidos\nok    1 Descoberta               pagina/robots.txt\n        estável (robots, sitemap); llms.txt sem efeito medido · onde: Formação inemaSEO\nok    2 Ferramentas              pagina/ferramentas.mjs\n        rascunho CG de 16/10/2026 (document.modelContext) · onde: curso 2\nok    3 Contrato                 pagina/ferramentas.mjs\n        estável como prática (nome, descrição, JSON Schema) · onde: cursos 1 e 2\nok    4 Estado e erros           pagina/app.mjs\n        estável como prática (erro de regra volta como dado) · onde: curso 2\nok    5 Controle                 pagina/ferramentas.mjs\n        anotação consequentialHint: rascunho; confirmação: prática estável · onde: cursos 2 e 4\nok    6 Permissões               pagina/governanca.json\n        exposedTo e iframes: rascunho; catálogo aprovado: prática · onde: curso 4 + este curso\nok    7 Backend e MCP            servidor/mcp.mjs\n        MCP 2026-07-28 estável; mesma regra das duas pontas · onde: curso 1 + este curso\nok    8 Evals e observabilidade  bateria/casos.json\n        prática estável: bateria congelada e registro · onde: este curso + LOOP-R Eng.\nCAMADAS: 8/8 com evidência\nsaída: 0</pre><p>Cada linha diz onde achou o sinal, o status da camada em 19/10/2026 e o curso dono.</p>"
+          },
+          {
+            "rot": "Erro comum: pasta errada",
+            "html": "<pre>CAMADAS: 0/8 com evidência\nsaída: 1</pre><p>Rodar numa pasta sem o código (a do build, uma pasta vazia) dá 0/8 e saída 1. O critério falha antes do trabalho: é assim que ele vale como prova.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "O ensaio da pasta vazia",
+      "sub": "Mesma ferramenta numa pasta sem nada: o critério tem de falhar.",
+      "blocos": [
+        {
+          "rot": "Terminal · pasta vazia",
+          "icone": "x",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nE=${TMPDIR:-/tmp}/ensaio-webmcp-expert/a1; rm -rf $E; mkdir -p $E\nnode scripts/camadas.mjs $E | tail -1; echo \"saída: ${PIPESTATUS[0]}\""
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prática",
+      "sub": "O kit primeiro, depois o seu projeto. Cada exercício termina num pronto quando.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · As camadas no kit",
+          "min": "5 min",
+          "texto": "Instale o kit (aula 2, bloco de instalação) e rode o bloco das camadas.",
+          "pronto": "<code>node scripts/camadas.mjs; echo \"saída: $?\"</code> → <code>CAMADAS: 8/8 com evidência</code> e <code>saída: 0</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · O critério falha antes",
+          "min": "2 min",
+          "texto": "Rode o ensaio da pasta vazia.",
+          "pronto": "O bloco imprime <code>CAMADAS: 0/8 com evidência</code> e <code>saída: 1</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · As camadas do seu projeto",
+          "min": "15 min",
+          "texto": "Rode o script na pasta do seu site e anote, para cada camada com \"falta\", a aula ou o curso que a resolve.",
+          "pronto": "<code>node scripts/camadas.mjs [pasta do seu site]</code> imprime a linha <code>CAMADAS: N/8 com evidência</code>, e o arquivo camadas-[seu site].md tem uma linha por camada que falta."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Teste da aula",
+      "sub": "A explicação aparece depois da resposta.",
+      "perguntas": [
+        {
+          "p": "Em 19/10/2026, qual destas camadas é rascunho e não prática estável?",
+          "opcoes": [
+            "Confirmar com a pessoa antes de uma ação com consequência.",
+            "Registrar ferramentas com document.modelContext na página.",
+            "Descrever a ferramenta com nome, descrição e JSON Schema.",
+            "Servir a mesma regra pelo servidor MCP na revisão 2026-07-28."
+          ],
+          "certa": 1,
+          "explica": "document.modelContext é rascunho de Community Group (16/10/2026), com origin trial no Chrome 149–156. Confirmação e contrato são práticas estáveis; o MCP 2026-07-28 é a revisão atual.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "O script deu 8/8 no seu projeto. O que isso prova?",
+          "opcoes": [
+            "Que o site está pronto para produção e protegido contra injeção.",
+            "Que as ferramentas funcionam nos navegadores dos visitantes.",
+            "Que existe no código um sinal de cada camada, não a qualidade.",
+            "Que o site vai aparecer mais nas respostas das IAs."
+          ],
+          "certa": 2,
+          "explica": "camadas.mjs mede presença de evidência. Funcionar é a bateria (aula 4); segurança é o curso 4; aparecer nas IAs é da Formação inemaSEO e não é efeito do WebMCP.",
+          "ref": "codigo"
+        },
+        {
+          "p": "O mapa antigo listava ferramentas \"declarativas, a partir de formulários\". O que mudou?",
+          "opcoes": [
+            "Ficaram fora da spec de 16/10/2026; só o Chrome implementa, no trial.",
+            "Viraram a forma oficial e substituíram o registerTool.",
+            "Foram removidas do Chrome no origin trial 149–156.",
+            "Passaram a exigir um servidor MCP para funcionar."
+          ],
+          "certa": 0,
+          "explica": "A API declarativa está em \"Future Exploration… not part of the specification\" e num explainer separado; o Chrome documenta e implementa no trial. Experimental em 19/10/2026.",
+          "ref": "passos"
+        },
+        {
+          "p": "Em qual camada fica a decisão de publicar o llms.txt?",
+          "opcoes": [
+            "Ferramentas, porque o agente lê o arquivo como ferramenta.",
+            "Evals, porque o arquivo mede o desempenho do agente.",
+            "Permissões, porque o arquivo diz quem pode chamar.",
+            "Descoberta, com a decisão na Formação inemaSEO."
+          ],
+          "certa": 3,
+          "explica": "llms.txt é descoberta: um arquivo público. É proposta sem efeito medido em citação; quem decide e ensina é a Formação inemaSEO.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Em três frases",
+      "itens": [
+        {
+          "t": "Camadas",
+          "texto": "Quatro descrevem o site, quatro o protegem; nenhuma sozinha é \"pronto para agentes\"."
+        },
+        {
+          "t": "Datas",
+          "texto": "Cada camada tem status com data: rascunho, proposta ou estável em 19/10/2026."
+        },
+        {
+          "t": "Evidência",
+          "texto": "camadas.mjs acha o sinal de cada camada no código; a prova de que funciona vem nas aulas seguintes."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir além",
+      "links": [
+        {
+          "t": "Área WebMCP: a arquitetura em 8 camadas (§04)",
+          "href": "https://eventos.inema.pro/webmcp/",
+          "icone": "camadas"
+        },
+        {
+          "t": "Spec WebMCP (Draft Community Group Report)",
+          "href": "https://webmachinelearning.github.io/webmcp/",
+          "icone": "arquivo"
+        },
+        {
+          "t": "Chrome Status: WebMCP",
+          "href": "https://chromestatus.com/feature/5117755740913664",
+          "icone": "calendario"
+        },
+        {
+          "t": "Curso 0: como os agentes usam um site hoje",
+          "href": "https://inematds.github.io/formacao-webmcp-base-v72/",
+          "icone": "seta"
+        }
+      ]
+    }
+  ]
+}

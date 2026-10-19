@@ -1,0 +1,11 @@
+ok    [sem] fallback: página sem WebMCP e sem erro de JavaScript · sem
+ok    [sem] fallback: a pessoa reserva pelo formulário
+FALHA [nativo] contrato: 4 ferramentas com as anotações congeladas · 0 registradas
+FALHA [nativo] c1 buscar_oficinas · ferramenta ausente
+FALHA [nativo] c2 buscar_oficinas · ferramenta ausente
+FALHA [nativo] c3 reservar_vaga · ferramenta ausente
+FALHA [nativo] c4 reservar_vaga · ferramenta ausente
+FALHA [nativo] c5 reservar_vaga · ferramenta ausente
+FALHA [nativo] c6 listar_comentarios · ferramenta ausente
+BATERIA: 3/10 ok
+saída: 1

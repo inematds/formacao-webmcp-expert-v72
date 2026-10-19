@@ -1,0 +1,316 @@
+{
+  "slug": "vizinhos",
+  "num": 5,
+  "menu": "Vizinhos",
+  "titulo": "Protocolos vizinhos como mapa: A2A, ACP, AP2, NLWeb, llms.txt — o que é rascunho",
+  "titulo_curto": "Protocolos vizinhos",
+  "minutos": 14,
+  "lead": "Toda semana aparece uma sigla nova prometendo deixar o site \"pronto para IA\". Quase todas estão em rascunho ou proposta, e cada uma vive numa camada diferente. Nesta aula você põe cada protocolo vizinho no mapa, com status e data, e decide para o seu site: adotar, esperar ou não se aplica.",
+  "objetivo": "situar cada protocolo vizinho na camada certa com status datado e decidir adotar, esperar ou não se aplica, com motivo.",
+  "competencias": [
+    "situar-protocolo-na-camada",
+    "ler-status-com-data",
+    "decidir-adocao-com-motivo"
+  ],
+  "aprende": [
+    {
+      "icone": "camadas",
+      "t": "Em que camada cada sigla mora"
+    },
+    {
+      "icone": "calendario",
+      "t": "Proposta, rascunho, projeto e estável, com data"
+    },
+    {
+      "icone": "alvo",
+      "t": "Adotar, esperar ou não se aplica, com motivo"
+    },
+    {
+      "icone": "x",
+      "t": "Os motivos que não valem (ranking, \"vai virar padrão\")"
+    }
+  ],
+  "hero_alt": "Mapa de papel escuro com alfinetes e fios ligando pontos, ao lado de uma fila de conectores de cabos diferentes.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Cada sigla na sua camada",
+      "sub": "Status lido nas fontes em 19/10/2026. Clique em cada camada.",
+      "nos": [
+        {
+          "icone": "lupa",
+          "titulo": "Descoberta",
+          "sub": "llms.txt",
+          "detalhe": "Proposta de 03/09/2024, modificada em 10/08/2026. Sem efeito medido em citação; relatado pela SE Ranking (~10% de adoção, nenhuma correlação com citações), não confirmado em 19/10/2026. Decisão: Formação inemaSEO."
+        },
+        {
+          "icone": "chip",
+          "titulo": "Página",
+          "sub": "WebMCP",
+          "detalhe": "Rascunho do CG de 16/10/2026; origin trial no Chrome 149–156. Cursos 2 e 5."
+        },
+        {
+          "icone": "nuvem",
+          "titulo": "Servidor",
+          "sub": "MCP",
+          "forte": true,
+          "detalhe": "Revisão 2026-07-28, a atual. O único estável do mapa. Curso 1."
+        },
+        {
+          "icone": "chat",
+          "titulo": "Perguntas",
+          "sub": "NLWeb",
+          "detalhe": "Projeto aberto da Microsoft: cada instância é também um servidor MCP com o método ask e respostas em Schema.org. Sem contagem pública de adoção."
+        },
+        {
+          "icone": "robo",
+          "titulo": "Entre agentes",
+          "sub": "A2A",
+          "detalhe": "Agente conversa com agente. Projeto na Linux Foundation; mais de 150 organizações em 09/04/2026. Só faz sentido se o seu site tem um agente próprio."
+        },
+        {
+          "icone": "marca",
+          "titulo": "Compra",
+          "sub": "ACP · AP2",
+          "detalhe": "ACP (OpenAI + Stripe): o ChatGPT foi a primeira plataforma. AP2 (Google, 16/09/2025): versão 0.2; doação à FIDO Alliance relatada pela cobertura, não confirmada em 19/10/2026."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "Identidade",
+          "sub": "Web Bot Auth",
+          "detalhe": "Quem chega é quem diz ser? draft-ietf-webbotauth-httpsig-protocol-00 (set/2026), ainda não é RFC. Dono: curso 4."
+        }
+      ],
+      "legenda": "Nenhum destes é fator de ranking. Citação nas IAs é assunto da Formação inemaSEO."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Como ler o status",
+      "sub": "O rótulo diz quanto você pode apostar.",
+      "passos": [
+        {
+          "titulo": "Proposta",
+          "sub": "uma ideia",
+          "texto": [
+            "Alguém publicou o formato; ninguém se comprometeu a ler.",
+            "Ex.: llms.txt. Custa pouco, mas não prometa efeito."
+          ]
+        },
+        {
+          "titulo": "Rascunho",
+          "sub": "pode mudar",
+          "texto": [
+            "Documento de grupo (CG, IETF) em andamento. A API já mudou uma vez (navigator → document).",
+            "Adotar = data de revisão + fallback, sempre."
+          ]
+        },
+        {
+          "titulo": "Projeto",
+          "sub": "código aberto",
+          "texto": [
+            "Tem implementação e organização por trás (Linux Foundation, empresa).",
+            "Estável não é: confira a versão no dia em que adotar."
+          ]
+        },
+        {
+          "titulo": "Estável",
+          "sub": "versionado",
+          "texto": [
+            "Revisão publicada e versionada, com mudança anunciada (MCP 2026-07-28).",
+            "Mesmo assim, fixe a versão do SDK e rode a bateria quando subir."
+          ],
+          "exemplo": {
+            "rot": "Regra do script",
+            "texto": "Adotar algo que não é estável pede revisar_em (data) e fallback."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "As decisões do site de exemplo",
+      "sub": "Uma decisão por protocolo do mapa, com motivo. Adotar o que é rascunho leva data de revisão e fallback.",
+      "blocos": [
+        {
+          "rot": "Arquivo · kit/vizinhos/agenda-oficinas.json",
+          "icone": "arquivo",
+          "conteudo": "{\n  \"site\": \"Agenda de oficinas (exemplo do kit)\",\n  \"decisoes\": [\n    { \"nome\": \"WebMCP\", \"decisao\": \"adotar\", \"motivo\": \"a página já tem as ferramentas, com detecção e fallback\", \"revisar_em\": \"2027-01-15\", \"fallback\": \"formulário da página\" },\n    { \"nome\": \"MCP\", \"decisao\": \"adotar\", \"motivo\": \"o mesmo serviço atende agentes fora do navegador\" },\n    { \"nome\": \"NLWeb\", \"decisao\": \"esperar\", \"motivo\": \"a agenda é pequena; as ferramentas já respondem\" },\n    { \"nome\": \"llms.txt\", \"decisao\": \"esperar\", \"motivo\": \"sem efeito medido; a decisão é da Formação inemaSEO\" },\n    { \"nome\": \"A2A\", \"decisao\": \"nao-se-aplica\", \"motivo\": \"o site não tem agente próprio para conversar com outro\" },\n    { \"nome\": \"ACP\", \"decisao\": \"nao-se-aplica\", \"motivo\": \"as oficinas são gratuitas: não há compra\" },\n    { \"nome\": \"AP2\", \"decisao\": \"nao-se-aplica\", \"motivo\": \"nenhum pagamento passa pelo site\" },\n    { \"nome\": \"Web Bot Auth\", \"decisao\": \"esperar\", \"motivo\": \"rascunho no IETF; rever quando o curso 4 for aplicado ao site\" }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Conferir as decisões contra o mapa",
+      "sub": "vizinhos.mjs lê o mapa datado (vizinhos/mapa.json, com a fonte de cada linha) e o seu arquivo de decisões.",
+      "blocos": [
+        {
+          "rot": "Terminal · decisões do exemplo",
+          "icone": "terminal",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/vizinhos.mjs; echo \"saída: $?\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Saída capturada (19/10/2026)",
+            "html": "<pre>mapa lido em 19/10/2026 · decisões de: Agenda de oficinas (exemplo do kit)\n  WebMCP        rascunho  adotar\n  MCP           estavel   adotar\n  NLWeb         projeto   esperar\n  llms.txt      proposta  esperar\n  A2A           projeto   nao-se-aplica\n  ACP           projeto   nao-se-aplica\n  AP2           rascunho  nao-se-aplica\n  Web Bot Auth  rascunho  esperar\nVIZINHOS: 8 protocolos · 8 decisões · 0 problema(s)\nsaída: 0</pre><p>Oficinas gratuitas: ACP e AP2 não se aplicam. Web Bot Auth espera o curso 4.</p>"
+          },
+          {
+            "rot": "Erro comum: motivo de hype",
+            "html": "<pre>PROBLEMA WebMCP: motivo promete ranking ou padrão (\"vai ser o padrão da web\")\nPROBLEMA WebMCP: adotar algo em rascunho pede revisar_em (AAAA-MM-DD) e fallback\nPROBLEMA llms.txt: motivo promete ranking ou padrão (\"sobe o site no ranking das IAs\")\nPROBLEMA Web Bot Auth: sem decisão\nVIZINHOS: 8 protocolos · 7 decisões · 4 problema(s)\nsaída: 1</pre><p>\"Vai ser o padrão da web\" e \"sobe o site no ranking das IAs\" não são motivos: nada no mapa é isso. Adotar WebMCP sem data de revisão e sem fallback também reprova.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "O ensaio das decisões ruins",
+      "sub": "O arquivo vizinhos/ruim.json tem quatro problemas comuns.",
+      "blocos": [
+        {
+          "rot": "Terminal · decisões ruins",
+          "icone": "x",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/vizinhos.mjs vizinhos/ruim.json | grep -E \"PROBLEMA|VIZINHOS\"; echo \"saída: ${PIPESTATUS[0]}\""
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prática",
+      "sub": "O exemplo, o ruim e as decisões do seu site.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · O mapa do exemplo",
+          "min": "3 min",
+          "texto": "Rode o bloco das decisões do exemplo.",
+          "pronto": "<code>node scripts/vizinhos.mjs; echo \"saída: $?\"</code> → <code>VIZINHOS: 8 protocolos · 8 decisões · 0 problema(s)</code> e <code>saída: 0</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · O ruim reprova",
+          "min": "3 min",
+          "texto": "Rode o ensaio das decisões ruins e leia os quatro problemas.",
+          "pronto": "O bloco imprime <code>VIZINHOS: 8 protocolos · 7 decisões · 4 problema(s)</code> e <code>saída: 1</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · As decisões do seu site",
+          "min": "20 min",
+          "texto": "Copie vizinhos/agenda-oficinas.json para vizinhos/meu-site.json e decida cada protocolo para o seu site, com motivo seu. Antes, abra a fonte de cada linha do mapa e confira se o status mudou desde 19/10/2026.",
+          "pronto": "<code>node scripts/vizinhos.mjs vizinhos/meu-site.json; echo \"saída: $?\"</code> → <code>0 problema(s)</code> e <code>saída: 0</code>."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Teste da aula",
+      "sub": "A explicação aparece depois da resposta.",
+      "perguntas": [
+        {
+          "p": "Qual protocolo do mapa estava estável em 19/10/2026?",
+          "opcoes": [
+            "WebMCP, com origin trial no Chrome 149–156.",
+            "Web Bot Auth, publicado como draft no IETF.",
+            "llms.txt, modificado em 10/08/2026.",
+            "MCP, na revisão 2026-07-28."
+          ],
+          "certa": 3,
+          "explica": "O MCP tem revisão versionada e publicada. WebMCP e Web Bot Auth são rascunhos; llms.txt é proposta.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "As oficinas do site são gratuitas. O que fazer com ACP e AP2?",
+          "opcoes": [
+            "Adotar os dois agora, para o site estar pronto quando houver venda.",
+            "Marcar como não se aplica: nenhum pagamento passa pelo site.",
+            "Esperar o AP2 virar RFC e adotar só ele.",
+            "Publicar um llms.txt no lugar dos dois."
+          ],
+          "certa": 1,
+          "explica": "São camadas de compra e pagamento. Sem compra no site, não se aplicam; se um dia houver venda, a decisão volta com a data do dia.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Por que \"sobe o site no ranking das IAs\" reprova como motivo para adotar llms.txt?",
+          "opcoes": [
+            "Porque não há efeito medido; citação nas IAs é tema da inemaSEO.",
+            "Porque o llms.txt só funciona em sites com WebMCP ativo.",
+            "Porque o script não aceita motivo com mais de cinco palavras seguidas.",
+            "Porque o llms.txt foi removido da proposta em 2026."
+          ],
+          "certa": 0,
+          "explica": "A proposta existe (modificada em 10/08/2026), mas não há efeito medido em citação. Prometer ranking é exatamente o que a formação evita.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Você vai adotar o WebMCP no seu site. O que o script exige além do motivo?",
+          "opcoes": [
+            "O número da versão do Chrome estável que traz a API.",
+            "Um servidor A2A para falar com outros agentes.",
+            "Uma data de revisão e o fallback para quem não tem a API.",
+            "A posição do Safari e do Firefox sobre a API."
+          ],
+          "certa": 2,
+          "explica": "Rascunho pode mudar: revisar_em (AAAA-MM-DD) e fallback. Não há data de Chrome estável anunciada, e as posições dos navegadores são contexto (curso 2), não requisito.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Em três frases",
+      "itens": [
+        {
+          "t": "Mapa",
+          "texto": "Cada sigla mora numa camada: descoberta, página, servidor, perguntas, agentes, compra, identidade."
+        },
+        {
+          "t": "Status",
+          "texto": "Proposta, rascunho, projeto ou estável, sempre com a data em que você leu."
+        },
+        {
+          "t": "Decisão",
+          "texto": "Adotar, esperar ou não se aplica, com motivo; rascunho adotado leva data e fallback."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir além",
+      "links": [
+        {
+          "t": "NLWeb (Microsoft)",
+          "href": "https://github.com/microsoft/NLWeb",
+          "icone": "git"
+        },
+        {
+          "t": "llms.txt",
+          "href": "https://llmstxt.org/",
+          "icone": "arquivo"
+        },
+        {
+          "t": "Agentic Commerce Protocol",
+          "href": "https://www.agenticcommerce.dev/",
+          "icone": "marca"
+        },
+        {
+          "t": "AP2",
+          "href": "https://ap2-protocol.org/",
+          "icone": "marca"
+        },
+        {
+          "t": "Web Bot Auth (IETF)",
+          "href": "https://datatracker.ietf.org/doc/html/draft-ietf-webbotauth-httpsig-protocol",
+          "icone": "cadeado"
+        },
+        {
+          "t": "Formação inemaSEO: citação nas IAs",
+          "href": "https://inematds.github.io/formacao-inemaseo-ias-v72/",
+          "icone": "lupa"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+Cloning into…
+(captura pendente: depois do push)
+saída: 0
