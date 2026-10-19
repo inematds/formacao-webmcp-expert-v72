@@ -1,0 +1,305 @@
+{
+  "slug": "vigiar",
+  "num": 6,
+  "menu": "Vigía",
+  "titulo": "Vivir con una API que cambia: vigilar la spec, Chrome Status y el changelog de MCP",
+  "titulo_curto": "Vigilar la API que cambia",
+  "minutos": 15,
+  "lead": "La API de WebMCP ya cambió de lugar una vez: de navigator a document. Va a cambiar de nuevo antes de cualquier versión estable. En vez de enterarte por el visitante, guarda lo que decían las fuentes el día en que pasó la batería y deja que un script compare. ¿Cambió? Corre la batería y lee antes de tocar nada.",
+  "objetivo": "guardar la base del día en que pasó la batería y vigilar la spec, Chrome Status y MCP, con el caso navigator → document como ejemplo.",
+  "competencias": [
+    "gravar-base-das-fontes",
+    "vigiar-mudanca-de-api",
+    "reagir-a-mudanca-com-bateria"
+  ],
+  "aprende": [
+    {
+      "icone": "calendario",
+      "t": "La línea de tiempo del cambio navigator → document"
+    },
+    {
+      "icone": "lupa",
+      "t": "Qué vigilar: spec, Chrome Status, MCP y el SDK"
+    },
+    {
+      "icone": "arquivo",
+      "t": "La base guardada y la comparación"
+    },
+    {
+      "icone": "check",
+      "t": "Qué hacer cuando la vigía dice MUDOU"
+    }
+  ],
+  "hero_alt": "Persona de espaldas frente a un monitor con dos versiones de un documento técnico una al lado de la otra, con una lupa sobre la mesa.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Una API que ya cambió",
+      "sub": "Fechas leídas en las fuentes primarias el 19/10/2026. Haz clic en cada hito.",
+      "estilo": "escada",
+      "volta": "vigilar de nuevo",
+      "nos": [
+        {
+          "icone": "arquivo",
+          "titulo": "Antes",
+          "sub": "navigator",
+          "detalhe": "En los primeros borradores, la API estaba en navigator.modelContext. Hoy ese es el nombre antiguo: no lo enseñes ni lo copies."
+        },
+        {
+          "icone": "git",
+          "titulo": "Cambio",
+          "sub": "19/05/2026",
+          "detalhe": "PR #177, \"Scope ModelContext to Document\", aceptado el 19/05/2026: la API pasa a document.modelContext."
+        },
+        {
+          "icone": "calendario",
+          "titulo": "Trial",
+          "sub": "149–156",
+          "detalhe": "Post del origin trial en Chrome del 09/06/2026; Chrome Status: origin trial del 149 al 156, estado \"Proposed\", sin fecha de estable."
+        },
+        {
+          "icone": "lista",
+          "titulo": "Spec",
+          "sub": "16/10/2026",
+          "detalhe": "Draft Community Group Report del 16/10/2026: registerTool, getTools, executeTool y el evento toolchange. Sin unregisterTool, provideContext ni clearContext."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "Base",
+          "sub": "tu fecha",
+          "forte": true,
+          "detalhe": "vigia/base.json: lo que decían las fuentes el día en que TU batería pasó (en el kit, 19/10/2026)."
+        },
+        {
+          "icone": "relogio",
+          "titulo": "Vigía",
+          "sub": "¿CAMBIÓ?",
+          "detalhe": "vigiar.mjs lee las fuentes de nuevo y las compara con la base. Igual: nada que hacer. Cambió: salida 1, corre la batería (clase 4) y lee el cambio."
+        }
+      ]
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Qué vigilar y dónde",
+      "sub": "Páginas públicas, sin clave y sin costo.",
+      "passos": [
+        {
+          "titulo": "Spec",
+          "sub": "fecha y métodos",
+          "texto": [
+            "La fecha en la parte superior del borrador y los nombres de la IDL (registerTool, getTools, executeTool, toolchange).",
+            "Si vuelve el nombre antiguo o aparece un método nuevo: hora de releer."
+          ],
+          "exemplo": {
+            "rot": "Fuente",
+            "texto": "webmachinelearning.github.io/webmcp"
+          }
+        },
+        {
+          "titulo": "Chrome Status",
+          "sub": "trial y estado",
+          "texto": [
+            "El estado (\"Proposed\" el 19/10/2026) y las versiones del origin trial (149 a 156).",
+            "El trial termina en el 156: anótalo en la agenda, junto con el token."
+          ],
+          "exemplo": {
+            "rot": "Fuente",
+            "texto": "JSON público de Chrome Status, entrada 5117755740913664"
+          }
+        },
+        {
+          "titulo": "MCP",
+          "sub": "versión actual",
+          "texto": [
+            "La página de versionado dice la revisión actual (2026-07-28) y el changelog dice qué cambió.",
+            "El Registry está en preview, con aviso de cambio y reset: no dependas de él."
+          ]
+        },
+        {
+          "titulo": "Tu SDK",
+          "sub": "lo que anuncia",
+          "texto": [
+            "El servidor del kit responde server/discover con las revisiones que habla (2026-07-28).",
+            "La versión del paquete siempre fija; subirla es una decisión, con batería antes."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "La base grabada",
+      "sub": "Generada con --gravar el día en que la batería pasó. Es la que la vigía compara.",
+      "blocos": [
+        {
+          "rot": "Archivo · kit/vigia/base.json",
+          "icone": "arquivo",
+          "conteudo": "{\n  \"gravada_em\": \"2026-10-19\",\n  \"spec_data\": \"2026-10-16\",\n  \"spec_superficie\": \"document\",\n  \"spec_metodos\": \"registerTool getTools executeTool toolchange\",\n  \"chrome_status\": \"Proposed\",\n  \"chrome_origin_trial\": \"149–156\",\n  \"mcp_versao_atual\": \"2026-07-28\",\n  \"sdk_mcp_anuncia\": \"2026-07-28\"\n}"
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Vigiar",
+      "sub": "Lee las fuentes ahora y compara. Sin red, sale con 3 y no concluye nada.",
+      "blocos": [
+        {
+          "rot": "Terminal · vigia contra la base del kit",
+          "icone": "terminal",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/vigiar.mjs; echo \"saída: $?\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Salida capturada (19/10/2026)",
+            "html": "<pre>vigia · base de 19/10/2026 (vigia/base.json)\nigual     spec_data            2026-10-16\nigual     spec_superficie      document\nigual     spec_metodos         registerTool getTools executeTool toolchange\nigual     chrome_status        Proposed\nigual     chrome_origin_trial  149–156\nigual     mcp_versao_atual     2026-07-28\nigual     sdk_mcp_anuncia      2026-07-28\nVIGIA: 7/7 iguais à base · nada a fazer\nsaída: 0</pre><p>Si lo corres después del 19/10/2026 y aparece MUDOU, la vigía está haciendo su trabajo: corre la batería y lee el cambio.</p>"
+          },
+          {
+            "rot": "La base del curso antiguo",
+            "html": "<pre>vigia · base de 24/09/2026 (vigia/base-curso-antigo.json)\nMUDOU     spec_data            2026-09-17 → 2026-10-16\nigual     spec_superficie      document\nsem base  spec_metodos         registerTool getTools executeTool toolchange\nsem base  chrome_status        Proposed\nsem base  chrome_origin_trial  149–156\nsem base  mcp_versao_atual     2026-07-28\nsem base  sdk_mcp_anuncia      2026-07-28\nVIGIA: 1 mudança(s) em 2 · rode a bateria e releia o que mudou\nsaída: 1</pre><p>El curso antiguo revisó la spec el 24/09/2026, con el borrador del 17/09/2026. La vigía marca la diferencia con hoy: eso era lo que le faltaba para no quedarse atrás.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Comparar con la base del curso antiguo",
+      "sub": "Una base solo con lo que registró el curso antiguo (fecha de la spec y superficie). El resto aparece como \"sem base\".",
+      "blocos": [
+        {
+          "rot": "Terminal · base del 24/09/2026",
+          "icone": "calendario",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/vigiar.mjs --base vigia/base-curso-antigo.json; echo \"saída: $?\""
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Práctica",
+      "sub": "Vigilar, ver un cambio real y guardar tu base.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Vigilar contra la base del kit",
+          "min": "3 min",
+          "texto": "Ejecuta la vigía. Si aparece MUDOU, anota qué es: es el aviso funcionando.",
+          "pronto": "<code>node scripts/vigiar.mjs; echo \"saída: $?\"</code> → <code>VIGIA: 7/7 iguais à base · nada a fazer</code> y <code>saída: 0</code> mientras nada cambie desde el 19/10/2026; si hay cambios, líneas <code>MUDOU</code> y <code>saída: 1</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · El cambio que el curso antiguo se perdió",
+          "min": "3 min",
+          "texto": "Ejecuta la vigía contra la base del 24/09/2026.",
+          "pronto": "La salida tiene <code>MUDOU     spec_data            2026-09-17 → 2026-10-16</code> y <code>saída: 1</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Tu base",
+          "min": "10 min",
+          "texto": "Después de que la batería pase en tu proyecto (clase 4), guarda tu base y anota en la agenda la próxima vigía y el fin del origin trial (Chrome 156).",
+          "pronto": "<code>node scripts/vigiar.mjs --base vigia/minha-base.json --gravar</code> → <code>base gravada em vigia/minha-base.json</code>, y la agenda tiene las dos fechas."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Prueba de la clase",
+      "sub": "La explicación aparece después de la respuesta.",
+      "perguntas": [
+        {
+          "p": "La vigía salió con MUDOU spec_data. ¿Cuál es el orden correcto?",
+          "opcoes": [
+            "Recongelar la batería de inmediato, para no trabar el deploy que está en la cola.",
+            "Guardar la base nueva y seguir: la fecha sola no importa.",
+            "Ejecutar la batería, leer qué cambió y solo entonces corregir o recongelar.",
+            "Quitar WebMCP del sitio hasta que salga la versión estable."
+          ],
+          "certa": 2,
+          "explica": "Un cambio en la fuente pide prueba (batería) y lectura. Recongelar o volver a guardar la base sin leer borra el aviso; quitar todo es exagerado, el fallback ya protege al visitante.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "¿Por qué aparece navigator.modelContext en esta clase?",
+          "opcoes": [
+            "Es el nombre antiguo, cambiado por el PR #177 el 19/05/2026: un caso real de cambio.",
+            "Es el nombre actual en Chrome, y document.modelContext es solo el nombre que usa el polyfill.",
+            "Es el nombre que usa Chrome Status para el origin trial.",
+            "Es el alias que la spec del 16/10/2026 mantiene por compatibilidad."
+          ],
+          "certa": 0,
+          "explica": "La spec del 16/10/2026 solo tiene document.modelContext. El nombre antiguo sirve de ejemplo de una API que cambia; en Chromium 156 no existe (medido en el kit).",
+          "ref": "diagrama"
+        },
+        {
+          "p": "La vigía salió con 3 (\"SEM CONCLUSÃO\"). ¿Qué significa?",
+          "opcoes": [
+            "Tres fuentes cambiaron desde la base.",
+            "La spec quedó estable y la vigía ya se puede apagar para siempre.",
+            "La base está corrupta y hay que borrarla.",
+            "Faltó red para leer las fuentes; no se comparó nada."
+          ],
+          "certa": 3,
+          "explica": "Sin leer las fuentes, la vigía no dice nada, y el código 3 lo separa de \"igual\" (0) y de \"cambió\" (1).",
+          "ref": "codigo"
+        },
+        {
+          "p": "¿Por qué no depender hoy del MCP Registry en producción?",
+          "opcoes": [
+            "Porque solo acepta servidores en la revisión 2025-11-25.",
+            "Porque está en preview, con aviso de cambios y reinicio de datos.",
+            "Porque exige el origin trial de WebMCP en Chrome.",
+            "Porque reemplaza el server/discover de la revisión nueva."
+          ],
+          "certa": 1,
+          "explica": "El propio sitio del Registry dice \"currently in preview\" y avisa de breaking changes y reset. Publicar ahí puede ser útil; depender de él, no.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "En tres frases",
+      "itens": [
+        {
+          "t": "Cambia",
+          "texto": "La API ya cambió navigator por document y va a cambiar de nuevo antes de cualquier versión estable."
+        },
+        {
+          "t": "Base",
+          "texto": "Guarda lo que decían las fuentes el día en que la batería pasó."
+        },
+        {
+          "t": "Vigía",
+          "texto": "Cambió: batería, lectura, corrección; solo entonces se vuelven a guardar la base y la batería."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir más allá",
+      "links": [
+        {
+          "t": "Spec WebMCP: historial de commits",
+          "href": "https://github.com/webmachinelearning/webmcp/commits/main",
+          "icone": "git"
+        },
+        {
+          "t": "Chrome for Developers: origin trial de WebMCP",
+          "href": "https://developer.chrome.com/blog/ai-webmcp-origin-trial",
+          "icone": "calendario"
+        },
+        {
+          "t": "MCP: versionado",
+          "href": "https://modelcontextprotocol.io/specification/versioning",
+          "icone": "arquivo"
+        },
+        {
+          "t": "MCP Registry (preview)",
+          "href": "https://modelcontextprotocol.io/registry/about",
+          "icone": "nuvem"
+        }
+      ]
+    }
+  ]
+}

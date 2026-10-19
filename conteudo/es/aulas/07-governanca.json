@@ -1,0 +1,294 @@
+{
+  "slug": "governanca",
+  "num": 7,
+  "menu": "Gobernanza",
+  "titulo": "Producción y gobernanza: quién aprueba una herramienta nueva, versión, apagado rápido",
+  "titulo_curto": "Aprobar y apagar",
+  "minutos": 16,
+  "lead": "Una herramienta para agentes es una acción de tu sitio hecha por otro. Necesita dueño, fecha de aprobación, nivel de autonomía y una forma de salir del aire en minutos, sin romper el formulario. En esta clase el catálogo aprobado se vuelve un archivo que la página y el servidor leen, un script lo revisa y un estado lo apaga.",
+  "objetivo": "poner cada herramienta en un catálogo con dueño, fecha y nivel de autonomía, y apagar una sin hacer deploy de código ni romper el formulario.",
+  "competencias": [
+    "aprobar-ferramenta-com-nivel",
+    "conferir-catalogo-contra-codigo",
+    "desligar-ferramenta-sem-deploy"
+  ],
+  "aprende": [
+    {
+      "icone": "lista",
+      "t": "El catálogo aprobado (governanca.json)"
+    },
+    {
+      "icone": "escudo",
+      "t": "Niveles de autonomía de 0 a 3"
+    },
+    {
+      "icone": "check",
+      "t": "El script que compara código × catálogo"
+    },
+    {
+      "icone": "portao",
+      "t": "Apagar una herramienta y mantener el formulario"
+    }
+  ],
+  "hero_alt": "Panel negro liso con una fila de interruptores, uno de ellos apagado con un seguro de seguridad rojo.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "La vida de una herramienta",
+      "sub": "Haz clic en cada etapa.",
+      "volta": "nueva versión",
+      "nos": [
+        {
+          "icone": "caneta",
+          "titulo": "Propuesta",
+          "sub": "en el código",
+          "detalhe": "Alguien escribe la herramienta (página o servidor). Mientras no esté en el catálogo, no sale para ningún agente."
+        },
+        {
+          "icone": "usuario",
+          "titulo": "Aprobación",
+          "sub": "dueño y nivel",
+          "detalhe": "Entra en el governanca.json con dueño, aprovada_em y nivel. Una acción con consecuencia queda en el nivel 1: propone y espera a la persona."
+        },
+        {
+          "icone": "check",
+          "titulo": "Activa",
+          "sub": "por superficie",
+          "detalhe": "estado ativa y superficies (webmcp, mcp). La página y el servidor registran solo lo que está activo para ellos."
+        },
+        {
+          "icone": "portao",
+          "titulo": "Apagada",
+          "sub": "sin deploy",
+          "forte": true,
+          "detalhe": "estado desligada: en la próxima carga de la página y en la próxima llamada MCP, la herramienta desaparece. El formulario sigue funcionando."
+        },
+        {
+          "icone": "arquivo",
+          "titulo": "Versión",
+          "sub": "del catálogo",
+          "detalhe": "versao_catalogo cambia con cada aprobación; el contrato congelado de la clase 4 cambia junto, con el motivo en el commit."
+        }
+      ]
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Niveles de autonomía",
+      "sub": "Del modelo de constitución de agentes de INEMA, aplicado a las herramientas del sitio.",
+      "passos": [
+        {
+          "titulo": "3",
+          "sub": "hace solo",
+          "texto": [
+            "Ejecuta y registra. Para lo que solo lee: buscar, listar, ver.",
+            "En el kit: buscar_oficinas, listar_comentarios, minhas_reservas."
+          ]
+        },
+        {
+          "titulo": "2",
+          "sub": "hace y avisa",
+          "texto": [
+            "Ejecuta y notifica al responsable.",
+            "Para un efecto pequeño y reversible, con aviso a quien lo cuida."
+          ]
+        },
+        {
+          "titulo": "1",
+          "sub": "propone y espera",
+          "texto": [
+            "Prepara y espera a que la persona apruebe: el Confirmar de la página, el MRTR del MCP.",
+            "En el kit: reservar_vaga. Toda acción con consecuencia queda aquí o más abajo."
+          ]
+        },
+        {
+          "titulo": "0",
+          "sub": "no toca",
+          "texto": [
+            "La encamina a una persona. No puede estar activa.",
+            "Ej.: cancelar la matrícula de alguien, reembolsar un pago."
+          ],
+          "exemplo": {
+            "rot": "Regla del script",
+            "texto": "consecuencia y nivel por encima de 1 = problema; nivel 0 activo = problema"
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "El catálogo aprobado",
+      "sub": "La página lo lee con fetch (cache: no-store); el servidor lo lee del disco en cada solicitud. Sin el archivo, nada sale: falla cerrada.",
+      "blocos": [
+        {
+          "rot": "Archivo · kit/pagina/governanca.json",
+          "icone": "arquivo",
+          "conteudo": "{\n  \"versao_catalogo\": \"2026-10-19.1\",\n  \"spec_webmcp\": \"2026-10-16\",\n  \"protocolo_mcp\": \"2026-07-28\",\n  \"niveis\": {\n    \"3\": \"faz sozinho e registra\",\n    \"2\": \"faz e avisa o responsável\",\n    \"1\": \"propõe e espera a pessoa aprovar\",\n    \"0\": \"não toca: encaminha para uma pessoa\"\n  },\n  \"ferramentas\": [\n    { \"nome\": \"buscar_oficinas\", \"dono\": \"time do site\", \"nivel\": 3, \"aprovada_em\": \"2026-10-19\", \"estado\": \"ativa\", \"superficies\": [\"webmcp\", \"mcp\"] },\n    { \"nome\": \"listar_comentarios\", \"dono\": \"time do site\", \"nivel\": 3, \"aprovada_em\": \"2026-10-19\", \"estado\": \"ativa\", \"superficies\": [\"webmcp\"] },\n    { \"nome\": \"minhas_reservas\", \"dono\": \"time do site\", \"nivel\": 3, \"aprovada_em\": \"2026-10-19\", \"estado\": \"ativa\", \"superficies\": [\"webmcp\"] },\n    { \"nome\": \"reservar_vaga\", \"dono\": \"time do site\", \"nivel\": 1, \"aprovada_em\": \"2026-10-19\", \"estado\": \"ativa\", \"superficies\": [\"webmcp\", \"mcp\"] }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Comparar código × catálogo",
+      "sub": "governanca.mjs lee las herramientas que el código conoce (página y servidor) y las compara con el catálogo.",
+      "blocos": [
+        {
+          "rot": "Terminal · catálogo del kit y catálogo malo",
+          "icone": "terminal",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/governanca.mjs; echo \"saída: $?\"\nnode scripts/governanca.mjs governanca/ruim.json | grep -E \"PROBLEMA|GOVERN\"; echo \"saída: ${PIPESTATUS[0]}\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Salida capturada (19/10/2026)",
+            "html": "<pre>catálogo 2026-10-19.1 · 4 ferramentas (4 ativas) · código: 4 na página, 2 no servidor\nGOVERNANÇA: 0 problema(s)\nsaída: 0\nPROBLEMA reservar_vaga: tem consequência e está no nível 3 (máximo 1: propõe e espera a pessoa)\nPROBLEMA minhas_reservas: está no código (webmcp) mas não no catálogo aprovado\nPROBLEMA listar_comentarios: sem data de aprovação (AAAA-MM-DD)\nGOVERNANÇA: 3 problema(s)\nsaída: 1</pre><p>El catálogo malo pone reservar_vaga en el nivel 3 (lo haría solo), olvida minhas_reservas y no fecha la aprobación de listar_comentarios.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Apagar rápido",
+      "sub": "En una copia de la página, el estado de reservar_vaga pasa a desligada. No cambia ningún código.",
+      "blocos": [
+        {
+          "rot": "Terminal · apagar reservar_vaga",
+          "icone": "portao",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/desligar.mjs reservar_vaga nativo; echo \"saída: $?\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Salida capturada (19/10/2026)",
+            "html": "<pre>== Chromium 156.0.8078.4 (Playwright) · modo: nativo\nantes:  WebMCP 4 ferramentas · MCP 2 ferramentas\ndesligada: reservar_vaga (estado \"desligada\" no governanca.json, nenhum código mudou)\ndepois: WebMCP 3 ferramentas · MCP 1 ferramentas\nformulário: a pessoa reservou of-301 normalmente\nDESLIGAR: ok · reservar_vaga fora do WebMCP e do MCP, formulário funcionando\nsaída: 0</pre><p>En producción, lo mismo vale al publicar el nuevo governanca.json: la página lo lee sin caché en la próxima carga, el servidor en la próxima llamada. Un agente con la página ya abierta sigue viendo la herramienta hasta que recargue.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Práctica",
+      "sub": "Comprueba, apaga y escribe el catálogo de tu sitio.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Catálogo en orden",
+          "min": "3 min",
+          "texto": "Ejecuta la comprobación del catálogo.",
+          "pronto": "<code>node scripts/governanca.mjs; echo \"saída: $?\"</code> → <code>GOVERNANÇA: 0 problema(s)</code> y <code>saída: 0</code>; el malo → <code>GOVERNANÇA: 3 problema(s)</code> y <code>saída: 1</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Apagar sin deploy",
+          "min": "5 min",
+          "texto": "Ejecuta el ensayo de apagar reservar_vaga.",
+          "pronto": "<code>node scripts/desligar.mjs reservar_vaga nativo; echo \"saída: $?\"</code> → <code>depois: WebMCP 3 ferramentas · MCP 1 ferramentas</code>, <code>DESLIGAR: ok</code> y <code>saída: 0</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · El catálogo de tu sitio",
+          "min": "20 min",
+          "texto": "Escribe el governanca.json de las herramientas de tu sitio: responsable, fecha, nivel y superficies. Acuerda con el equipo quién puede cambiar el estado a desligada y en cuánto tiempo.",
+          "pronto": "En tu copia del kit con tus herramientas, <code>node scripts/governanca.mjs; echo \"saída: $?\"</code> → <code>0 problema(s)</code> y <code>saída: 0</code>."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Prueba de la clase",
+      "sub": "La explicación aparece después de la respuesta.",
+      "perguntas": [
+        {
+          "p": "reservar_vaga tiene consecuencias. ¿En qué nivel puede quedar?",
+          "opcoes": [
+            "3, porque la anotación consequentialHint ya la protege.",
+            "2, siempre que avise al responsable después.",
+            "1 o 0: propone y espera a la persona, o no toca.",
+            "Cualquiera, si el servidor valida la entrada."
+          ],
+          "certa": 2,
+          "explica": "Una acción con consecuencias espera a la persona (nivel 1) o va a una persona (0). La anotación es un aviso al agente, no la confirmación; validar la entrada no sustituye el sí.",
+          "ref": "passos"
+        },
+        {
+          "p": "El governanca.json no se cargó (error de red). ¿Qué hace la página del kit?",
+          "opcoes": [
+            "Registra todas las herramientas del código, para no quedarse sin ninguna.",
+            "Muestra un error y bloquea el formulario hasta que el archivo vuelva.",
+            "Usa la última versión guardada en el navegador del visitante.",
+            "No registra ninguna herramienta y el formulario sigue normal."
+          ],
+          "certa": 3,
+          "explica": "Falla cerrada: sin catálogo aprobado, no sale ninguna herramienta. El camino de la persona no depende del catálogo.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Apagaste reservar_vaga en el catálogo. Un agente con la página abierta hace 10 minutos:",
+          "opcoes": [
+            "Sigue viendo la herramienta hasta que la página se recargue.",
+            "Pierde la herramienta al instante, sin recargar.",
+            "Recibe un error de JavaScript en la próxima llamada.",
+            "Pasa a reservar sin confirmación, por el formulario."
+          ],
+          "certa": 0,
+          "explica": "La página lee el catálogo al cargar. Apagar vale en la próxima carga (y, en el servidor MCP, en la próxima llamada). Para un corte inmediato en la página, habría que abortar el registro en tiempo real: decide si tu caso lo necesita.",
+          "ref": "codigo"
+        },
+        {
+          "p": "governanca.mjs avisó \"está no código mas não no catálogo aprovado\". ¿Qué evita eso?",
+          "opcoes": [
+            "Una herramienta con nombre fuera de la regla de 1 a 128 caracteres.",
+            "Una herramienta nueva que sale al aire sin responsable, fecha ni nivel.",
+            "Una herramienta con una descripción demasiado corta para el agente.",
+            "Una herramienta registrada dos veces en la misma página."
+          ],
+          "certa": 1,
+          "explica": "Es la compuerta de aprobación: escribir código no basta para exponerlo a un agente. Las otras comprobaciones (nombre, descripción) las hace el validador de catálogo del curso 2.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "En tres frases",
+      "itens": [
+        {
+          "t": "Catálogo",
+          "texto": "Toda tool expuesta tiene dueño, fecha, nivel y superficies en un solo archivo."
+        },
+        {
+          "t": "Nivel",
+          "texto": "Lo que tiene consecuencias se queda en el 1 (propone y espera) o en el 0 (no toca)."
+        },
+        {
+          "t": "Desligar",
+          "texto": "El estado desligada saca la tool de las dos puertas sin deploy; el formulario se queda."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir más allá",
+      "links": [
+        {
+          "t": "Constitución de agentes: niveles de autonomía",
+          "href": "https://github.com/inematds/constituicao-agentes",
+          "icone": "escudo"
+        },
+        {
+          "t": "Curso 4: confirmación y exposición a fondo",
+          "href": "https://inematds.github.io/formacao-webmcp-seguranca-v72/es/",
+          "icone": "cadeado"
+        },
+        {
+          "t": "Curso 2, clase 7: el validador de catálogo",
+          "href": "https://inematds.github.io/formacao-webmcp-site-v72/es/aulas/catalogo/",
+          "icone": "chip"
+        }
+      ]
+    }
+  ]
+}

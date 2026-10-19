@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Conferidor de texto do INEMA Learning 7.11.14 — as MESMAS regras do assets/v72-conferidor.js (seção "conferidor").
+"""Conferidor do INEMA Learning 7.12.15 — as MESMAS regras do assets/v72-conferidor.js (seção "conferidor").
 
 O aluno escreve um arquivo (ficha, cartão, decupagem) e a página confere. Este script é a opção para quem tem
 terminal: confere o mesmo arquivo, com as regras escritas no JSON da aula.
@@ -19,6 +19,9 @@ Sai 0 quando passa ("OK: ...") e 1 quando falta algo. Regras (lista "regras" da 
               min: rótulo ("som:") só vale com >= min letras depois dele, até o próximo |
   duracao     {min, max}                     cada plano tem "N s"; a soma fica entre min e max
   termos      {grupos: [{rot, termos}]}      o texto todo cita um termo de cada grupo
+  video       {min, max, proporcao?, largura_min?}   7.12.15: modo vídeo — o argumento é o arquivo de vídeo
+              (duração e tamanho pelo ffprobe); proporcao "16:9" ou lista ["16:9", "9:16"]; clipes de exemplo
+              em video_ok / video_erro (caminhos no repo)
 """
 import json, pathlib, re, sys, unicodedata
 
@@ -80,8 +83,10 @@ def conferir_video(info, sec, ui=None, lang="pt"):
     faltas, p = [], nome_proporcao(w, h)
     if not r.get("min", 0) <= round(d, 1) <= r.get("max", 10 ** 6):
         faltas.append(fmt(T["conf_video_dur"], s=seg1(d, lang), x=r.get("min", 0), y=r.get("max", "∞")))
-    if r.get("proporcao") and p != r["proporcao"]:
-        faltas.append(fmt(T["conf_video_prop"], w=w, h=h, p=p, q=r["proporcao"]))
+    props = r.get("proporcao") or []
+    props = [props] if isinstance(props, str) else props
+    if props and p not in props:
+        faltas.append(fmt(T["conf_video_prop"], w=w, h=h, p=p, q=" / ".join(props)))
     if r.get("largura_min") and w < r["largura_min"]:
         faltas.append(fmt(T["conf_video_larg"], w=w, x=r["largura_min"]))
     if faltas:

@@ -1,0 +1,283 @@
+{
+  "slug": "observar",
+  "num": 3,
+  "menu": "Registro",
+  "titulo": "Observabilidad: registrar llamadas, errores y cancelaciones",
+  "titulo_curto": "Registrar llamadas",
+  "minutos": 15,
+  "lead": "En producción, \"el agente no pudo reservar\" solo se resuelve con registro. Cada llamada de tool, en cualquier puerta, deja una línea: superficie, tool, resultado y tiempo. Sin datos personales. En esta lección provocas los desenlaces posibles y lees lo que cada uno deja en el log.",
+  "objetivo": "registrar cada llamada en las tres superficies con resultado y tiempo, sin datos personales, y leer los desenlaces posibles en el log.",
+  "competencias": [
+    "registrar-chamadas-na-fronteira",
+    "distinguir-erro-recusa-e-cancelamento",
+    "proteger-dado-pessoal-no-log"
+  ],
+  "aprende": [
+    {
+      "icone": "lista",
+      "t": "Qué necesita tener una línea de registro"
+    },
+    {
+      "icone": "chip",
+      "t": "El envoltorio observado() en las tres puertas"
+    },
+    {
+      "icone": "x",
+      "t": "Error, rechazo, cancelación y el pedido del MRTR"
+    },
+    {
+      "icone": "cadeado",
+      "t": "Por qué el log guarda el nombre del campo y no el valor"
+    }
+  ],
+  "hero_alt": "Monitor oscuro con líneas de log ilegibles y una línea de tiempo, junto a un cuaderno abierto y un bolígrafo.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Del pedido a la línea en el log",
+      "sub": "El registro queda en la frontera, no dentro de la regla. Haz clic en cada etapa.",
+      "nos": [
+        {
+          "icone": "robo",
+          "titulo": "Llamada",
+          "sub": "tres puertas",
+          "detalhe": "Formulario (html), executeTool en la página (webmcp) o tools/call en el servidor (mcp)."
+        },
+        {
+          "icone": "chip",
+          "titulo": "Envoltorio",
+          "sub": "observado()",
+          "detalhe": "observado(superficie, ferramenta, fn) mide el tiempo, clasifica el resultado y devuelve la respuesta sin cambiarla. Está en pagina/registro.mjs y sirve a las tres puertas."
+        },
+        {
+          "icone": "fila",
+          "titulo": "Desenlace",
+          "sub": "clasificar",
+          "forte": true,
+          "detalhe": "ok · erro (la regla rechazó) · recusado (la persona dijo no) · cancelado (AbortSignal) · pediu-pessoa (1ª vuelta del MRTR) · excecao."
+        },
+        {
+          "icone": "arquivo",
+          "titulo": "Línea",
+          "sub": "JSON",
+          "detalhe": "Una línea por llamada: t, superficie, ferramenta, campos, resultado, ms y motivo. Los campos son solo los NOMBRES de la entrada."
+        },
+        {
+          "icone": "grafico",
+          "titulo": "Resumen",
+          "sub": "conteo",
+          "detalhe": "Cuántas de cada desenlace, por superficie. De aquí sale la pregunta correcta: ¿el agente se equivoca en la entrada o la persona rechaza?"
+        }
+      ]
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Los desenlaces que importan",
+      "sub": "Cada uno pide una acción distinta de quien opera el sitio.",
+      "passos": [
+        {
+          "titulo": "erro",
+          "sub": "la regla rechazó",
+          "texto": [
+            "Una entrada que la regla no acepta: tema inválido, taller sin cupo.",
+            "Muchos errores en la misma herramienta = descripción o schema confusos para el agente."
+          ],
+          "exemplo": {
+            "rot": "Kit",
+            "texto": "motivo: tema inválido: cobol"
+          }
+        },
+        {
+          "titulo": "recusado",
+          "sub": "la persona dijo que no",
+          "texto": [
+            "La confirmación funcionó. No es una falla del sitio.",
+            "Muchos rechazos = el agente está proponiendo lo que no debe; mira qué pidió."
+          ]
+        },
+        {
+          "titulo": "cancelado",
+          "sub": "AbortSignal",
+          "texto": [
+            "El agente desistió (o la persona se fue) antes de la respuesta: el executeTool se canceló por el signal.",
+            "Medido en el kit: la cancelación llega al execute como AbortError y la reserva no ocurre."
+          ]
+        },
+        {
+          "titulo": "pediu-pessoa",
+          "sub": "MRTR",
+          "texto": [
+            "En MCP 2026-07-28, la 1ª vuelta de una acción con confirmación devuelve input_required.",
+            "Por eso una reserva por MCP deja dos líneas: el pedido y el desenlace."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "El envoltorio",
+      "sub": "El mismo archivo sirve a la página y al servidor. En la página, en producción, la línea iría a tu backend (sendBeacon, por ejemplo); en el kit queda en memoria.",
+      "blocos": [
+        {
+          "rot": "Archivo · kit/pagina/registro.mjs",
+          "icone": "arquivo",
+          "conteudo": "// registro.mjs — observabilidade nas fronteiras: uma linha por chamada de ferramenta, em qualquer superfície.\n// Roda no navegador (página) e no Node (servidor MCP). Não guarda dado pessoal: só o NOME dos campos de entrada.\n// Resultado: ok | erro (regra recusou) | recusado (a pessoa disse não) | cancelado (AbortSignal) | excecao\n//            | pediu-pessoa (MCP: a 1ª volta do MRTR devolve input_required e o cliente pergunta ao usuário).\n\nconst linhas = [];\nlet destino = null;   // função que recebe cada linha (no servidor: grava JSONL; na página: sendBeacon em produção)\n\nexport function aoRegistrar(fn) { destino = fn; }\nexport function linhasRegistradas() { return linhas.map(l => ({ ...l })); }\n\nexport function classificar(r) {\n  if (r && typeof r === 'object') {\n    if (r.resultType === 'input_required') return 'pediu-pessoa';\n    if ('erro' in r) return 'erro';\n    if (r.reservado === false) return 'recusado';\n  }\n  return 'ok';\n}\n\nexport function anotar(linha) {\n  const l = { t: new Date().toISOString(), ...linha };\n  linhas.push(l);\n  globalThis.__registro = linhas;    // os testes leem daqui\n  destino?.(l);\n  return l;\n}\n\n// Embrulha o execute de uma ferramenta: mede o tempo e anota o resultado, sem mudar o que ela devolve.\nexport function observado(superficie, ferramenta, fn) {\n  return async (input = {}, opcoes) => {\n    const inicio = performance.now();\n    const base = { superficie, ferramenta, campos: Object.keys(input).sort() };\n    try {\n      const r = await fn(input, opcoes);\n      anotar({ ...base, resultado: classificar(r), ms: Math.round(performance.now() - inicio), ...(r?.erro ? { motivo: r.erro } : {}) });\n      return r;\n    } catch (e) {\n      anotar({ ...base, resultado: e.name === 'AbortError' ? 'cancelado' : 'excecao', ms: Math.round(performance.now() - inicio), motivo: e.name });\n      throw e;\n    }\n  };\n}"
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Provocar los desenlaces y leer el log",
+      "sub": "El script busca, se equivoca de tema, rechaza, cancela y reserva por MCP con rechazo. Graba logs/chamadas.jsonl.",
+      "blocos": [
+        {
+          "rot": "Terminal · registro de llamadas",
+          "icone": "terminal",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/observar.mjs nativo; echo \"saída: $?\"\ntail -1 logs/chamadas.jsonl"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Salida capturada (19/10/2026)",
+            "html": "<pre>== Chromium 156.0.8078.4 (Playwright) · modo: nativo\nhtml   buscar_oficinas  ok              0 ms\nwebmcp buscar_oficinas  ok              0 ms\nwebmcp buscar_oficinas  erro            3 ms · tema inválido: cobol\nwebmcp reservar_vaga    recusado      184 ms\nwebmcp reservar_vaga    cancelado     319 ms · AbortError\nmcp    buscar_oficinas  ok              0 ms\nmcp    reservar_vaga    pediu-pessoa   26 ms\nmcp    reservar_vaga    recusado        2 ms\nREGISTRO: 8 chamadas · ok 3 · erro 1 · recusado 2 · cancelado 1 · pediu-pessoa 1 · dado pessoal no registro: não\ngravado em logs/chamadas.jsonl\nsaída: 0\n{\"t\":\"2026-10-19T20:03:13.159Z\",\"superficie\":\"mcp\",\"ferramenta\":\"reservar_vaga\",\"campos\":[\"id\",\"nome\"],\"resultado\":\"recusado\",\"ms\":2}</pre><p>La última línea es una línea real del archivo: los campos id y nome aparecen por su nombre, nunca por su valor. Los milisegundos varían en cada ronda.</p>"
+          },
+          {
+            "rot": "Error común: registrar la entrada completa",
+            "html": "<pre>REGISTRO: 8 chamadas · ok 3 · erro 1 · recusado 2 · cancelado 1 · pediu-pessoa 1 · dado pessoal no registro: SIM\nsaída: 1</pre><p>Alguien cambió campos por entrada: input \"para depurar\". El nombre de las personas terminó en el log, y el script sale con 1. Un log con datos personales se vuelve un pasivo (LGPD): registra lo que ayuda a operar, no lo que identifica a alguien.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "El ensayo de la fuga",
+      "sub": "En una copia desechable del kit.",
+      "blocos": [
+        {
+          "rot": "Terminal · log con datos personales",
+          "icone": "x",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nE=$(bash scripts/copia.sh a3)\n# o erro comum: registrar a entrada inteira \"para depurar\"\nsed -i 's/campos: Object.keys(input).sort()/entrada: input/' $E/pagina/registro.mjs\ncd $E && node scripts/observar.mjs nativo | grep \"REGISTRO\"; echo \"saída: ${PIPESTATUS[0]}\""
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Práctica",
+      "sub": "Leer el log, ver cómo se detecta la fuga y decidir qué registra tu sitio.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Los desenlaces en el log",
+          "min": "5 min",
+          "texto": "Corre el bloque del registro y cuenta las líneas por desenlace.",
+          "pronto": "<code>node scripts/observar.mjs nativo; echo \"saída: $?\"</code> → <code>REGISTRO: 8 chamadas · ok 3 · erro 1 · recusado 2 · cancelado 1 · pediu-pessoa 1 · dado pessoal no registro: não</code> y <code>saída: 0</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Detectar la fuga",
+          "min": "3 min",
+          "texto": "Corre el ensayo del log con la entrada completa.",
+          "pronto": "El bloque imprime <code>dado pessoal no registro: SIM</code> y <code>saída: 1</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · El registro de tu sitio",
+          "min": "15 min",
+          "texto": "Para las herramientas de tu sitio, escribe qué campos entran en el log (solo el nombre), a dónde va la línea en producción y quién revisa el resumen cada semana.",
+          "pronto": "El archivo registro-[tu sitio].md tiene una línea por herramienta, el destino del log y la persona responsable, y ningún campo con valor de entrada."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Prueba de la clase",
+      "sub": "La explicación aparece después de la respuesta.",
+      "perguntas": [
+        {
+          "p": "La reserva por MCP con confirmación dejó dos líneas en el log. ¿Por qué?",
+          "opcoes": [
+            "El cliente MCP repitió la llamada solo por un error de red.",
+            "El SDK registra cada llamada dos veces por seguridad.",
+            "El servidor guardó una sesión y la reabrió en la segunda línea.",
+            "La 1.ª vuelta pide a la persona (input_required); la 2.ª trae el desenlace."
+          ],
+          "certa": 3,
+          "explica": "Es el MRTR de la revisión 2026-07-28: la herramienta devuelve input_required, el cliente pregunta y repite la llamada. No hay sesión en el protocolo.",
+          "ref": "passos"
+        },
+        {
+          "p": "El log muestra muchas líneas \"recusado\" en reservar_vaga. ¿Qué miras primero?",
+          "opcoes": [
+            "Lo que propuso el agente: la confirmación está funcionando.",
+            "El servidor, porque un rechazo indica que se cayó.",
+            "El schema, porque un rechazo es una entrada inválida.",
+            "El navegador, porque un rechazo es falta de la API."
+          ],
+          "certa": 0,
+          "explica": "Recusado = la persona dijo que no. La protección funcionó; muchos rechazos sugieren que el agente está proponiendo lo incorrecto. La entrada inválida aparece como error.",
+          "ref": "passos"
+        },
+        {
+          "p": "¿Por qué el registro guarda campos: [\"id\", \"nome\"] y no los valores?",
+          "opcoes": [
+            "Porque executeTool no entrega los valores a execute.",
+            "Para operar sin guardar datos personales de quien reservó.",
+            "Porque el JSONL no acepta texto con acentos.",
+            "Para que el log quede más pequeño y no se llene el disco."
+          ],
+          "certa": 1,
+          "explica": "El nombre de quien reserva es un dato personal. Para operar basta saber que la llamada tenía id y nombre, el desenlace y el tiempo. El ensayo muestra el script atrapando la fuga.",
+          "ref": "codigo"
+        },
+        {
+          "p": "¿Dónde queda el envoltorio observado() en el kit?",
+          "opcoes": [
+            "Dentro de oficinas.mjs, para que la regla se registre sola.",
+            "Solo en el servidor MCP, porque la página no tiene dónde guardar.",
+            "En la frontera de cada puerta, alrededor de execute.",
+            "En Chromium, que registra las llamadas de WebMCP."
+          ],
+          "certa": 2,
+          "explica": "El registro queda en la frontera (formulario, herramienta WebMCP, herramienta MCP), alrededor de execute. La regla sigue pura y el mismo registro.mjs sirve a la página y al servidor.",
+          "ref": "diagrama"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "En tres frases",
+      "itens": [
+        {
+          "t": "Línea",
+          "texto": "Superficie, herramienta, nombres de los campos, desenlace y tiempo: una por llamada."
+        },
+        {
+          "t": "Desenlace",
+          "texto": "Error, rechazo, cancelamiento y pedido del MRTR cuentan historias diferentes."
+        },
+        {
+          "t": "Privacidad",
+          "texto": "El valor de la entrada queda fuera del log; el script atrapa a quien se olvide."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir más allá",
+      "links": [
+        {
+          "t": "Spec WebMCP: executeTool y AbortSignal",
+          "href": "https://webmachinelearning.github.io/webmcp/",
+          "icone": "arquivo"
+        },
+        {
+          "t": "LOOP-R Engenharia: verificación y evals a fondo",
+          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/es/",
+          "icone": "check"
+        }
+      ]
+    }
+  ]
+}

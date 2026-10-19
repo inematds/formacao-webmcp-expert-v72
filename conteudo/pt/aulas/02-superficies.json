@@ -130,7 +130,7 @@
         "abas": [
           {
             "rot": "Saída capturada (19/10/2026)",
-            "html": "<pre>Cloning into…\n(captura pendente: depois do push)\nsaída: 0</pre><p>O postinstall copia o polyfill para pagina/vendor/, só para o ensaio. Se o Chromium já estiver baixado, o install não imprime nada.</p>"
+            "html": "<pre>added 18 packages in 799ms\nsaída: 0</pre><p>O postinstall copia o polyfill para pagina/vendor/, só para o ensaio. Se o Chromium já estiver baixado, o install não imprime nada.</p>"
           }
         ]
       }
@@ -143,12 +143,17 @@
         {
           "rot": "Trecho · kit/pagina/app.mjs",
           "icone": "arquivo",
-          "conteudo": "import { criarAgenda } from './oficinas.mjs';\nimport { catalogo, liberadas, comRegistro, iniciarWebMCP } from './ferramentas.mjs';\n\nconst agenda = criarAgenda();"
+          "conteudo": "import { criarAgenda } from './oficinas.mjs';\nimport { catalogo, liberadas, comRegistro, iniciarWebMCP } from './ferramentas.mjs';"
         },
         {
           "rot": "Trecho · kit/servidor/mcp.mjs",
           "icone": "arquivo",
-          "conteudo": "import { criarAgenda, TEMAS } from '../pagina/oficinas.mjs';\n\n// O estado do serviço fica FORA da fábrica: o protocolo não guarda sessão, o seu serviço guarda o dado.\nexport const agenda = criarAgenda();\n\n// dentro de buscar_oficinas:\nconst oficinas = agenda.buscar(input);"
+          "conteudo": "import { criarAgenda, TEMAS } from '../pagina/oficinas.mjs';"
+        },
+        {
+          "rot": "Trecho · kit/servidor/mcp.mjs",
+          "icone": "arquivo",
+          "conteudo": "// O estado do serviço fica FORA da fábrica: o protocolo não guarda sessão, o seu serviço guarda o dado.\nexport const agenda = criarAgenda();"
         }
       ]
     },

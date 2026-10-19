@@ -1,0 +1,310 @@
+{
+  "slug": "bateria",
+  "num": 4,
+  "menu": "Battery",
+  "titulo": "A frozen battery for your tools, and regression when the spec changes",
+  "titulo_curto": "Frozen battery",
+  "minutos": 18,
+  "lead": "When the code or the spec changes, a site with WebMCP fails silently: detection does not find the API, falls back to the form, and nobody notices. Only a battery catches it. In this lesson you freeze the contract and the cases for the tools, run them in all four modes, and watch the battery catch the old API name.",
+  "objetivo": "freeze the contract and cases for your tools, run them in four modes, and watch the battery catch the old API name regression.",
+  "competencias": [
+    "congelar-contrato-e-casos",
+    "rodar-bateria-em-quatro-modos",
+    "pegar-regressao-silenciosa"
+  ],
+  "aprende": [
+    {
+      "icone": "cadeado",
+      "t": "What freezing is and why the hash"
+    },
+    {
+      "icone": "camadas",
+      "t": "The four modes: sem, polyfill, native, and MCP"
+    },
+    {
+      "icone": "x",
+      "t": "The silent regression of the old name"
+    },
+    {
+      "icone": "portao",
+      "t": "What to do when the expected result really changes"
+    }
+  ],
+  "hero_alt": "A dark workbench with analog gauges without numbers, a notebook with a terminal, and a sealed acrylic box with a blank label.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "From the frozen battery to the verdict",
+      "sub": "Click each step.",
+      "nos": [
+        {
+          "icone": "arquivo",
+          "titulo": "Contract",
+          "sub": "names and annotations",
+          "detalhe": "bateria/contrato.json: which tools each surface exposes and which annotations each one has (readOnlyHint, untrustedContentHint, consequentialHint)."
+        },
+        {
+          "icone": "lista",
+          "titulo": "Cases",
+          "sub": "input → expected",
+          "detalhe": "bateria/casos.json: six cases (search, invalid input, refusal, confirmation, no spots left, comments) with the expected result and the person's answer."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "Freeze",
+          "sub": "hash",
+          "forte": true,
+          "detalhe": "The sha256 of the two files is stored in bateria/CONGELADA. If the expected result changes without re-freezing → BATERIA RECUSADA, exit 2."
+        },
+        {
+          "icone": "camadas",
+          "titulo": "Modes",
+          "sub": "4 rounds",
+          "detalhe": "sem (no API, the fallback), polyfill, nativo (native, Chromium 156 with the test flag) and mcp (MCP server in the same process)."
+        },
+        {
+          "icone": "check",
+          "titulo": "Verdict",
+          "sub": "N/N",
+          "detalhe": "One line per check and BATERIA: ok/total. Exit 0 only if all of them pass."
+        }
+      ],
+      "legenda": "The battery in course 2 tests the page; this one tests the page and the server against a contract that does not change without a decision."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Rules for a battery that counts",
+      "sub": "Inherited from LOOP-R Engenharia (frozen tests) and applied to the tools.",
+      "passos": [
+        {
+          "titulo": "Frozen",
+          "sub": "whoever changes it decides",
+          "texto": [
+            "The expected result does not change just to make the test pass. Did the spec or the rule change? Re-freeze and explain it in the commit.",
+            "The hash makes the change visible: nobody edits casos.json without the battery refusing."
+          ]
+        },
+        {
+          "titulo": "No model",
+          "sub": "deterministic",
+          "texto": [
+            "The cases call the tools directly (executeTool, tools/call), as an agent would.",
+            "No model in the loop: the same code gives the same verdict."
+          ]
+        },
+        {
+          "titulo": "Mode sem",
+          "sub": "the fallback",
+          "texto": [
+            "The round with no API proves that the person books through the form.",
+            "It is the first line of the battery, before any agent."
+          ]
+        },
+        {
+          "titulo": "Spec changed",
+          "sub": "run it again",
+          "texto": [
+            "New spec, new Chrome or new SDK: run the battery before anything else.",
+            "The watcher from lesson 6 tells you when it is time."
+          ],
+          "exemplo": {
+            "rot": "Order",
+            "texto": "watcher flags it → battery → read what changed → fix or re-freeze with a reason"
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The full battery",
+      "sub": "Four modes, 24 checks, no model and no cost.",
+      "blocos": [
+        {
+          "rot": "Terminal · frozen battery",
+          "icone": "terminal",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/bateria.mjs; echo \"saída: $?\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>== Chromium 156.0.8078.4 (Playwright) · bateria congelada (spec 2026-10-16, MCP 2026-07-28)\nok    [sem] fallback: página sem WebMCP e sem erro de JavaScript · sem\nok    [sem] fallback: a pessoa reserva pelo formulário\nok    [polyfill] contrato: 4 ferramentas com as anotações congeladas · 4 registradas\nok    [polyfill] c1 buscar_oficinas · of-301\nok    [polyfill] c2 buscar_oficinas · erro\nok    [polyfill] c3 reservar_vaga (pessoa recusa) · 0 reserva(s)\nok    [polyfill] c4 reservar_vaga (pessoa confirma) · 1 reserva(s)\nok    [polyfill] c5 reservar_vaga (pessoa confirma) · erro, 1 reserva(s)\nok    [polyfill] c6 listar_comentarios · 2 comentário(s)\nok    [polyfill] nenhum erro de JavaScript\nok    [nativo] contrato: 4 ferramentas com as anotações congeladas · 4 registradas\nok    [nativo] c1 buscar_oficinas · of-301\nok    [nativo] c2 buscar_oficinas · erro\nok    [nativo] c3 reservar_vaga (pessoa recusa) · 0 reserva(s)\nok    [nativo] c4 reservar_vaga (pessoa confirma) · 1 reserva(s)\nok    [nativo] c5 reservar_vaga (pessoa confirma) · erro, 1 reserva(s)\nok    [nativo] c6 listar_comentarios · 2 comentário(s)\nok    [nativo] nenhum erro de JavaScript\nok    [mcp] contrato: 2 ferramentas com as anotações congeladas · buscar_oficinas,reservar_vaga\nok    [mcp] c1 buscar_oficinas · of-301\nok    [mcp] c2 buscar_oficinas · erro\nok    [mcp] c3 reservar_vaga (pessoa recusa) · 0 reserva(s)\nok    [mcp] c4 reservar_vaga (pessoa confirma) · 1 reserva(s)\nok    [mcp] c5 reservar_vaga (pessoa confirma) · erro, 1 reserva(s)\nBATERIA: 24/24 ok\nsaída: 0</pre><p>c5 asks the person and they confirm, but the rule refuses (of-102 has no spots left): an error and no new booking. In MCP, the question to the user comes before the rule's refusal.</p>"
+          },
+          {
+            "rot": "Common mistake: changing the expected result",
+            "html": "<pre>BATERIA RECUSADA: casos.json ou contrato.json mudou depois de congelado.\nSe o esperado mudou de verdade (spec nova, regra nova), rode --recongelar e explique no commit.\nsaída: 2</pre><p>Someone changed \"reservas\": 0 to 1 in case c3 to \"make the test pass\". The battery does not even run: the hash does not match bateria/CONGELADA and the exit code is 2.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The silent regression: the old name",
+      "sub": "navigator.modelContext is the old name (before PR #177, accepted on 05/19/2026). A copy of the page that uses it: the site keeps working, and only the battery notices.",
+      "blocos": [
+        {
+          "rot": "Terminal · page with the old name",
+          "icone": "x",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nE=$(bash scripts/copia.sh a4)\n# a regressão: alguém cola um exemplo antigo que usa o nome de antes de 19/05/2026\nsed -i 's/const mc = document.modelContext; /const mc = navigator.modelContext; /' $E/pagina/ferramentas.mjs\ncd $E && node scripts/bateria.mjs sem nativo | grep -E \"FALHA|ok    \\[sem\\]|BATERIA\"; echo \"saída: ${PIPESTATUS[0]}\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>ok    [sem] fallback: página sem WebMCP e sem erro de JavaScript · sem\nok    [sem] fallback: a pessoa reserva pelo formulário\nFALHA [nativo] contrato: 4 ferramentas com as anotações congeladas · 0 registradas\nFALHA [nativo] c1 buscar_oficinas · ferramenta ausente\nFALHA [nativo] c2 buscar_oficinas · ferramenta ausente\nFALHA [nativo] c3 reservar_vaga · ferramenta ausente\nFALHA [nativo] c4 reservar_vaga · ferramenta ausente\nFALHA [nativo] c5 reservar_vaga · ferramenta ausente\nFALHA [nativo] c6 listar_comentarios · ferramenta ausente\nBATERIA: 3/10 ok\nsaída: 1</pre><p>The sem mode passes: the person books normally. In nativo, the detection does not find navigator.modelContext in Chromium 156, the page falls back, and the four tools disappear. No JavaScript error: without the battery, nobody would see it.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Rehearsal: the expected result changed",
+      "sub": "On a throwaway copy of the kit.",
+      "blocos": [
+        {
+          "rot": "Terminal · casos.json changed",
+          "icone": "x",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nE=$(bash scripts/copia.sh a4c)\n# o erro comum: mudar o esperado para o teste passar\nsed -i 's/\"reservas\": 0/\"reservas\": 1/' $E/bateria/casos.json\ncd $E && node scripts/bateria.mjs mcp; echo \"saída: $?\""
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice",
+      "sub": "The battery goes green, the regression gets caught, and a case of your own.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Green battery",
+          "min": "5 min",
+          "texto": "Run the full battery.",
+          "pronto": "<code>node scripts/bateria.mjs; echo \"saída: $?\"</code> → <code>BATERIA: 24/24 ok</code> and <code>saída: 0</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Catch the old name",
+          "min": "5 min",
+          "texto": "Run the rehearsal for the page that uses navigator.modelContext.",
+          "pronto": "The block prints <code>FALHA [nativo] contrato: 4 ferramentas com as anotações congeladas · 0 registradas</code>, <code>BATERIA: 3/10 ok</code> and <code>saída: 1</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · The battery refuses to run",
+          "min": "3 min",
+          "texto": "Run the rehearsal with the changed casos.json.",
+          "pronto": "The block prints <code>BATERIA RECUSADA: casos.json ou contrato.json mudou depois de congelado.</code> and <code>saída: 2</code>."
+        },
+        {
+          "id": "e4",
+          "titulo": "E4 · A case of your own",
+          "min": "15 min",
+          "texto": "In a copy of the kit (bash scripts/copia.sh e4), add a case c7 to bateria/casos.json (e.g. buscar_oficinas with tema mcp, expecting of-302), re-freeze it with --recongelar, and run the battery on the copy.",
+          "pronto": "In the copy, <code>node scripts/bateria.mjs; echo \"saída: $?\"</code> → <code>BATERIA: 27/27 ok</code> and <code>saída: 0</code> (c7 in polyfill, nativo and mcp)."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Lesson quiz",
+      "sub": "The explanation appears after the answer.",
+      "perguntas": [
+        {
+          "p": "The page uses navigator.modelContext. What does the visitor see in Chromium 156?",
+          "opcoes": [
+            "A JavaScript error that breaks the workshop schedule.",
+            "The schedule working through the form, with no tools for the agent.",
+            "A browser warning asking you to update the site.",
+            "The tools working, because the old name became an alias of the new one."
+          ],
+          "certa": 1,
+          "explica": "Detection doesn't find the API and the page falls back: nothing breaks on screen. It's a silent regression: only the battery (contract with 0 registered) shows it.",
+          "ref": "codigo"
+        },
+        {
+          "p": "What is the bateria/CONGELADA file for?",
+          "opcoes": [
+            "Saving the result of the last run so you can compare response times.",
+            "Listing the tools the agent can't call.",
+            "Stopping the expected result from changing silently just to make the test pass.",
+            "Recording the Chromium version used for the capture."
+          ],
+          "certa": 2,
+          "explica": "The sha256 of casos.json and contrato.json. If the expected result changes without --recongelar → BATERIA RECUSADA (exit 2). Re-freezing is a decision, with a reason in the commit.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "Why does the battery run the sem mode before the others?",
+          "opcoes": [
+            "Because most visitors don't have the API, and the form has to work.",
+            "Because the polyfill needs the sem mode to load.",
+            "Because Chromium only accepts the test flag after a run without it turned on.",
+            "Because the MCP server only starts when the page has no API."
+          ],
+          "certa": 0,
+          "explica": "WebMCP is a draft: without an origin trial or flag, the visitor doesn't have the API. The fallback is the main path, and the battery proves that first.",
+          "ref": "passos"
+        },
+        {
+          "p": "The spec changed and a tool's expected annotation is now different. The right move is:",
+          "opcoes": [
+            "Delete the battery case until Chrome stabilizes the API.",
+            "Turn off the battery in native mode and keep only the polyfill.",
+            "Edit contrato.json and run it again until it passes.",
+            "Read the change, adjust the code, re-freeze with a reason in the commit."
+          ],
+          "certa": 3,
+          "explica": "The expected result changes when the source changes, with a recorded decision. Editing without re-freezing is refused; deleting a case or mode hides exactly what the battery exists to show.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "In three sentences",
+      "itens": [
+        {
+          "t": "Frozen",
+          "texto": "Contract and cases with a hash: the expected result only changes with a decision."
+        },
+        {
+          "t": "Four modes",
+          "texto": "No API, polyfill, native and MCP server: the fallback first, then each door."
+        },
+        {
+          "t": "Silence",
+          "texto": "The old API name doesn't break the screen; the battery is what sees it."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "LOOP-R Engineering: frozen tests and deep evals",
+          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/en/",
+          "icone": "check"
+        },
+        {
+          "t": "Course 2, lesson 8: the page battery in the three modes",
+          "href": "https://inematds.github.io/formacao-webmcp-site-v72/en/aulas/testar/",
+          "icone": "chip"
+        },
+        {
+          "t": "Course 3: the task battery with a browser agent",
+          "href": "https://inematds.github.io/formacao-webmcp-navegador-v72/en/",
+          "icone": "robo"
+        },
+        {
+          "t": "PR #177: Scope ModelContext to Document",
+          "href": "https://github.com/webmachinelearning/webmcp/pull/177",
+          "icone": "git"
+        }
+      ]
+    }
+  ]
+}

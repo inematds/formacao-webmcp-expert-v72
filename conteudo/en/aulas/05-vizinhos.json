@@ -1,0 +1,316 @@
+{
+  "slug": "vizinhos",
+  "num": 5,
+  "menu": "Neighbors",
+  "titulo": "Neighbor protocols as a map: A2A, ACP, AP2, NLWeb, llms.txt — what is still a draft",
+  "titulo_curto": "Neighbor protocols",
+  "minutos": 14,
+  "lead": "Every week a new acronym shows up promising to make your site \"AI-ready.\" Almost all of them are drafts or proposals, and each one lives in a different layer. In this lesson you place each neighbor protocol on the map, with a status and a date, and decide for your site: adopt, wait, or does not apply.",
+  "objetivo": "place each neighbor protocol in the right layer with a dated status, and decide adopt, wait, or does not apply, with a reason.",
+  "competencias": [
+    "situar-protocolo-na-camada",
+    "ler-status-com-data",
+    "decidir-adocao-com-motivo"
+  ],
+  "aprende": [
+    {
+      "icone": "camadas",
+      "t": "Which layer each acronym lives in"
+    },
+    {
+      "icone": "calendario",
+      "t": "Proposal, draft, project, and stable, with a date"
+    },
+    {
+      "icone": "alvo",
+      "t": "Adopt, wait, or does not apply, with a reason"
+    },
+    {
+      "icone": "x",
+      "t": "The reasons that don't count (ranking, \"it will become a standard\")"
+    }
+  ],
+  "hero_alt": "A dark paper map with pins and threads connecting points, next to a row of connectors for different cables.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Each acronym in its layer",
+      "sub": "Status read from the sources on 10/19/2026. Click each layer.",
+      "nos": [
+        {
+          "icone": "lupa",
+          "titulo": "Discovery",
+          "sub": "llms.txt",
+          "detalhe": "Proposal from 09/03/2024, modified on 08/10/2026. No measured effect on citations; reported by SE Ranking (~10% adoption, no correlation with citations), not confirmed on 10/19/2026. Decision: Formação inemaSEO."
+        },
+        {
+          "icone": "chip",
+          "titulo": "Page",
+          "sub": "WebMCP",
+          "detalhe": "CG draft from 10/16/2026; origin trial in Chrome 149–156. Courses 2 and 5."
+        },
+        {
+          "icone": "nuvem",
+          "titulo": "Server",
+          "sub": "MCP",
+          "forte": true,
+          "detalhe": "Revision 2026-07-28, the current one. The only stable one on the map. Course 1."
+        },
+        {
+          "icone": "chat",
+          "titulo": "Questions",
+          "sub": "NLWeb",
+          "detalhe": "Open project from Microsoft: each instance is also an MCP server with the ask method and answers in Schema.org. No public adoption count."
+        },
+        {
+          "icone": "robo",
+          "titulo": "Between agents",
+          "sub": "A2A",
+          "detalhe": "One agent talks to another agent. A Linux Foundation project; more than 150 organizations as of 04/09/2026. It only makes sense if your site has an agent of its own."
+        },
+        {
+          "icone": "marca",
+          "titulo": "Purchase",
+          "sub": "ACP · AP2",
+          "detalhe": "ACP (OpenAI + Stripe): ChatGPT was the first platform. AP2 (Google, 09/16/2025): version 0.2; donation to the FIDO Alliance reported by the press, not confirmed on 10/19/2026."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "Identity",
+          "sub": "Web Bot Auth",
+          "detalhe": "Is the visitor who they say they are? draft-ietf-webbotauth-httpsig-protocol-00 (Sep/2026), not an RFC yet. Owner: course 4."
+        }
+      ],
+      "legenda": "None of these is a ranking factor. Citation in AIs is a topic for the Formação inemaSEO."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "How to read the status",
+      "sub": "The label tells you how much you can bet on it.",
+      "passos": [
+        {
+          "titulo": "Proposal",
+          "sub": "an idea",
+          "texto": [
+            "Someone published the format; nobody has committed to reading it.",
+            "E.g., llms.txt. It costs little, but don't promise any effect."
+          ]
+        },
+        {
+          "titulo": "Draft",
+          "sub": "may change",
+          "texto": [
+            "A group document (CG, IETF) still in progress. The API has already changed once (navigator → document).",
+            "Adopting = review date + fallback, always."
+          ]
+        },
+        {
+          "titulo": "Project",
+          "sub": "open source",
+          "texto": [
+            "It has an implementation and an organization behind it (Linux Foundation, a company).",
+            "It is not stable: check the version on the day you adopt it."
+          ]
+        },
+        {
+          "titulo": "Stable",
+          "sub": "versioned",
+          "texto": [
+            "A published, versioned revision, with a announced change (MCP 2026-07-28).",
+            "Even so, pin the SDK version and run the battery when it goes up."
+          ],
+          "exemplo": {
+            "rot": "Script rule",
+            "texto": "Adopting something that is not stable requires revisar_em (a date) and fallback."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The decisions for the example site",
+      "sub": "One decision per protocol on the map, with a reason. Adopting something that is a draft takes a review date and a fallback.",
+      "blocos": [
+        {
+          "rot": "File · kit/vizinhos/agenda-oficinas.json",
+          "icone": "arquivo",
+          "conteudo": "{\n  \"site\": \"Agenda de oficinas (exemplo do kit)\",\n  \"decisoes\": [\n    { \"nome\": \"WebMCP\", \"decisao\": \"adotar\", \"motivo\": \"a página já tem as ferramentas, com detecção e fallback\", \"revisar_em\": \"2027-01-15\", \"fallback\": \"formulário da página\" },\n    { \"nome\": \"MCP\", \"decisao\": \"adotar\", \"motivo\": \"o mesmo serviço atende agentes fora do navegador\" },\n    { \"nome\": \"NLWeb\", \"decisao\": \"esperar\", \"motivo\": \"a agenda é pequena; as ferramentas já respondem\" },\n    { \"nome\": \"llms.txt\", \"decisao\": \"esperar\", \"motivo\": \"sem efeito medido; a decisão é da Formação inemaSEO\" },\n    { \"nome\": \"A2A\", \"decisao\": \"nao-se-aplica\", \"motivo\": \"o site não tem agente próprio para conversar com outro\" },\n    { \"nome\": \"ACP\", \"decisao\": \"nao-se-aplica\", \"motivo\": \"as oficinas são gratuitas: não há compra\" },\n    { \"nome\": \"AP2\", \"decisao\": \"nao-se-aplica\", \"motivo\": \"nenhum pagamento passa pelo site\" },\n    { \"nome\": \"Web Bot Auth\", \"decisao\": \"esperar\", \"motivo\": \"rascunho no IETF; rever quando o curso 4 for aplicado ao site\" }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Check the decisions against the map",
+      "sub": "vizinhos.mjs reads the dated map (vizinhos/mapa.json, with the source of each row) and your decisions file.",
+      "blocos": [
+        {
+          "rot": "Terminal · example decisions",
+          "icone": "terminal",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/vizinhos.mjs; echo \"saída: $?\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>mapa lido em 19/10/2026 · decisões de: Agenda de oficinas (exemplo do kit)\n  WebMCP        rascunho  adotar\n  MCP           estavel   adotar\n  NLWeb         projeto   esperar\n  llms.txt      proposta  esperar\n  A2A           projeto   nao-se-aplica\n  ACP           projeto   nao-se-aplica\n  AP2           rascunho  nao-se-aplica\n  Web Bot Auth  rascunho  esperar\nVIZINHOS: 8 protocolos · 8 decisões · 0 problema(s)\nsaída: 0</pre><p>Free workshops: ACP and AP2 do not apply. Web Bot Auth waits for course 4.</p>"
+          },
+          {
+            "rot": "Common mistake: a hype reason",
+            "html": "<pre>PROBLEMA WebMCP: motivo promete ranking ou padrão (\"vai ser o padrão da web\")\nPROBLEMA WebMCP: adotar algo em rascunho pede revisar_em (AAAA-MM-DD) e fallback\nPROBLEMA llms.txt: motivo promete ranking ou padrão (\"sobe o site no ranking das IAs\")\nPROBLEMA Web Bot Auth: sem decisão\nVIZINHOS: 8 protocolos · 7 decisões · 4 problema(s)\nsaída: 1</pre><p>\"It will be the standard of the web\" and \"it moves the site up in the AI rankings\" are not reasons: nothing on the map says that. Adopting WebMCP without a review date and without a fallback also fails.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The rehearsal of bad decisions",
+      "sub": "The file vizinhos/ruim.json has four common problems.",
+      "blocos": [
+        {
+          "rot": "Terminal · bad decisions",
+          "icone": "x",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/vizinhos.mjs vizinhos/ruim.json | grep -E \"PROBLEMA|VIZINHOS\"; echo \"saída: ${PIPESTATUS[0]}\""
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice",
+      "sub": "The example, the bad one, and your site's decisions.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · The example map",
+          "min": "3 min",
+          "texto": "Run the block with the example decisions.",
+          "pronto": "<code>node scripts/vizinhos.mjs; echo \"saída: $?\"</code> → <code>VIZINHOS: 8 protocolos · 8 decisões · 0 problema(s)</code> and <code>saída: 0</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · The bad one fails",
+          "min": "3 min",
+          "texto": "Run the rehearsal of bad decisions and read the four problems.",
+          "pronto": "The block prints <code>VIZINHOS: 8 protocolos · 7 decisões · 4 problema(s)</code> and <code>saída: 1</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Your site's decisions",
+          "min": "20 min",
+          "texto": "Copy vizinhos/agenda-oficinas.json to vizinhos/meu-site.json and decide each protocol for your site, with your own reason. First, open the source of each row on the map and check whether the status has changed since 10/19/2026.",
+          "pronto": "<code>node scripts/vizinhos.mjs vizinhos/meu-site.json; echo \"saída: $?\"</code> → <code>0 problema(s)</code> and <code>saída: 0</code>."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Lesson quiz",
+      "sub": "The explanation appears after the answer.",
+      "perguntas": [
+        {
+          "p": "Which protocol on the map was stable on 10/19/2026?",
+          "opcoes": [
+            "WebMCP, with an origin trial in Chrome 149–156.",
+            "Web Bot Auth, published as a draft at the IETF.",
+            "llms.txt, modified on 08/10/2026.",
+            "MCP, at revision 2026-07-28."
+          ],
+          "certa": 3,
+          "explica": "MCP has a published, versioned revision. WebMCP and Web Bot Auth are drafts; llms.txt is a proposal.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "The site's workshops are free. What should you do with ACP and AP2?",
+          "opcoes": [
+            "Adopt both now, so the site is ready when sales begin.",
+            "Mark as not applicable: no payment goes through the site.",
+            "Wait for AP2 to become an RFC and adopt only that.",
+            "Publish an llms.txt in place of the two."
+          ],
+          "certa": 1,
+          "explica": "These are purchase and payment layers. With no purchases on the site, they don't apply; if you ever start selling, the decision comes back with that day's date.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Why does \"it raises the site in AI rankings\" fail as a reason to adopt llms.txt?",
+          "opcoes": [
+            "Because there is no measured effect; citation in AIs is a topic for inemaSEO.",
+            "Because llms.txt only works on sites with WebMCP enabled.",
+            "Because the script doesn't accept a reason with more than five words in a row.",
+            "Because llms.txt was removed from the proposal in 2026."
+          ],
+          "certa": 0,
+          "explica": "The proposal exists (modified on 08/10/2026), but there is no measured effect on citation. Promising ranking is exactly what the WebMCP Track avoids.",
+          "ref": "codigo"
+        },
+        {
+          "p": "You are going to adopt WebMCP on your site. What does the script require besides the reason?",
+          "opcoes": [
+            "The version number of the stable Chrome that ships the API.",
+            "An A2A server to talk to other agents.",
+            "A review date and the fallback for people who don't have the API.",
+            "Safari's and Firefox's position on the API."
+          ],
+          "certa": 2,
+          "explica": "A draft can change: revisar_em (YYYY-MM-DD) and fallback. There is no announced stable Chrome date, and browser positions are context (course 2), not a requirement.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "In three sentences",
+      "itens": [
+        {
+          "t": "Map",
+          "texto": "Each acronym lives in a layer: discovery, page, server, questions, agents, purchase, identity."
+        },
+        {
+          "t": "Status",
+          "texto": "Proposal, draft, project or stable, always with the date you read it."
+        },
+        {
+          "t": "Decision",
+          "texto": "Adopt, wait or does not apply, with a reason; an adopted draft carries a date and a fallback."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "NLWeb (Microsoft)",
+          "href": "https://github.com/microsoft/NLWeb",
+          "icone": "git"
+        },
+        {
+          "t": "llms.txt",
+          "href": "https://llmstxt.org/",
+          "icone": "arquivo"
+        },
+        {
+          "t": "Agentic Commerce Protocol",
+          "href": "https://www.agenticcommerce.dev/",
+          "icone": "marca"
+        },
+        {
+          "t": "AP2",
+          "href": "https://ap2-protocol.org/",
+          "icone": "marca"
+        },
+        {
+          "t": "Web Bot Auth (IETF)",
+          "href": "https://datatracker.ietf.org/doc/html/draft-ietf-webbotauth-httpsig-protocol",
+          "icone": "cadeado"
+        },
+        {
+          "t": "inemaSEO Track: citation in AIs",
+          "href": "https://inematds.github.io/formacao-inemaseo-ias-v72/en/",
+          "icone": "lupa"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,327 @@
+{
+  "slug": "superficies",
+  "num": 2,
+  "menu": "Surfaces",
+  "titulo": "One action, three surfaces: HTML, WebMCP on the page, and MCP on the server",
+  "titulo_curto": "One action, three surfaces",
+  "minutos": 18,
+  "lead": "The same booking can arrive through the person on the form, through an agent inside the browser (WebMCP), or through an agent outside it (MCP). If each path has its own copy of the rule, they drift apart. In this lesson the rule lives in a single file, and a script proves that the three surfaces respond the same way and ask for the person.",
+  "objetivo": "serve the same action through the screen, WebMCP, and MCP with a single rule, and prove that the three respond the same way and ask for the person.",
+  "competencias": [
+    "servir-uma-regra-em-tres-superficies",
+    "decidir-onde-a-ferramenta-mora",
+    "provar-equivalencia-entre-superficies"
+  ],
+  "aprende": [
+    {
+      "icone": "camadas",
+      "t": "The three surfaces and who arrives through each"
+    },
+    {
+      "icone": "chip",
+      "t": "One rule imported by the page and by the server"
+    },
+    {
+      "icone": "portao",
+      "t": "Three ways to ask for the person before booking"
+    },
+    {
+      "icone": "x",
+      "t": "The mistake of copying the rule by hand onto the server"
+    }
+  ],
+  "hero_alt": "A monitor with a form, a laptop with a browser and a small unbranded server, all three connected by cables to the same metal hub.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Three doors, one rule",
+      "sub": "Tap each block.",
+      "nos": [
+        {
+          "icone": "usuario",
+          "titulo": "Person",
+          "sub": "form",
+          "detalhe": "The path that always exists. It works without WebMCP and without an agent; the confirmation is the page's Confirmar panel."
+        },
+        {
+          "icone": "chip",
+          "titulo": "On the page",
+          "sub": "WebMCP",
+          "detalhe": "An agent inside the browser calls the tool registered with document.modelContext (draft from 10/16/2026). It sees what the person sees and uses the same confirmation screen."
+        },
+        {
+          "icone": "robo",
+          "titulo": "Outside it",
+          "sub": "MCP",
+          "detalhe": "An agent outside the browser (the one from your subscription, for example) calls the MCP server. The confirmation goes to the user through the client: MRTR, revision 2026-07-28."
+        },
+        {
+          "icone": "arquivo",
+          "titulo": "Rule",
+          "sub": "just one",
+          "forte": true,
+          "detalhe": "pagina/oficinas.mjs: search and book. The page imports it; the MCP server imports the SAME file. No copies."
+        },
+        {
+          "icone": "check",
+          "titulo": "Proof",
+          "sub": "3/3",
+          "detalhe": "superficies.mjs runs the same search on all three doors and compares them; then it books through all three and checks that every one waited for the person."
+        }
+      ],
+      "legenda": "In production, the rule and the state live in the backend; in the kit, the rule is the same file and each surface has its own memory."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Where each tool lives",
+      "sub": "It's not everything on all three. Decide by asking the right question.",
+      "passos": [
+        {
+          "titulo": "Screen",
+          "sub": "always",
+          "texto": [
+            "Every action the person takes stays in the HTML, accessible and labeled.",
+            "It's the fallback for everything: without it, turning off a tool (lesson 7) takes the action offline."
+          ]
+        },
+        {
+          "titulo": "WebMCP",
+          "sub": "screen state",
+          "texto": [
+            "When the agent needs what's on the page: an open filter, an item on screen, the person right there to confirm.",
+            "It only exists with the API (origin trial or flag); always detect it and have a fallback."
+          ]
+        },
+        {
+          "titulo": "MCP",
+          "sub": "no browser",
+          "texto": [
+            "When the agent works outside the browser: a terminal assistant, automation, another service.",
+            "Real authorization (OAuth, scope) belongs to the server: course 1, lesson 6."
+          ]
+        },
+        {
+          "titulo": "Backend",
+          "sub": "the truth",
+          "texto": [
+            "Rule, state and authorization live in the backend, never only on the page.",
+            "The three surfaces are thin doors that call the same rule."
+          ],
+          "exemplo": {
+            "rot": "Quick test",
+            "texto": "If changing the rule means editing two files, it's duplicated."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Download and install the kit",
+      "sub": "Versions pinned on 10/19/2026: Playwright 1.64.0 (brings Chromium), polyfill 6.0.3, MCP SDK 2.3.1.",
+      "blocos": [
+        {
+          "rot": "Terminal · clone and install",
+          "icone": "terminal",
+          "conteudo": "git clone -q https://github.com/inematds/formacao-webmcp-expert-v72 ~/projetos/formacao-webmcp-expert-v72\ncd ~/projetos/formacao-webmcp-expert-v72/kit\nnpm ci --no-audit --no-fund 2>&1 | tail -2\nnpx playwright install chromium; echo \"saída: $?\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>added 18 packages in 799ms\nsaída: 0</pre><p>The postinstall copies the polyfill to pagina/vendor/, only for the rehearsal. If Chromium is already downloaded, the install prints nothing.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The same rule on both ends",
+      "sub": "Excerpts from the kit: the page and the server import the same oficinas.mjs.",
+      "blocos": [
+        {
+          "rot": "Excerpt · kit/pagina/app.mjs",
+          "icone": "arquivo",
+          "conteudo": "import { criarAgenda } from './oficinas.mjs';\nimport { catalogo, liberadas, comRegistro, iniciarWebMCP } from './ferramentas.mjs';"
+        },
+        {
+          "rot": "Excerpt · kit/servidor/mcp.mjs",
+          "icone": "arquivo",
+          "conteudo": "import { criarAgenda, TEMAS } from '../pagina/oficinas.mjs';"
+        },
+        {
+          "rot": "Excerpt · kit/servidor/mcp.mjs",
+          "icone": "arquivo",
+          "conteudo": "// O estado do serviço fica FORA da fábrica: o protocolo não guarda sessão, o seu serviço guarda o dado.\nexport const agenda = criarAgenda();"
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Prove that all three answer the same",
+      "sub": "Search through the three doors, then three bookings, each one with its own way of asking the person. MCP client in the same process, no port.",
+      "blocos": [
+        {
+          "rot": "Terminal · three surfaces",
+          "icone": "terminal",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/superficies.mjs nativo; echo \"saída: $?\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>== Chromium 156.0.8078.4 (Playwright) · modo: nativo · MCP 2026-07-28 (SDK 2.3.1)\nbuscar_oficinas {\"tema\":\"html\",\"apenasComVaga\":true}\n  html   → of-101\n  webmcp → of-101\n  mcp    → of-101\nreservar_vaga of-101\n  html   → painel Confirmar na página → reservado\n  webmcp → consequentialHint + Confirmar na página → reservado\n  mcp    → MRTR: o cliente perguntou \"Reservar \"HTML semântico na prática\" (2026-11-04) para Duda?\" → reservado\nSUPERFÍCIES: 3/3 iguais na busca · 3/3 reservas esperaram a pessoa\nsaída: 0</pre><p>In MCP, the first round of the call returns input_required; the client asks the user and repeats the call (MRTR). The text of the question comes from the server.</p>"
+          },
+          {
+            "rot": "Common mistake: rule copied by hand",
+            "html": "<pre>  html   → of-101\n  webmcp → of-101\n  mcp    → of-101,of-102\nSUPERFÍCIES: 2/3 iguais na busca · 3/3 reservas esperaram a pessoa\nsaída: 1</pre><p>Someone rewrote the filter on the server \"so it doesn't depend on the page\" and forgot apenasComVaga. MCP now offers of-102, which has no seat left. The proof catches it and exits with 1.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The duplicated-rule rehearsal",
+      "sub": "On a disposable copy of the kit (scripts/copia.sh): the kit itself does not change.",
+      "blocos": [
+        {
+          "rot": "Terminal · rule copied on the server",
+          "icone": "x",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nE=$(bash scripts/copia.sh a2)\n# o erro comum: copiar a regra à mão no servidor (e esquecer o filtro de vaga)\nsed -i 's/const oficinas = agenda.buscar(input);/const oficinas = agenda.buscar({}).filter(o => !input.tema || o.tema === input.tema);/' $E/servidor/mcp.mjs\ncd $E && node scripts/superficies.mjs nativo | grep -E \"→ of|SUPERF\"; echo \"saída: ${PIPESTATUS[0]}\""
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice",
+      "sub": "Install, prove the equivalence, and watch the divergence get caught.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Kit installed",
+          "min": "10 min",
+          "texto": "Run the clone and install block.",
+          "pronto": "<code>npx playwright install chromium; echo \"saída: $?\"</code> → <code>saída: 0</code>, and <code>ls pagina/vendor</code> shows <code>webmcp-polyfill.js</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Three equal surfaces",
+          "min": "5 min",
+          "texto": "Run the three-surfaces block in native mode (and, if you want, in polyfill).",
+          "pronto": "<code>node scripts/superficies.mjs nativo; echo \"saída: $?\"</code> → <code>SUPERFÍCIES: 3/3 iguais na busca · 3/3 reservas esperaram a pessoa</code> and <code>saída: 0</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · See the divergence",
+          "min": "5 min",
+          "texto": "Run the rehearsal of the rule copied by hand on the server.",
+          "pronto": "The block prints <code>mcp    → of-101,of-102</code>, <code>SUPERFÍCIES: 2/3 iguais na busca</code> and <code>saída: 1</code>."
+        },
+        {
+          "id": "e4",
+          "titulo": "E4 · The doors of your site",
+          "min": "15 min",
+          "texto": "Pick one action on your site and write down where the rule lives and through which doors it goes out (screen, WebMCP, MCP), with the way of asking the person in each one.",
+          "pronto": "The file superficies-[your site].md has the action, the path of the rule file (just one) and one line per door with the confirmation."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Lesson quiz",
+      "sub": "The explanation appears after the answer.",
+      "perguntas": [
+        {
+          "p": "Why does the kit's MCP server import ../pagina/oficinas.mjs instead of having its own filter?",
+          "opcoes": [
+            "Because the MCP SDK requires the rule to live inside the page folder.",
+            "Because that way the rule changes in one place only and the doors don't diverge.",
+            "Because the MCP server can't validate inputs on its own.",
+            "Because WebMCP calls the MCP server under the hood."
+          ],
+          "certa": 1,
+          "explica": "One rule, several doors. The rehearsal shows the opposite: the copy by hand forgot a filter and MCP started offering a workshop with no seat. WebMCP doesn't call MCP: they are independent surfaces.",
+          "ref": "codigo"
+        },
+        {
+          "p": "How does booking through MCP ask the person in revision 2026-07-28?",
+          "opcoes": [
+            "The server opens a window in the user's browser.",
+            "The server sends an elicitation request in a session open with the client.",
+            "The first round returns input_required, the client asks and repeats.",
+            "It doesn't ask: the readOnlyHint false annotation is enough."
+          ],
+          "certa": 2,
+          "explica": "MRTR: the tool returns input_required with the request; the client asks the user and repeats the call with the answer. Server-initiated requests and session were dropped in 2026-07-28.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Which action should NOT go out through WebMCP alone?",
+          "opcoes": [
+            "Booking a seat, which must also exist in the form.",
+            "Filtering the list of workshops that is already open on the person's screen.",
+            "Reading the comments of the workshop that is on screen.",
+            "Showing the agent the bookings made in this visit."
+          ],
+          "certa": 0,
+          "explica": "Every action of the person stays in the HTML: it is the fallback when there is no WebMCP or when the tool is turned off. The other three depend on the screen state, the typical WebMCP case.",
+          "ref": "passos"
+        },
+        {
+          "p": "superficies.mjs returned 3/3 on search. What is still NOT proven?",
+          "opcoes": [
+            "That the page and the server use the same filter rule.",
+            "That a reservation through any door waits for the person to say yes.",
+            "That the form works with the same filter as the agent.",
+            "That the server's authorization blocks anyone without the scope."
+          ],
+          "certa": 3,
+          "explica": "The script proves equivalence and confirmation. Authorization (OAuth, minimum scope) belongs to the server and is tested in course 1, lesson 6, and in course 4.",
+          "ref": "diagrama"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "In three sentences",
+      "itens": [
+        {
+          "t": "Doors",
+          "texto": "Screen always; WebMCP when the agent needs the page; MCP when it works outside the browser."
+        },
+        {
+          "t": "Rule",
+          "texto": "One file, imported by both ends; a hand-made copy drifts apart."
+        },
+        {
+          "t": "Person",
+          "texto": "Three ways to confirm (panel, panel with consequentialHint, MRTR), the same yes before booking."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "MCP 2026-07-28: changelog (MRTR, server/discover)",
+          "href": "https://modelcontextprotocol.io/specification/2026-07-28/changelog",
+          "icone": "arquivo"
+        },
+        {
+          "t": "Course 1: MCP server, transport, and connecting to the agent",
+          "href": "https://inematds.github.io/formacao-webmcp-mcp-v72/en/",
+          "icone": "nuvem"
+        },
+        {
+          "t": "Course 2: the WebMCP API on the page",
+          "href": "https://inematds.github.io/formacao-webmcp-site-v72/en/",
+          "icone": "chip"
+        }
+      ]
+    }
+  ]
+}

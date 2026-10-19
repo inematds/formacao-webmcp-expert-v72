@@ -1,0 +1,294 @@
+{
+  "slug": "governanca",
+  "num": 7,
+  "menu": "Governance",
+  "titulo": "Production and governance: who approves a new tool, versioning, shutting it off fast",
+  "titulo_curto": "Approve and shut off",
+  "minutos": 16,
+  "lead": "A tool for an agent is an action on your site performed by someone else. It needs an owner, an approval date, an autonomy level, and a way to go offline in minutes without breaking the form. In this lesson the approved catalog becomes a file that the page and the server read, a script checks it, and a state shuts a tool off.",
+  "objetivo": "put each tool in a catalog with an owner, a date, and an autonomy level, and shut one off without a code deploy and without breaking the form.",
+  "competencias": [
+    "approve-a-tool-with-a-level",
+    "check-the-catalog-against-the-code",
+    "shut-off-a-tool-without-a-deploy"
+  ],
+  "aprende": [
+    {
+      "icone": "lista",
+      "t": "The approved catalog (governanca.json)"
+    },
+    {
+      "icone": "escudo",
+      "t": "Autonomy levels from 0 to 3"
+    },
+    {
+      "icone": "check",
+      "t": "The script that checks code × catalog"
+    },
+    {
+      "icone": "portao",
+      "t": "Shutting off a tool while keeping the form"
+    }
+  ],
+  "hero_alt": "Plain black panel with a row of switches, one of them off, with a red safety lock.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "The life of a tool",
+      "sub": "Click each step.",
+      "volta": "new version",
+      "nos": [
+        {
+          "icone": "caneta",
+          "titulo": "Proposal",
+          "sub": "in the code",
+          "detalhe": "Someone writes the tool (page or server). Until it is in the catalog, it does not go out to any agent."
+        },
+        {
+          "icone": "usuario",
+          "titulo": "Approval",
+          "sub": "owner and level",
+          "detalhe": "It goes into governanca.json with an owner, aprovada_em, and a level. An action with consequences stays at level 1: it proposes and waits for the person."
+        },
+        {
+          "icone": "check",
+          "titulo": "Active",
+          "sub": "per surface",
+          "detalhe": "estado ativa and superficies (webmcp, mcp). The page and the server register only what is active for them."
+        },
+        {
+          "icone": "portao",
+          "titulo": "Shut off",
+          "sub": "no deploy",
+          "forte": true,
+          "detalhe": "estado desligada: on the next page load and the next MCP call, the tool disappears. The form keeps working."
+        },
+        {
+          "icone": "arquivo",
+          "titulo": "Version",
+          "sub": "of the catalog",
+          "detalhe": "versao_catalogo changes with every approval; the frozen contract from lesson 4 changes with it, with a reason in the commit."
+        }
+      ]
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Autonomy levels",
+      "sub": "From INEMA's agent constitution model, applied to the site's tools.",
+      "passos": [
+        {
+          "titulo": "3",
+          "sub": "acts alone",
+          "texto": [
+            "Executes and logs. For what only reads: search, list, view.",
+            "In the kit: buscar_oficinas, listar_comentarios, minhas_reservas."
+          ]
+        },
+        {
+          "titulo": "2",
+          "sub": "acts and notifies",
+          "texto": [
+            "Executes and notifies the person in charge.",
+            "For small, reversible effects, with a notice to whoever looks after it."
+          ]
+        },
+        {
+          "titulo": "1",
+          "sub": "proposes and waits",
+          "texto": [
+            "Prepares and waits for the person to approve: the page's Confirmar, the MCP's MRTR.",
+            "In the kit: reservar_vaga. Every action with consequences stays here or below."
+          ]
+        },
+        {
+          "titulo": "0",
+          "sub": "does not touch",
+          "texto": [
+            "Hands off to a person. It cannot be active.",
+            "E.g.: canceling someone's enrollment, refunding a payment."
+          ],
+          "exemplo": {
+            "rot": "Script rule",
+            "texto": "consequence and level above 1 = problem; level 0 active = problem"
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The approved catalog",
+      "sub": "The page reads it with fetch (cache: no-store); the server reads it from disk on every request. Without the file, nothing goes out: it fails closed.",
+      "blocos": [
+        {
+          "rot": "File · kit/pagina/governanca.json",
+          "icone": "arquivo",
+          "conteudo": "{\n  \"versao_catalogo\": \"2026-10-19.1\",\n  \"spec_webmcp\": \"2026-10-16\",\n  \"protocolo_mcp\": \"2026-07-28\",\n  \"niveis\": {\n    \"3\": \"faz sozinho e registra\",\n    \"2\": \"faz e avisa o responsável\",\n    \"1\": \"propõe e espera a pessoa aprovar\",\n    \"0\": \"não toca: encaminha para uma pessoa\"\n  },\n  \"ferramentas\": [\n    { \"nome\": \"buscar_oficinas\", \"dono\": \"time do site\", \"nivel\": 3, \"aprovada_em\": \"2026-10-19\", \"estado\": \"ativa\", \"superficies\": [\"webmcp\", \"mcp\"] },\n    { \"nome\": \"listar_comentarios\", \"dono\": \"time do site\", \"nivel\": 3, \"aprovada_em\": \"2026-10-19\", \"estado\": \"ativa\", \"superficies\": [\"webmcp\"] },\n    { \"nome\": \"minhas_reservas\", \"dono\": \"time do site\", \"nivel\": 3, \"aprovada_em\": \"2026-10-19\", \"estado\": \"ativa\", \"superficies\": [\"webmcp\"] },\n    { \"nome\": \"reservar_vaga\", \"dono\": \"time do site\", \"nivel\": 1, \"aprovada_em\": \"2026-10-19\", \"estado\": \"ativa\", \"superficies\": [\"webmcp\", \"mcp\"] }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Check code × catalog",
+      "sub": "governanca.mjs reads the tools the code knows about (page and server) and compares them with the catalog.",
+      "blocos": [
+        {
+          "rot": "Terminal · the kit's catalog and a bad catalog",
+          "icone": "terminal",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/governanca.mjs; echo \"saída: $?\"\nnode scripts/governanca.mjs governanca/ruim.json | grep -E \"PROBLEMA|GOVERN\"; echo \"saída: ${PIPESTATUS[0]}\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>catálogo 2026-10-19.1 · 4 ferramentas (4 ativas) · código: 4 na página, 2 no servidor\nGOVERNANÇA: 0 problema(s)\nsaída: 0\nPROBLEMA reservar_vaga: tem consequência e está no nível 3 (máximo 1: propõe e espera a pessoa)\nPROBLEMA minhas_reservas: está no código (webmcp) mas não no catálogo aprovado\nPROBLEMA listar_comentarios: sem data de aprovação (AAAA-MM-DD)\nGOVERNANÇA: 3 problema(s)\nsaída: 1</pre><p>The bad catalog puts reservar_vaga at level 3 (it would act alone), forgets minhas_reservas, and doesn't date the approval of listar_comentarios.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Switch off fast",
+      "sub": "On a copy of the page, the state of reservar_vaga becomes desligada. No code changes.",
+      "blocos": [
+        {
+          "rot": "Terminal · switch off reservar_vaga",
+          "icone": "portao",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/desligar.mjs reservar_vaga nativo; echo \"saída: $?\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>== Chromium 156.0.8078.4 (Playwright) · modo: nativo\nantes:  WebMCP 4 ferramentas · MCP 2 ferramentas\ndesligada: reservar_vaga (estado \"desligada\" no governanca.json, nenhum código mudou)\ndepois: WebMCP 3 ferramentas · MCP 1 ferramentas\nformulário: a pessoa reservou of-301 normalmente\nDESLIGAR: ok · reservar_vaga fora do WebMCP e do MCP, formulário funcionando\nsaída: 0</pre><p>In production, the same applies when you publish the new governanca.json: the page reads it without cache on the next load, the server on the next call. An agent with the page already open still sees the tool until it reloads.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice",
+      "sub": "Check, switch off, and write your site's catalog.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Catalog in order",
+          "min": "3 min",
+          "texto": "Run the catalog check.",
+          "pronto": "<code>node scripts/governanca.mjs; echo \"saída: $?\"</code> → <code>GOVERNANÇA: 0 problema(s)</code> and <code>saída: 0</code>; the bad one → <code>GOVERNANÇA: 3 problema(s)</code> and <code>saída: 1</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Switch off without a deploy",
+          "min": "5 min",
+          "texto": "Run the drill that switches off reservar_vaga.",
+          "pronto": "<code>node scripts/desligar.mjs reservar_vaga nativo; echo \"saída: $?\"</code> → <code>depois: WebMCP 3 ferramentas · MCP 1 ferramentas</code>, <code>DESLIGAR: ok</code> and <code>saída: 0</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Your site's catalog",
+          "min": "20 min",
+          "texto": "Write the governanca.json for your site's tools: owner, date, level, and surfaces. Agree with your team on who can change the state to desligada and how fast.",
+          "pronto": "In your copy of the kit with your tools, <code>node scripts/governanca.mjs; echo \"saída: $?\"</code> → <code>0 problema(s)</code> and <code>saída: 0</code>."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Lesson quiz",
+      "sub": "The explanation appears after the answer.",
+      "perguntas": [
+        {
+          "p": "reservar_vaga has consequences. What level can it be at?",
+          "opcoes": [
+            "3, because the consequentialHint annotation already protects it.",
+            "2, as long as it notifies the owner afterward.",
+            "1 or 0: it proposes and waits for the person, or it does not touch.",
+            "Any level, if the server validates the input."
+          ],
+          "certa": 2,
+          "explica": "An action with consequences waits for the person (level 1) or goes to a person (0). The annotation is a warning to the agent, not the confirmation; validating input does not replace the yes.",
+          "ref": "passos"
+        },
+        {
+          "p": "The governanca.json failed to load (network error). What does the kit's page do?",
+          "opcoes": [
+            "It registers all the tools in the code, so it doesn't end up with none.",
+            "It shows an error and locks the form until the file is back.",
+            "It uses the last version saved in the visitor's browser.",
+            "It registers no tools and the form keeps working normally."
+          ],
+          "certa": 3,
+          "explica": "Fails closed: without an approved catalog, no tool goes out. The person's path doesn't depend on the catalog.",
+          "ref": "codigo"
+        },
+        {
+          "p": "You switched off reservar_vaga in the catalog. An agent with the page open for 10 minutes:",
+          "opcoes": [
+            "Still sees the tool until the page reloads.",
+            "Loses the tool right away, without reloading.",
+            "Gets a JavaScript error on the next call.",
+            "Starts booking without confirmation, through the form."
+          ],
+          "certa": 0,
+          "explica": "The page reads the catalog on load. Switching off takes effect on the next load (and, on the MCP server, on the next call). For an immediate cutoff on the page, you would need to abort the registration in real time: decide whether your case calls for that.",
+          "ref": "codigo"
+        },
+        {
+          "p": "governanca.mjs flagged \"está no código mas não no catálogo aprovado\" (in the code but not in the approved catalog). What does that prevent?",
+          "opcoes": [
+            "A tool whose name breaks the 1-to-128-character rule.",
+            "A new tool going live without an owner, date, and level.",
+            "A tool whose description is too short for the agent.",
+            "A tool registered twice on the same page."
+          ],
+          "certa": 1,
+          "explica": "It's the approval gate: writing code is not enough to expose a tool to an agent. The other checks (name, description) belong to the catalog validator from course 2.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "In three sentences",
+      "itens": [
+        {
+          "t": "Catalog",
+          "texto": "Every exposed tool has an owner, a date, a level, and surfaces in a single file."
+        },
+        {
+          "t": "Level",
+          "texto": "Anything with consequences stays at 1 (proposes and waits) or 0 (does not touch)."
+        },
+        {
+          "t": "Turn off",
+          "texto": "The desligada state removes the tool from both doors without a deploy; the form stays."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "Agent constitution: autonomy levels",
+          "href": "https://github.com/inematds/constituicao-agentes",
+          "icone": "escudo"
+        },
+        {
+          "t": "Course 4: confirmation and exposure in depth",
+          "href": "https://inematds.github.io/formacao-webmcp-seguranca-v72/en/",
+          "icone": "cadeado"
+        },
+        {
+          "t": "Course 2, lesson 7: the catalog validator",
+          "href": "https://inematds.github.io/formacao-webmcp-site-v72/en/aulas/catalogo/",
+          "icone": "chip"
+        }
+      ]
+    }
+  ]
+}

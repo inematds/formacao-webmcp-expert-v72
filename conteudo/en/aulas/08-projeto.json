@@ -1,0 +1,340 @@
+{
+  "slug": "projeto",
+  "num": 8,
+  "menu": "Project",
+  "titulo": "Final project: your site + server + battery + report",
+  "titulo_curto": "Final project and report",
+  "minutos": 20,
+  "lead": "The final project brings the pieces together: the page with tools, the MCP server with the same rule, the frozen battery, the log, the watch, and the approved catalog. One script runs the seven checks and writes your site's dated report. You leave with it and with the maintenance plan for when the spec changes.",
+  "objetivo": "combine the seven checks into a dated report for your site and leave with the maintenance plan for when the spec changes.",
+  "competencias": [
+    "gerar-relatorio-de-prontidao",
+    "adaptar-o-kit-ao-proprio-site",
+    "planejar-manutencao-com-datas"
+  ],
+  "aprende": [
+    {
+      "icone": "camadas",
+      "t": "The course map in four steps"
+    },
+    {
+      "icone": "arquivo",
+      "t": "The report with the seven checks"
+    },
+    {
+      "icone": "pasta",
+      "t": "How to bring the kit to your site"
+    },
+    {
+      "icone": "calendario",
+      "t": "The maintenance plan with dates"
+    }
+  ],
+  "hero_alt": "Black-visored industrial humanoid robot at a dark workbench looking at a monitor with a browser, while a person reviews a printed report.",
+  "secoes": [
+    {
+      "tipo": "mapa",
+      "titulo": "The course map",
+      "sub": "Four steps and what each one delivers. Click an exercise to see its \"done when\".",
+      "degraus": [
+        {
+          "aula": "superficies",
+          "icone": "camadas",
+          "quando": "Day 1",
+          "titulo": "Three doors",
+          "sub": "one rule",
+          "saida": "Screen, WebMCP, and MCP answering the same.",
+          "passo": "The base: one rule imported by the page and the server, with the person confirming at all three doors."
+        },
+        {
+          "aula": "bateria",
+          "icone": "cadeado",
+          "quando": "Day 2",
+          "titulo": "Battery",
+          "sub": "frozen",
+          "saida": "24 checks in four modes.",
+          "passo": "Requires step 1. Contract and cases with a hash; the old-name regression catches it."
+        },
+        {
+          "aula": "vigiar",
+          "icone": "relogio",
+          "quando": "Day 3",
+          "titulo": "Watch",
+          "sub": "API that changes",
+          "saida": "Base saved and watch running.",
+          "passo": "Requires step 2. The source changed: battery, reading, fix."
+        },
+        {
+          "aula": "projeto",
+          "icone": "arquivo",
+          "quando": "Day 4",
+          "titulo": "Report",
+          "sub": "your site",
+          "saida": "RELATORIO-AAAA-MM-DD.md with 7/7.",
+          "passo": "Requires all three. Approved catalog, log, and your site's report."
+        }
+      ],
+      "resultado": {
+        "titulo": "At the end of the track",
+        "texto": "A site with tools on the page and on the server, the same without the API, with battery, watch, catalog, and report.",
+        "total": "26 exercises"
+      },
+      "legenda": "Layers, log, neighbors, and governance (lessons 1, 3, 5, and 7) go into the report and the generator below."
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The report",
+      "sub": "Runs the seven checks (lessons 1 to 7) and writes relatorio/RELATORIO-AAAA-MM-DD.md. It takes about 2 minutes: it opens Chromium several times.",
+      "blocos": [
+        {
+          "rot": "Terminal · final report",
+          "icone": "terminal",
+          "conteudo": "cd ~/projetos/formacao-webmcp-expert-v72/kit\nnode scripts/relatorio.mjs; echo \"saída: $?\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>ok    Camadas (aula 1) · CAMADAS: 8/8 com evidência\nok    Uma ação, três superfícies (aula 2) · SUPERFÍCIES: 3/3 iguais na busca · 3/3 reservas esperaram a pessoa\nok    Registro de chamadas (aula 3) · REGISTRO: 8 chamadas · ok 3 · erro 1 · recusado 2 · cancelado 1 · pediu-pessoa 1 · dado pessoal no registro: não\nok    Bateria congelada (aula 4) · BATERIA: 24/24 ok\nok    Protocolos vizinhos (aula 5) · VIZINHOS: 8 protocolos · 8 decisões · 0 problema(s)\nok    Vigia da spec (aula 6) · VIGIA: 7/7 iguais à base · nada a fazer\nok    Governança (aula 7) · GOVERNANÇA: 0 problema(s)\nRELATÓRIO: 7/7 verificações ok → relatorio/RELATORIO-2026-10-19.md\nsaída: 0</pre><p>The watcher is the only check that depends on the network. Without a network, it exits with 3 and the report marks \"sem conclusão\", not \"ok\".</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Take the kit to your site",
+      "sub": "In order. Each step has the script that proves it.",
+      "passos": [
+        {
+          "titulo": "Rule",
+          "sub": "one file",
+          "texto": [
+            "Pull your site's logic off the screen into a module with no DOM, like oficinas.mjs.",
+            "The page and the server import this module. Proof: superficies.mjs."
+          ]
+        },
+        {
+          "titulo": "Doors",
+          "sub": "page and server",
+          "texto": [
+            "Swap ferramentas.mjs and servidor/mcp.mjs for your own tools, with the log (observado) on both.",
+            "Proof: observar.mjs with no personal data."
+          ]
+        },
+        {
+          "titulo": "Battery",
+          "sub": "your cases",
+          "texto": [
+            "Write contrato.json and casos.json for your tools and freeze them.",
+            "Proof: bateria.mjs in all four modes."
+          ]
+        },
+        {
+          "titulo": "Operations",
+          "sub": "catalog and watcher",
+          "texto": [
+            "governanca.json with owner, date, and level; watcher base recorded; neighbor decisions.",
+            "Proof: relatorio.mjs with 7/7."
+          ],
+          "exemplo": {
+            "rot": "Reminder",
+            "texto": "Polyfill only for rehearsal, never in production. Put the origin trial token and its end date (Chrome 156) on your calendar."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice",
+      "sub": "The kit's report, your site's report, and the plan.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · The kit's report",
+          "min": "5 min",
+          "texto": "Run the final report and open the file it generates.",
+          "pronto": "<code>node scripts/relatorio.mjs; echo \"saída: $?\"</code> → <code>RELATÓRIO: 7/7 verificações ok → relatorio/RELATORIO-[today's date].md</code> and <code>saída: 0</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Your site's report",
+          "min": "3 h",
+          "dias": "2 dias",
+          "texto": "In a copy of the kit, follow the four steps above with your site. Use DECISOES=vizinhos/meu-site.json so the report reads your decisions.",
+          "pronto": "In your copy, <code>DECISOES=vizinhos/meu-site.json node scripts/relatorio.mjs; echo \"saída: $?\"</code> → <code>RELATÓRIO: 7/7 verificações ok</code> and <code>saída: 0</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Maintenance plan",
+          "min": "10 min",
+          "texto": "Generate the plan below and add the dates: next watcher run, end of the origin trial (Chrome 156), and next review of the neighbor decisions.",
+          "pronto": "You downloaded the plan (.md or .ics) and it has the three dates."
+        }
+      ]
+    },
+    {
+      "tipo": "gerador",
+      "titulo": "Generate your plan with dates",
+      "sub": "Pick a start date and how much time you have per week.",
+      "curso": "WebMCP in production",
+      "horas_padrao": 4,
+      "degraus": [
+        {
+          "titulo": "Lesson 1 · The 8 layers",
+          "aula": "camadas"
+        },
+        {
+          "titulo": "Lesson 2 · Three surfaces",
+          "aula": "superficies"
+        },
+        {
+          "titulo": "Lesson 3 · Call log",
+          "aula": "observar"
+        },
+        {
+          "titulo": "Lesson 4 · Frozen battery",
+          "aula": "bateria"
+        },
+        {
+          "titulo": "Lesson 5 · Neighboring protocols",
+          "aula": "vizinhos"
+        },
+        {
+          "titulo": "Lesson 6 · Spec watcher",
+          "aula": "vigiar"
+        },
+        {
+          "titulo": "Lesson 7 · Governance",
+          "aula": "governanca"
+        },
+        {
+          "titulo": "Lesson 8 · Final project",
+          "aula": "projeto"
+        }
+      ],
+      "txt": {
+        "titulo": "Plan — WebMCP in production",
+        "inicio": "Start",
+        "ritmo": "Pace",
+        "termino": "Expected finish",
+        "ate": "by",
+        "pronto": "done when",
+        "semanas": "weeks",
+        "travou": "## What got stuck and the rule I created",
+        "h": "h per week",
+        "exs": "exercises"
+      }
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Lesson quiz",
+      "sub": "The explanation appears after the answer.",
+      "perguntas": [
+        {
+          "p": "The report came out 6/7: the watch marked \"sem conclusão\". What does that tell you?",
+          "opcoes": [
+            "That the spec changed and the site has to come down.",
+            "That the battery passed, but the MCP server went down.",
+            "That there was no network to read the sources; run it again with network.",
+            "That the catalog has a tool without approval."
+          ],
+          "certa": 2,
+          "explica": "Watch exit code 3 = it didn't read the sources. The report keeps that separate from \"ok\" and from \"FALHA\" so nobody mistakes a missing network for \"nothing changed.\"",
+          "ref": "codigo"
+        },
+        {
+          "p": "What is the first step to bring the kit to your site?",
+          "opcoes": [
+            "Move the rule out of the screen code into a module that the page and the server both import.",
+            "Publish the polyfill on the site so every visitor gets the API.",
+            "Write the battery before knowing which tools exist.",
+            "Record the watch baseline before having any tool."
+          ],
+          "certa": 0,
+          "explica": "Without the rule in one place, the doors drift apart (lesson 2). The polyfill is for rehearsal only; the battery and baseline come after there is something to test.",
+          "ref": "passos"
+        },
+        {
+          "p": "Why is the report dated (RELATORIO-AAAA-MM-DD.md)?",
+          "opcoes": [
+            "Because GitHub Pages requires a date in the file name.",
+            "Because Chrome reads the file date to release the origin trial token.",
+            "Because MCP 2026-07-28 requires a date in every response.",
+            "Because it holds for the spec and versions of that day; after that, run it again."
+          ],
+          "certa": 3,
+          "explica": "WebMCP is a draft and it changes; the report is a snapshot of one day, with the 10/16/2026 spec and MCP 2026-07-28. The watch tells you when the snapshot has gone stale.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Which course in the track teaches you to test the site with a real browser agent?",
+          "opcoes": [
+            "Course 1, MCP server for your service.",
+            "Course 3, browser agents.",
+            "Course 4, security between site and agent.",
+            "Course 0, foundations: how agents use a site."
+          ],
+          "certa": 1,
+          "explica": "Course 3 covers Playwright MCP, Chrome DevTools MCP, and the agent task battery. The battery here calls the tools directly, with no model.",
+          "ref": "mapa"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "In three sentences",
+      "itens": [
+        {
+          "t": "Project",
+          "texto": "Page, server, battery, log, watch, and catalog, proven by a dated report."
+        },
+        {
+          "t": "Your site",
+          "texto": "Rule in one module, thin doors, frozen cases, and operations with an owner."
+        },
+        {
+          "t": "Maintenance",
+          "texto": "The spec will change: watch, battery, reading, and report again."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "The complete WebMCP Track",
+      "links": [
+        {
+          "t": "Course 0 · Foundations: how agents use a site today",
+          "href": "https://inematds.github.io/formacao-webmcp-base-v72/en/",
+          "icone": "lupa"
+        },
+        {
+          "t": "Course 1 · MCP server for your service",
+          "href": "https://inematds.github.io/formacao-webmcp-mcp-v72/en/",
+          "icone": "nuvem"
+        },
+        {
+          "t": "Course 2 · WebMCP on your site",
+          "href": "https://inematds.github.io/formacao-webmcp-site-v72/en/",
+          "icone": "chip"
+        },
+        {
+          "t": "Course 3 · Browser agents",
+          "href": "https://inematds.github.io/formacao-webmcp-navegador-v72/en/",
+          "icone": "robo"
+        },
+        {
+          "t": "Course 4 · Security between site and agent",
+          "href": "https://inematds.github.io/formacao-webmcp-seguranca-v72/en/",
+          "icone": "cadeado"
+        },
+        {
+          "t": "WebMCP area: diagnosis and track",
+          "href": "https://eventos.inema.pro/webmcp/",
+          "icone": "camadas"
+        }
+      ]
+    }
+  ]
+}
